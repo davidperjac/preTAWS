@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import imagePaper from './paper.jpg';
+
 import {
 	CardActionArea,
 	CardContent,
@@ -10,7 +12,7 @@ import {
 
 const useStyle = makeStyles((theme) => ({
 	root: {
-		diplay: 'flex',
+		diplay: 'inline-flex',
 		maxHeight: 1000,
 	},
 }));
@@ -31,13 +33,20 @@ const CardPaper = (
 
 	return (
 		<Card className={classes.root}>
-			<CardActionArea>
-				<CardMedia
+			{/*<CardActionArea className={classes.root}>*/}
+				<img
+					src={imagePaper}
+					alt="Paper"
+					width="282px"
+					height="281px"
+				/>
+				
+				{/*<CardMedia
 					component="img"
 					alt="imagen Paper"
 					image="./paper.jpg"
 					title="imagen Paper"
-				/>
+				/>*/}
 
 				<CardContent>
 					<Typography variant="h5" component="h2">
@@ -47,25 +56,27 @@ const CardPaper = (
 						{autor}
 					</Typography>
 					<Typography variant="body2" component="p">
-						{descripcion}
+						{AreaEstudio}
 					</Typography>
 					<Typography variant="body2" component="p">
-						{AreaEstudio}
+						{descripcion}
 					</Typography>
 					<Typography variant="body2" component="p">
 						{fecha}
 					</Typography>
 					<Typography variant="body2" component="p">
-						{numEstrellas}
-					</Typography>
-					<Typography variant="body2" component="p">
 						{tags}
+					</Typography>
+				</CardContent>
+				<CardContent>
+					<Typography variant="body2" component="p">
+						{numEstrellas}
 					</Typography>
 					<Typography variant="body2" component="p">
 						{gitHub}
 					</Typography>
 				</CardContent>
-			</CardActionArea>
+			{/*</CardActionArea>*/}
 		</Card>
 	);
 };
