@@ -12,8 +12,9 @@ import {
 
 const useStyle = makeStyles((theme) => ({
 	root: {
-		diplay: 'inline-flex',
+		diplay: 'flex',
 		maxHeight: 1000,
+		flexGrow: "nowrap" 
 	},
 }));
 
@@ -32,6 +33,7 @@ const CardPaper = (
 	const classes = useStyle();
 
 	return (
+		<div > 
 		<Card className={classes.root}>
 			{/*<CardActionArea className={classes.root}>*/}
 				<img
@@ -78,6 +80,7 @@ const CardPaper = (
 				</CardContent>
 			{/*</CardActionArea>*/}
 		</Card>
+		</div>
 	);
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 
-const Login = ({ color }) => {
+const LoginButton = ({ color }) => {
 	return (
 		<div>
 			<Button variant="contened" color="default" className={color}>
@@ -11,4 +11,4 @@ const Login = ({ color }) => {
 	);
 };
 
-export default Login;
+export default LoginButton;

@@ -1,13 +1,13 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Login from './Login';
 import SearchBar from './SearchBar';
 import { makeStyles, alpha } from '@material-ui/core';
 import lime from '@material-ui/core/colors/lime';
 import logo from './logo.png';
 import './NavBar.css';
 import { Link } from 'react-router-dom';
+import LoginButton from './Login';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,7 +53,7 @@ const NavBar = () => {
 						<SearchBar color={classes.colorElementNavBar} />
 					</di>
 
-					<Login color={classes.colorElementNavBar} />
+					<LoginButton color={classes.colorElementNavBar} />
 				</Toolbar>
 			</AppBar>
 			<div className={classes.offset}></div>
