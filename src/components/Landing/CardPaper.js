@@ -14,8 +14,11 @@ const useStyle = makeStyles((theme) => ({
 	root: {
 		diplay: 'flex',
 		maxHeight: 1000,
-		flexGrow: "nowrap" 
+		minWidth: '70vW',
+		flexWrap: "nowrap" 
 	},
+	child:{
+	}
 }));
 
 const CardPaper = (
@@ -41,6 +44,7 @@ const CardPaper = (
 					alt="Paper"
 					width="282px"
 					height="281px"
+					className={classes.child}
 				/>
 				
 				{/*<CardMedia
@@ -50,7 +54,7 @@ const CardPaper = (
 					title="imagen Paper"
 				/>*/}
 
-				<CardContent>
+				<CardContent className={classes.child}>
 					<Typography variant="h5" component="h2">
 						{titulo}
 					</Typography>
@@ -70,7 +74,7 @@ const CardPaper = (
 						{tags}
 					</Typography>
 				</CardContent>
-				<CardContent>
+				<CardContent className={classes.child}>
 					<Typography variant="body2" component="p">
 						{numEstrellas}
 					</Typography>
