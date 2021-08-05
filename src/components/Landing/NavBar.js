@@ -7,7 +7,7 @@ import lime from '@material-ui/core/colors/lime';
 import logo from './logo.png';
 import './NavBar.css';
 import { Link } from 'react-router-dom';
-import LoginButton from './Login';
+import LoginButton from './LoginButton';
 
 
 const useStyles = makeStyles((theme) => ({
