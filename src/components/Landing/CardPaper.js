@@ -5,16 +5,20 @@ import imagePaper from './paper.jpg';
 import { Grid } from '@material-ui/core';
 import './CardPaper.css';
 
-import {
-	CardContent,
-	CardMedia,
-	Typography,
-	useTheme,
-} from '@material-ui/core';
+import { CardContent, CardMedia, Typography } from '@material-ui/core';
 
 const useStyle = makeStyles((theme) => ({
 	root: {
-		maxWidth: '70vw',
+		maxWidth: 1120,
+		minWidth: 1120,
+	},
+	details: {
+		display: 'flex',
+		flexDirection: 'column',
+	},
+	cover: {
+		width: '100%',
+		height: '100%',
 	},
 	content: {},
 	media: {},
@@ -31,11 +35,10 @@ const CardPaper = ({
 	gitHub,
 }) => {
 	const classes = useStyle();
-	const theme = useTheme();
 
 	return (
-		<div className={classes.root}>
-			<Card className="card">
+		<div className="card">
+			<Card className={classes.root}>
 				<Grid container spacing={0}>
 					<Grid item xs={4}>
 						<CardMedia
@@ -46,34 +49,35 @@ const CardPaper = ({
 						/>
 					</Grid>
 					<Grid item xs={4}>
-						<CardContent className={classes.content}>
-							<Typography variant="h4" component="h4" align="right">
-								{titulo}
-							</Typography>
-							<Typography variant="body" component="h2" align="right">
-								{autor}
-							</Typography>
-
-							<Typography variant="body2" component="p" align="right">
-								{fecha}
-							</Typography>
-							<Typography variant="body2" component="p" align="right">
-								{AreaEstudio}
-							</Typography>
-							<Typography variant="body2" component="p" align="right">
-								{descripcion}
-							</Typography>
-						</CardContent>
+						<div>
+							<CardContent>
+								<Typography variant="h4" component="h4">
+									{titulo}
+								</Typography>
+								<Typography variant="body" component="h2">
+									{autor}
+								</Typography>
+								<Typography variant="body2" component="p">
+									{fecha}
+								</Typography>
+								<Typography variant="body2" component="p">
+									{AreaEstudio}
+								</Typography>
+								<Typography variant="body2" component="p">
+									{descripcion}
+								</Typography>
+							</CardContent>
+						</div>
 					</Grid>
 					<Grid item xs={4}>
-						<CardContent className={classes.content}>
-							<Typography variant="body2" component="p" align="right">
+						<CardContent className={classes.extras}>
+							<Typography variant="body2" component="p">
 								{tags}
 							</Typography>
-							<Typography variant="body2" component="p" align="right">
+							<Typography variant="body2" component="p">
 								{numEstrellas}
 							</Typography>
-							<Typography variant="body2" component="p" align="right">
+							<Typography variant="body2" component="p">
 								{gitHub}
 							</Typography>
 						</CardContent>
