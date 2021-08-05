@@ -1,7 +1,6 @@
 import { Container } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { Box } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import YouTubeIcon from '@material-ui/icons/YouTube';
@@ -24,32 +23,23 @@ export const Footer = () => {
 					>
 						<Grid item xs={2} sm={1}>
 							<Box>
-								<Link
-									href="https://www.instagram.com/taws_espol/?hl=es"
-									color="inherit"
-								>
-									<InstagramIcon className="icon" />
-								</Link>
+								<a href="https://www.instagram.com/taws_espol/?hl=es">
+									<InstagramIcon />
+								</a>
 							</Box>
 						</Grid>
 						<Grid item xs={2} sm={1}>
 							<Box>
-								<Link
-									href="https://es-la.facebook.com/tawsespol/"
-									color="inherit"
-								>
+								<a href="https://twitter.com/tawsespol?lang=es">
 									<TwitterIcon />
-								</Link>
+								</a>
 							</Box>
 						</Grid>
 						<Grid item xs={2} sm={1}>
 							<Box>
-								<Link
-									href="https://www.youtube.com/channel/UCirbJgZnFA9WV7p711w1DwQ"
-									color="inherit"
-								>
+								<a href="https://www.youtube.com/channel/UCirbJgZnFA9WV7p711w1DwQ">
 									<YouTubeIcon />
-								</Link>
+								</a>
 							</Box>
 						</Grid>
 					</Grid>
