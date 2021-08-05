@@ -3,12 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import imagePaper from './paper.jpg';
 import { Grid } from '@material-ui/core';
+import './CardPaper.css';
 
-import {
-	CardContent,
-	CardMedia,
-	Typography,
-} from '@material-ui/core';
+import { CardContent, CardMedia, Typography } from '@material-ui/core';
 
 const useStyle = makeStyles((theme) => ({
 	root: {
@@ -17,6 +14,10 @@ const useStyle = makeStyles((theme) => ({
 		borderRadius: '50px',
 		bottom: '300px',
 		padding: '0'
+	},
+	details: {
+		display: 'flex',
+		flexDirection: 'column',
 	},
 
 	cover: {
@@ -57,12 +58,13 @@ const CardPaper = ({
 				<Grid container spacing={0} >
 					<Grid item xs={2}>
 						<CardMedia
-							className={classes.cover}
+							className={classes.media}
 							title="imagen Paper"
 							image={imagePaper}
 							component="img"
 						/>
 					</Grid>
+
 					<Grid item xs={7.2}>
 						<div >
 							<CardContent className={classes.content}>
