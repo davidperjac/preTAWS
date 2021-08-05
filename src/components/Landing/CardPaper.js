@@ -12,7 +12,7 @@ const useStyle = makeStyles((theme) => ({
 		maxWidth: '80vw',
 		boxShadow:' 0px 4px 4px rgba(0, 0, 0, 0.25)',
 		borderRadius: '50px',
-		bottom: '300px',
+		marginBottom: '30px',
 		padding: '0'
 	},
 	details: {
@@ -22,7 +22,7 @@ const useStyle = makeStyles((theme) => ({
 
 	cover: {
 		width: '100%',
-		minHeight: '100%',
+		height: '100%',
 		backgroundSize: 'cover'
 	},
 	container:{
@@ -37,6 +37,11 @@ const useStyle = makeStyles((theme) => ({
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'space-around'
+	},
+	texto:{
+		whiteSpace: 'pre-wrap',
+		whiteSpace: '-moz-pre-wrap',
+		whiteSpace: '-o-pre-wrap'
 	}
 }));
 
@@ -58,7 +63,7 @@ const CardPaper = ({
 				<Grid container spacing={0} >
 					<Grid item xs={2}>
 						<CardMedia
-							className={classes.media}
+							className={classes.cover}
 							title="imagen Paper"
 							image={imagePaper}
 							component="img"
@@ -66,7 +71,7 @@ const CardPaper = ({
 					</Grid>
 
 					<Grid item xs={7.2}>
-						<div >
+						<div>
 							<CardContent className={classes.content}>
 								<Typography variant="" component="h1">
 									{titulo}
@@ -82,8 +87,10 @@ const CardPaper = ({
 										{AreaEstudio}
 									</Typography>
 								</div>
-								<Typography variant="body2" component="p">
-									{descripcion}
+								<Typography variant="body2" component="p" >
+									{
+										descripcion
+									}
 								</Typography>
 								<Typography variant="body2" component="p">
 									{tags}
