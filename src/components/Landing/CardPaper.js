@@ -2,8 +2,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import imagePaper from './paper.jpg';
-import { Grid, Icon } from '@material-ui/core';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import StarRateIcon from '@material-ui/icons/StarRate';
+import { IconButton, Button, Chip, Grid } from '@material-ui/core';
 import './CardPaper.css';
 
 import { CardContent, CardMedia, Typography } from '@material-ui/core';
@@ -11,49 +12,40 @@ import { CardContent, CardMedia, Typography } from '@material-ui/core';
 const useStyle = makeStyles((theme) => ({
 	root: {
 		maxWidth: '80vw',
-		boxShadow:' 0px 4px 4px rgba(0, 0, 0, 0.25)',
+		boxShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
 		borderRadius: '50px',
 		marginBottom: '30px',
-		padding: '0'
+		alignItems: 'center',
 	},
-	details: {
-		display: 'flex',
-		flexDirection: 'column',
-	},
-
 	cover: {
 		width: '100%',
 		height: '100%',
-		backgroundSize: 'cover'
 	},
-	container:{
-		boxShadow:' 0px 4px 4px rgba(0, 0, 0, 0.25)'
-	},
-	descripcion:{
+	extras: {
 		display: 'flex',
-		alignItems: 'center',
-		justifyContent : 'space-around'
+		justifyContent: 'space-around',
+		padding: '10px',
 	},
-	content:{
+	descripcion: {
+		justifyContent: 'space-around',
+		whiteSpace: 'unset',
+		wordBreak: 'break-all',
+	},
+	gitHub: {
+		padding: '30px 16px',
+	},
+	chip: {
+		margin: theme.spacing(0.5),
+	},
+	chips: {
 		display: 'flex',
-		flexDirection: 'column',
-		justifyContent: 'space-around'
+		justifyContent: 'left',
+		flexWrap: 'wrap',
+		listStyle: 'none',
+		paddingTop: '25px',
+		paddingLeft: '25px',
+		margin: 0,
 	},
-	texto:{
-		whiteSpace: 'pre-wrap',
-		whiteSpace: '-moz-pre-wrap',
-		whiteSpace: '-o-pre-wrap'
-	},
-	start:{
-		display: 'flex',
-		flexDirection: 'row',
-		justifyContent: 'Center',
-		alignItems: 'center',
-		padding: '6px 16px',
-		border: '1px solid #000000',
-		boxSizing: 'border-box',
-		borderRadius: '4px'
-	}
 }));
 
 const CardPaper = ({
@@ -70,8 +62,8 @@ const CardPaper = ({
 
 	return (
 		<div>
-			<Card className={classes.root} >
-				<Grid container spacing={0} >
+			<Card className={classes.root}>
+				<Grid container spacing={0}>
 					<Grid item xs={2}>
 						<CardMedia
 							className={classes.cover}
@@ -87,46 +79,49 @@ const CardPaper = ({
 								<Typography variant="" component="h1">
 									{titulo}
 								</Typography>
-								<div className={classes.descripcion}>
-									<Typography variant="subtitle1">
-										{autor}
-									</Typography>
-									<Typography variant="subtitle1">
-										{fecha}
-									</Typography>
-									<Typography variant="subtitle1">
-										{AreaEstudio}
+								<div className={classes.extras}>
+									<Typography variant="subtitle2">{autor}</Typography>
+									<Typography variant="subtitle2">{fecha}</Typography>
+									<Typography variant="subtitle2">{AreaEstudio}</Typography>
+								</div>
+								<div>
+									<Typography
+										variant="body2"
+										component="p"
+										className={classes.descripcion}
+									>
+										{descripcion}
+										<br />
+										{descripcion}
+										<br />
 									</Typography>
 								</div>
-								<Typography variant="body2" component="p" >
-									{descripcion}
-									<br/>
-									{descripcion}
-									<br/>
-									{descripcion}
-									<br/>
-									{descripcion}
-								</Typography>
-								<Typography variant="body2" component="p">
-									{tags}
-								</Typography>
+								<div className={classes.chips}>
+									{tags.map((tag) => {
+										return (
+											<Chip
+												label={tag}
+												color="primary"
+												clickable
+												className={classes.chip}
+											/>
+										);
+									})}
+								</div>
 							</CardContent>
 						</div>
 					</Grid>
 					<Grid item xs={1}>
-						<CardContent>
-							<div className={classes.start}>
-								<Icon>
-									<StarRateIcon/>
-								</Icon>
-								<Typography variant="body2" component="p" styles={{'alignItems':'center'}}>
-									{numEstrellas}
-								</Typography>
+						<CardContent className={classes.gitHub}>
+							<Button variant="outlined" size="large" color="primary">
+								<StarRateIcon />
+								{numEstrellas}
+							</Button>
+							<div className={classes.gitHub}>
+								<IconButton aria-label="github" color="primary">
+									<GitHubIcon />
+								</IconButton>
 							</div>
-							
-							<Typography variant="body2" component="p">
-								{gitHub}
-							</Typography>
 						</CardContent>
 					</Grid>
 				</Grid>
