@@ -40,7 +40,7 @@ const NavBar = () => {
 		<div>
 			<AppBar position="fixed" color="White">
 				<Toolbar className={classes.root}>
-					<di className={classes.root}>
+					<div className={classes.root}>
 						<Link to="/">
 							<img
 								src={logo}
@@ -51,7 +51,7 @@ const NavBar = () => {
 							/>
 						</Link>
 						<SearchBar color={classes.colorElementNavBar} />
-					</di>
+					</div>
 
 					<LoginButton color={classes.colorElementNavBar} />
 				</Toolbar>

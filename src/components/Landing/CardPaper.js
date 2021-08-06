@@ -2,7 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import imagePaper from './paper.jpg';
-import { Grid } from '@material-ui/core';
+import { Grid, Icon } from '@material-ui/core';
+import StarRateIcon from '@material-ui/icons/StarRate';
 import './CardPaper.css';
 
 import { CardContent, CardMedia, Typography } from '@material-ui/core';
@@ -42,6 +43,16 @@ const useStyle = makeStyles((theme) => ({
 		whiteSpace: 'pre-wrap',
 		whiteSpace: '-moz-pre-wrap',
 		whiteSpace: '-o-pre-wrap'
+	},
+	start:{
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'Center',
+		alignItems: 'center',
+		padding: '6px 16px',
+		border: '1px solid #000000',
+		boxSizing: 'border-box',
+		borderRadius: '4px'
 	}
 }));
 
@@ -88,9 +99,13 @@ const CardPaper = ({
 									</Typography>
 								</div>
 								<Typography variant="body2" component="p" >
-									{
-										descripcion
-									}
+									{descripcion}
+									<br/>
+									{descripcion}
+									<br/>
+									{descripcion}
+									<br/>
+									{descripcion}
 								</Typography>
 								<Typography variant="body2" component="p">
 									{tags}
@@ -100,9 +115,15 @@ const CardPaper = ({
 					</Grid>
 					<Grid item xs={1}>
 						<CardContent>
-							<Typography variant="body2" component="p">
-								{numEstrellas}
-							</Typography>
+							<div className={classes.start}>
+								<Icon>
+									<StarRateIcon/>
+								</Icon>
+								<Typography variant="body2" component="p" styles={{'alignItems':'center'}}>
+									{numEstrellas}
+								</Typography>
+							</div>
+							
 							<Typography variant="body2" component="p">
 								{gitHub}
 							</Typography>
