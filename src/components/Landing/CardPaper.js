@@ -16,18 +16,10 @@ const useStyle = makeStyles((theme) => ({
 		marginBottom: '30px',
 		padding: '0'
 	},
-	details: {
-		display: 'flex',
-		flexDirection: 'column',
-	},
-
 	cover: {
 		width: '100%',
 		height: '100%',
 		backgroundSize: 'cover'
-	},
-	container:{
-		boxShadow:' 0px 4px 4px rgba(0, 0, 0, 0.25)'
 	},
 	descripcion:{
 		display: 'flex',
@@ -38,11 +30,6 @@ const useStyle = makeStyles((theme) => ({
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'space-around'
-	},
-	texto:{
-		whiteSpace: 'pre-wrap',
-		whiteSpace: '-moz-pre-wrap',
-		whiteSpace: '-o-pre-wrap'
 	},
 	start:{
 		display: 'flex',
