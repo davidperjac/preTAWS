@@ -18,13 +18,12 @@ const useStyles = makeStyles((theme) => ({
 
 const FilterBar = () => {
 
-    const classes = useStyles();
 
     return (
         <Box bgcolor="gray.400" className={classes.root}>
-            <Button>popular</Button>
-            <Button>Ultimo</Button>
-            <Button>Lo Mejor</Button>
+            <Button onClick={() => setOpcActual("popular")}>popular</Button>
+            <Button onClick={() => setOpcActual("ultimo")}>Ultimo</Button>
+            <Button onClick={() => setOpcActual("lo mejor")}>Lo Mejor</Button>
             {/*<AppBar position="static" color="default">
               <Toolbar className={classes.root}>
                

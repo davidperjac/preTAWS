@@ -13,7 +13,6 @@ const useStyle = makeStyles((theme) => ({
 	root: {
 		maxWidth: '80vw',
 		boxShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
-		
 		marginBottom: '30px',
 		alignItems: 'center',
 	},
