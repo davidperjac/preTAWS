@@ -31,6 +31,10 @@ const useStyle = makeStyles((theme) => ({
 	},
 	gitHub: {
 		padding: '30px 16px',
+		[theme.breakpoints.down('md')]:{
+			display: 'flex',
+			justifyContent: 'center'
+		}
 	},
 	chip: {
 		margin: theme.spacing(0.5),
@@ -62,7 +66,7 @@ const CardPaper = ({
 		<div styles={{borderRadius: '2%'}}>
 			<Card className={classes.root}>
 				<Grid container spacing={0}>
-					<Grid item  md={2} >
+					<Grid item  md={2} xs={12} >
 						<CardMedia
 							className={classes.cover}
 							title="imagen Paper"
