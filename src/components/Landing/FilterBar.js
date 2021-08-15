@@ -1,9 +1,7 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles, alpha, Button, Box } from '@material-ui/core';
-
+import { makeStyles, Button, Box } from '@material-ui/core';
+import {connect} from 'react-redux';
+import {onClick_Popular , onClick_ULTIMO , onClick_LO_MEJOR, POPULAR , ULTIMO , LO_MEJOR } from '../../redux/actions/FilterPaperAction';
 //const Box = styled.div`${palette}`;
 
 const useStyles = makeStyles((theme) => ({
@@ -16,14 +14,15 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const FilterBar = () => {
-
+const FilterBar = (props) => {
+     
+    const classes = useStyles();
 
     return (
         <Box bgcolor="gray.400" className={classes.root}>
-            <Button onClick={() => setOpcActual("popular")}>popular</Button>
-            <Button onClick={() => setOpcActual("ultimo")}>Ultimo</Button>
-            <Button onClick={() => setOpcActual("lo mejor")}>Lo Mejor</Button>
+            <Button onClick={() => props.onClick_Popular(POPULAR)}>popular</Button>
+            <Button onClick={() => props.onClick_ULTIMO(ULTIMO)}>Ultimo</Button>
+            <Button onClick={() => props.onClick_LO_MEJOR(LO_MEJOR)}>Lo Mejor</Button>
             {/*<AppBar position="static" color="default">
               <Toolbar className={classes.root}>
                
@@ -33,4 +32,10 @@ const FilterBar = () => {
     );
 }
 
-export default FilterBar;
+const mapDispatchToProps = {
+    onClick_Popular,
+    onClick_ULTIMO,
+    onClick_LO_MEJOR
+  };
+
+export default connect(null , mapDispatchToProps)(FilterBar);

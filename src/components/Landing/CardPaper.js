@@ -62,7 +62,7 @@ const CardPaper = ({
 		<div styles={{borderRadius: '2%'}}>
 			<Card className={classes.root}>
 				<Grid container spacing={0}>
-					<Grid item xs={2}>
+					<Grid item  md={2} >
 						<CardMedia
 							className={classes.cover}
 							title="imagen Paper"
@@ -71,7 +71,7 @@ const CardPaper = ({
 						/>
 					</Grid>
 
-					<Grid item xs={7.2}>
+					<Grid item md={7.2} >
 						<div>
 							<CardContent className={classes.content}>
 								<Typography variant="" component="h1">
@@ -109,7 +109,7 @@ const CardPaper = ({
 							</CardContent>
 						</div>
 					</Grid>
-					<Grid item xs={1}>
+					<Grid item md={1} >
 						<CardContent className={classes.gitHub}>
 							<Button variant="outlined" size="large" color="primary">
 								<StarRateIcon />
