@@ -6,7 +6,6 @@ import { makeStyles, alpha } from '@material-ui/core';
 import lime from '@material-ui/core/colors/lime';
 import logo from './logo.png';
 import './NavBar.css';
-import { Link } from 'react-router-dom';
 import LoginButton from './LoginButton';
 
 
@@ -41,7 +40,6 @@ const NavBar = () => {
 			<AppBar position="fixed" color="White">
 				<Toolbar className={classes.root}>
 					<div className={classes.root}>
-						<Link to="/">
 							<img
 								src={logo}
 								className="logo"
@@ -49,7 +47,6 @@ const NavBar = () => {
 								width="60"
 								height="60"
 							/>
-						</Link>
 						<SearchBar color={classes.colorElementNavBar} />
 					</div>
 

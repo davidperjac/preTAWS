@@ -30,10 +30,11 @@ const useStyle = makeStyles((theme) => ({
 		wordBreak: 'break-all',
 	},
 	gitHub: {
-		padding: '30px 16px',
-		[theme.breakpoints.down('md')]:{
+		padding: 'auto',
+		alignItems: 'center',
+		[theme.breakpoints.down('sm')]:{
 			display: 'flex',
-			justifyContent: 'center'
+			justifyContent: 'space-around'
 		}
 	},
 	chip: {
@@ -66,7 +67,7 @@ const CardPaper = ({
 		<div styles={{borderRadius: '2%'}}>
 			<Card className={classes.root}>
 				<Grid container spacing={0}>
-					<Grid item  md={2} xs={12} >
+					<Grid item  sm={2} xs={12} >
 						<CardMedia
 							className={classes.cover}
 							title="imagen Paper"
@@ -75,9 +76,9 @@ const CardPaper = ({
 						/>
 					</Grid>
 
-					<Grid item md={7.2} >
+					<Grid item sm={7.2} >
 						<div>
-							<CardContent className={classes.content}>
+							<CardContent >
 								<Typography variant="" component="h1">
 									{titulo}
 								</Typography>
@@ -113,13 +114,13 @@ const CardPaper = ({
 							</CardContent>
 						</div>
 					</Grid>
-					<Grid item md={1} >
+					<Grid item sm={1} >
 						<CardContent className={classes.gitHub}>
 							<Button variant="outlined" size="large" color="primary">
 								<StarRateIcon />
 								{numEstrellas}
 							</Button>
-							<div className={classes.gitHub}>
+							<div >
 								<IconButton aria-label="github" color="primary">
 									<GitHubIcon />
 								</IconButton>
