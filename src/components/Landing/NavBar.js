@@ -7,7 +7,9 @@ import lime from '@material-ui/core/colors/lime';
 import logo from './logo.png';
 import './NavBar.css';
 import LoginButton from './LoginButton';
-
+import {connect} from 'react-redux';
+import {SESION_INICIADA , SESION_CERRADA} from '../../redux/actions/LoginAction';
+import MiCuentaButton from '../usuario/MiCuentaButton';
 
 const useStyles = makeStyles((theme) => ({
 	offset: theme.mixins.toolbar,
@@ -32,8 +34,20 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const NavBar = () => {
+const NavBar = (props) => {
 	const classes = useStyles();
+	const option = props.login_Reducer.option;
+
+	console.log("option:",option);
+
+	const renderizadoBotones = () => {
+		if(option === SESION_INICIADA ){
+			return <MiCuentaButton color={classes.colorElementNavBar}/>
+		} 
+		if(option === SESION_CERRADA || option === ''){
+			return <LoginButton color={classes.colorElementNavBar} />
+		}
+	}
 
 	return (
 		<div>
@@ -49,8 +63,8 @@ const NavBar = () => {
 							/>
 						<SearchBar color={classes.colorElementNavBar} />
 					</div>
-
-					<LoginButton color={classes.colorElementNavBar} />
+					{renderizadoBotones()}
+					
 				</Toolbar>
 			</AppBar>
 			<div className={classes.offset}></div>
@@ -59,4 +73,10 @@ const NavBar = () => {
 	);
 };
 
-export default NavBar;
+const mapStateToProps = state => {
+	return {
+		login_Reducer: state.login_Reducer
+	};
+  };
+
+export default connect(mapStateToProps)(NavBar);
