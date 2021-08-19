@@ -18,7 +18,7 @@ const useStyle = makeStyles((theme) => ({
 	},
 	cover: {
 		width: '100%',
-		height: '100%'
+		height: '100%',
 	},
 	extras: {
 		display: 'flex',
@@ -30,12 +30,13 @@ const useStyle = makeStyles((theme) => ({
 		wordBreak: 'break-all',
 	},
 	gitHub: {
+		paddingTop: 50,
 		padding: 'auto',
 		alignItems: 'center',
-		[theme.breakpoints.down('sm')]:{
+		[theme.breakpoints.down('sm')]: {
 			display: 'flex',
-			justifyContent: 'space-around'
-		}
+			justifyContent: 'space-around',
+		},
 	},
 	chip: {
 		margin: theme.spacing(0.5),
@@ -64,10 +65,10 @@ const CardPaper = ({
 	const classes = useStyle();
 
 	return (
-		<div styles={{borderRadius: '2%'}}>
+		<div styles={{ borderRadius: '2%' }}>
 			<Card className={classes.root}>
 				<Grid container spacing={0}>
-					<Grid item  sm={2} xs={12} >
+					<Grid item sm={2} xs={12}>
 						<CardMedia
 							className={classes.cover}
 							title="imagen Paper"
@@ -76,9 +77,9 @@ const CardPaper = ({
 						/>
 					</Grid>
 
-					<Grid item sm={7.2} >
+					<Grid item sm={7.2}>
 						<div>
-							<CardContent >
+							<CardContent>
 								<Typography variant="" component="h1">
 									{titulo}
 								</Typography>
@@ -114,17 +115,15 @@ const CardPaper = ({
 							</CardContent>
 						</div>
 					</Grid>
-					<Grid item sm={1} >
+					<Grid item sm={1}>
 						<CardContent className={classes.gitHub}>
 							<Button variant="outlined" size="large" color="primary">
 								<StarRateIcon />
 								{numEstrellas}
 							</Button>
-							<div >
-								<IconButton aria-label="github" color="primary">
-									<GitHubIcon />
-								</IconButton>
-							</div>
+							<IconButton aria-label="github" color="primary">
+								<GitHubIcon />
+							</IconButton>
 						</CardContent>
 					</Grid>
 				</Grid>

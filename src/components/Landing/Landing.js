@@ -5,12 +5,7 @@ import Footer from './Footer';
 import { Provider } from 'react-redux';
 import store from '../../redux/store';
 
-
-
 export const Landing = () => {
-
-	
-
 	return (
 		<div>
 			<Provider store={store}>
@@ -19,7 +14,6 @@ export const Landing = () => {
 				<ListPaper />
 				<Footer />
 			</Provider>
-			
 		</div>
 	);
 };

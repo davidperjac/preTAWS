@@ -6,12 +6,12 @@ import {
 	Button,
 	TextField,
 } from '@material-ui/core';
-import EmailIcon from '@material-ui/icons/Email';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
+import EmailIcon from '@material-ui/icons/Email';
 import axios from 'axios';
 import md5 from 'md5';
 import Cookies from 'universal-cookie';
-import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
 	onClick_Iniciar_Sesion,
@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
 	btn_Style: {
 		marginTop: '1rem',
 		padding: '1rem',
-		width: '100%',
 	},
 	element: {
 		marginTop: '1rem',
@@ -106,11 +105,43 @@ const FormLogin = (props) => {
 					/>
 					<TextField
 						className={classes.element}
+						value={form.correo}
+						name="username"
+						onChange={handleChange}
+						id="username"
+						label="Username"
+						variant="outlined"
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<AccountCircle />
+								</InputAdornment>
+							),
+						}}
+					/>
+					<TextField
+						className={classes.element}
 						//value={form.contrasena}
 						type="password"
 						//onChange={handleChange}
 						id="contraseña"
-						label="Password"
+						label="Contraseña"
+						variant="outlined"
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<LockIcon />
+								</InputAdornment>
+							),
+						}}
+					/>
+					<TextField
+						className={classes.element}
+						//value={form.contrasena}
+						type="password"
+						//onChange={handleChange}
+						id="contraseña"
+						label="Confirmar contraseña"
 						variant="outlined"
 						InputProps={{
 							startAdornment: (
@@ -124,19 +155,9 @@ const FormLogin = (props) => {
 						variant="contained"
 						className={classes.btn_Style}
 						color="primary"
-						onClick={() => iniciarSesion()}
 					>
-						Iniciar Sesion
+						Registrate
 					</Button>
-					<NavLink exact to="/register">
-						<Button
-							variant="contained"
-							className={classes.btn_Style}
-							color="primary"
-						>
-							Registrarse
-						</Button>
-					</NavLink>
 				</div>
 			</form>
 		</div>

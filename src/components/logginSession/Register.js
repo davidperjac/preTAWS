@@ -1,13 +1,13 @@
 import React from 'react';
-import FormLogin from './FormLogin';
 import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Logo from '../Landing/logo.png';
 import { Provider } from 'react-redux';
 import store from '../../redux/store';
-import fondo from './fondo.jpg';
+import fondoR from './fondoR.jpeg';
 import { Grid } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
+import FormRegister from './FormRegister';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const LoginPage = () => {
+const Register = () => {
 	const classes = useStyles();
 
 	return (
@@ -44,7 +44,7 @@ const LoginPage = () => {
 			<div style={{ backgroundColor: '#F3F7EE', overflow: 'hidden' }}>
 				<Grid container className={classes.root}>
 					<Grid item xs={12} sm={6}>
-						<img src={fondo} alt="logo" className={classes.foto} />
+						<img src={fondoR} alt="logo" className={classes.foto} />
 					</Grid>
 					<Grid container item xs={12} sm={6} className={classes.formroot}>
 						<div className={classes.form}>
@@ -59,13 +59,10 @@ const LoginPage = () => {
 									/>
 								</NavLink>
 							</Grid>
-							<Typography variant="" component="h2">
-								Bienvenido
-							</Typography>
 							<Typography variant="" component="h1">
-								Ingrese a su cuenta
+								Cree una nueva cuenta
 							</Typography>
-							<FormLogin />
+							<FormRegister />
 						</div>
 					</Grid>
 				</Grid>
@@ -74,4 +71,4 @@ const LoginPage = () => {
 	);
 };
 
-export default LoginPage;
+export default Register;

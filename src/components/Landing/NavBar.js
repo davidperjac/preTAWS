@@ -7,9 +7,14 @@ import lime from '@material-ui/core/colors/lime';
 import logo from './logo.png';
 import './NavBar.css';
 import LoginButton from './LoginButton';
-import {connect} from 'react-redux';
-import {SESION_INICIADA , SESION_CERRADA} from '../../redux/actions/LoginAction';
+import { connect } from 'react-redux';
+import {
+	SESION_INICIADA,
+	SESION_CERRADA,
+} from '../../redux/actions/LoginAction';
 import MiCuentaButton from '../usuario/MiCuentaButton';
+import { NavLink } from 'react-router-dom';
+import CrearPaperButton from './CrearPaperButton';
 
 const useStyles = makeStyles((theme) => ({
 	offset: theme.mixins.toolbar,
@@ -27,10 +32,15 @@ const useStyles = makeStyles((theme) => ({
 		'&:hover': {
 			backgroundColor: alpha(lime.A400, 0.25),
 		},
-		borderRadius: '50px',
+		borderRadius: '10px',
 	},
 	elementNavBar: {
 		marginRight: '0.5em',
+	},
+	botones: {
+		display: 'flex',
+		justifyContent: 'space-around',
+		paddingRig: '1rem',
 	},
 }));
 
@@ -38,22 +48,29 @@ const NavBar = (props) => {
 	const classes = useStyles();
 	const option = props.login_Reducer.option;
 
-	console.log("option:",option);
+	console.log('option:', option);
 
 	const renderizadoBotones = () => {
-		if(option === SESION_INICIADA ){
-			return <MiCuentaButton color={classes.colorElementNavBar}/>
-		} 
-		if(option === SESION_CERRADA || option === ''){
-			return <LoginButton color={classes.colorElementNavBar} />
+		if (option === SESION_INICIADA) {
+			return <MiCuentaButton color={classes.colorElementNavBar} />;
 		}
-	}
-
+		if (option === SESION_CERRADA || option === '') {
+			return (
+				<div className={classes.botones}>
+					<div style={{ paddingRight: '1rem' }}>
+						<CrearPaperButton color={classes.colorElementNavBar} />
+					</div>
+					<LoginButton color={classes.colorElementNavBar} />
+				</div>
+			);
+		}
+	};
 	return (
 		<div>
 			<AppBar position="fixed" color="White">
 				<Toolbar className={classes.root}>
 					<div className={classes.root}>
+						<NavLink exact to="/">
 							<img
 								src={logo}
 								className="logo"
@@ -61,22 +78,22 @@ const NavBar = (props) => {
 								width="60"
 								height="60"
 							/>
+						</NavLink>
 						<SearchBar color={classes.colorElementNavBar} />
 					</div>
+
 					{renderizadoBotones()}
-					
 				</Toolbar>
 			</AppBar>
 			<div className={classes.offset}></div>
-			
 		</div>
 	);
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
 	return {
-		login_Reducer: state.login_Reducer
+		login_Reducer: state.login_Reducer,
 	};
-  };
+};
 
 export default connect(mapStateToProps)(NavBar);

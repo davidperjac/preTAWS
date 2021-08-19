@@ -1,16 +1,20 @@
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Landing from './components/Landing/Landing.js';
 import LoginPage from './components/logginSession/LoginPage.js';
+import Register from './components/logginSession/Register.js';
+import CreatePaperPage from './components/createPaper/CreatePaperPage.js';
 
 function App() {
 	return (
-			<Router>
-				<Switch>
-					<Route exact path="/" component={Landing}/>
-					<Route exact path="/login" component={LoginPage}/>
-					<Route exact path="/:usuario" component={Landing}/>
-				</Switch>
-			</Router>
+		<Router>
+			<Switch>
+				<Route exact path="/" component={Landing} />
+				<Route exact path="/login" component={LoginPage} />
+				<Route exact path="/register" component={Register} />
+				<Route exact path="/crear-paper" component={CreatePaperPage} />
+				<Route exact path="/:usuario" component={Landing} />
+			</Switch>
+		</Router>
 	);
 }
 
