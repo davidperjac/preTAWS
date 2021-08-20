@@ -2,6 +2,7 @@ import { SESION_INICIADA , SESION_CERRADA } from '../actions/LoginAction';
 
 const state_Initial = {
     option : ''
+
 }
 
 

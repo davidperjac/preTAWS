@@ -106,9 +106,10 @@ const FormLogin = (props) => {
 					/>
 					<TextField
 						className={classes.element}
-						//value={form.contrasena}
+						value={form.contrasena}
 						type="password"
-						//onChange={handleChange}
+						name="contrasena"
+						onChange={handleChange}
 						id="contraseña"
 						label="Password"
 						variant="outlined"

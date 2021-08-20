@@ -41,7 +41,9 @@ const useStyles = makeStyles((theme) => ({
 
 const stateInitial = {
 	correo: '',
+	usuario: '',
 	contrasena: '',
+	confirmar_contrasena: ''
 };
 
 const FormLogin = (props) => {
@@ -105,7 +107,7 @@ const FormLogin = (props) => {
 					/>
 					<TextField
 						className={classes.element}
-						value={form.correo}
+						value={form.usuario}
 						name="username"
 						onChange={handleChange}
 						id="username"
@@ -121,9 +123,10 @@ const FormLogin = (props) => {
 					/>
 					<TextField
 						className={classes.element}
-						//value={form.contrasena}
+						value={form.contrasena}
 						type="password"
-						//onChange={handleChange}
+						name="contrasena"
+						onChange={handleChange}
 						id="contraseña"
 						label="Contraseña"
 						variant="outlined"
@@ -137,10 +140,11 @@ const FormLogin = (props) => {
 					/>
 					<TextField
 						className={classes.element}
-						//value={form.contrasena}
+						value={form.confirmar_contrasena}
 						type="password"
-						//onChange={handleChange}
-						id="contraseña"
+						name="confirmar_contrasena"
+						onChange={handleChange}
+						id="confirmar_contraseña"
 						label="Confirmar contraseña"
 						variant="outlined"
 						InputProps={{
