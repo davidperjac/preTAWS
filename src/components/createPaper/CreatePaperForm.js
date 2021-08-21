@@ -8,10 +8,10 @@ import {
 	Typography,
 	IconButton,
 	Grid,
+	Card,
 } from '@material-ui/core';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
-import { NavLink } from 'react-router-dom';
 
 const UseStyles = makeStyles((theme) => ({
 	btn_Style: {
@@ -56,9 +56,8 @@ const UseStyles = makeStyles((theme) => ({
 		paddingBottom: '2rem',
 		paddingTop: '2rem',
 	},
-	extras: {
-		marginLeft: '1rem',
-		marginTop: '2rem',
+	subirbtn: {
+		marginTop: '1.5rem',
 	},
 }));
 
@@ -69,94 +68,97 @@ export const createPaperForm = () => {
 			<Typography variant="" component="h1" className={classes.llena}>
 				Llena la informacion de tu paper
 			</Typography>
-			<form className={classes.contenedor}>
-				<div className={classes.inputs}>
-					<Typography variant="" component="h3">
-						Titulo
-					</Typography>
-					<TextField
-						id="titulo"
-						variant="outlined"
-						className={classes.element}
-					/>
-					<Typography variant="" component="h3">
-						Descripcion
-					</Typography>
-					<TextField
-						id="descripcion"
-						multiline
-						rows={4}
-						variant="outlined"
-						className={classes.element}
-					/>
-					<Typography variant="" component="h3">
-						Link del Paper
-					</Typography>
-					<TextField
-						id="link_paper"
-						variant="outlined"
-						className={classes.element}
-					/>
-					<Typography variant="" component="h3">
-						Link del Repositorio
-					</Typography>
-					<TextField
-						id="link_repo"
-						variant="outlined"
-						className={classes.element}
-					/>
-					<Grid container className={classes.extras}>
-						<Grid item xs={12} sm={4}>
-							<Typography variant="" component="h3">
-								Foto
-							</Typography>
-							<input
-								hidden
-								accept="image/*"
-								className={classes.input}
-								id="icon-button-file"
-								type="file"
-							/>
-							<label htmlFor="icon-button-file">
-								<IconButton
-									color="primary"
-									aria-label="upload picture"
-									component="span"
-								>
-									<PhotoCamera />
-								</IconButton>
-							</label>
+			<form>
+				<Card className={classes.contenedor}>
+					<div className={classes.inputs}>
+						<Typography variant="" component="h3">
+							Titulo
+						</Typography>
+						<TextField
+							id="titulo"
+							variant="outlined"
+							className={classes.element}
+						/>
+						<Typography variant="" component="h3">
+							Descripcion
+						</Typography>
+						<TextField
+							id="descripcion"
+							multiline
+							rows={4}
+							variant="outlined"
+							className={classes.element}
+						/>
+						<Typography variant="" component="h3">
+							Link del Paper
+						</Typography>
+						<TextField
+							id="link_paper"
+							variant="outlined"
+							className={classes.element}
+						/>
+						<Typography variant="" component="h3">
+							Link del Repositorio
+						</Typography>
+						<TextField
+							id="link_repo"
+							variant="outlined"
+							className={classes.element}
+						/>
+						<Grid container>
+							<Grid item xs={12} sm={4}>
+								<Typography variant="" component="h3">
+									Foto
+								</Typography>
+								<input
+									hidden
+									accept="image/*"
+									className={classes.input}
+									id="contained-button-file"
+									multiple
+									type="file"
+								/>
+								<label htmlFor="contained-button-file">
+									<Button
+										variant="contained"
+										color="primary"
+										component="span"
+										startIcon={<CloudUploadIcon />}
+										className={classes.subirbtn}
+									>
+										SUBE UNA FOTO
+									</Button>
+								</label>
+							</Grid>
+							<Grid item xs={12} sm={4}>
+								<Typography variant="" component="h3">
+									Tags
+								</Typography>
+								<TextField
+									id="titulo"
+									variant="outlined"
+									className={classes.element}
+								/>
+							</Grid>
 						</Grid>
-						<Grid item xs={12} sm={4}>
-							<Typography variant="" component="h3">
-								Colaboradores
-							</Typography>
-							<TextField
-								id="titulo"
-								variant="outlined"
-								className={classes.element}
-							/>
-						</Grid>
-						<Grid item xs={12} sm={4}>
-							<Typography variant="" component="h3">
-								Tags
-							</Typography>
-							<TextField
-								id="titulo"
-								variant="outlined"
-								className={classes.element}
-							/>
-						</Grid>
-					</Grid>
-				</div>
-				<Button
-					variant="contained"
-					className={classes.btn_Style}
-					color="primary"
-					startIcon={<SaveIcon />}
-				>
-					SUBIR PAPER
-				</Button>
+						<Typography variant="" component="h3">
+							Colaboradores
+						</Typography>
+						<TextField
+							id="titulo"
+							variant="outlined"
+							className={classes.element}
+						/>
+					</div>
+					<Button
+						variant="contained"
+						className={classes.btn_Style}
+						color="primary"
+						startIcon={<SaveIcon />}
+					>
+						SUBIR PAPER
+					</Button>
+				</Card>
 			</form>
 		</div>
 	);

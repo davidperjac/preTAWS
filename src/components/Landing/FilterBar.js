@@ -4,10 +4,8 @@ import { connect } from 'react-redux';
 import {
 	onClick_Popular,
 	onClick_ULTIMO,
-	onClick_LO_MEJOR,
 	POPULAR,
 	ULTIMO,
-	LO_MEJOR,
 } from '../../redux/actions/FilterPaperAction';
 //const Box = styled.div`${palette}`;
 
@@ -19,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'flex-end',
 		backgroundColor: '#e0e0e0',
 	},
+	botones: {
+		marginRight: '38rem',
+	},
 }));
 
 const FilterBar = (props) => {
@@ -26,12 +27,20 @@ const FilterBar = (props) => {
 
 	return (
 		<Box bgcolor="gray.400" className={classes.root}>
-			<Button onClick={() => props.onClick_Popular(POPULAR)}>popular</Button>
-			<Button onClick={() => props.onClick_ULTIMO(ULTIMO)}>Ultimo</Button>
-			<Button onClick={() => props.onClick_LO_MEJOR(LO_MEJOR)}>Lo Mejor</Button>
+			<Button
+				//className={classes.botones}
+				onClick={() => props.onClick_Popular(POPULAR)}
+			>
+				popular
+			</Button>
+			<Button
+				className={classes.botones}
+				onClick={() => props.onClick_ULTIMO(ULTIMO)}
+			>
+				Ultimo
+			</Button>
 			{/*<AppBar position="static" color="default">
               <Toolbar className={classes.root}>
-               
               </Toolbar>
             </AppBar>*/}
 		</Box>
@@ -41,7 +50,6 @@ const FilterBar = (props) => {
 const mapDispatchToProps = {
 	onClick_Popular,
 	onClick_ULTIMO,
-	onClick_LO_MEJOR,
 };
 
 export default connect(null, mapDispatchToProps)(FilterBar);
