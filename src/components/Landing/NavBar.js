@@ -12,7 +12,7 @@ import {
 	SESION_INICIADA,
 	SESION_CERRADA,
 } from '../../redux/actions/LoginAction';
-import MiCuentaButton from '../usuario/MiCuentaButton';
+import MiCuentaButton from './MiCuentaButton';
 import { NavLink } from 'react-router-dom';
 import CrearPaperButton from './CrearPaperButton';
 
@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 	botones: {
 		display: 'flex',
 		justifyContent: 'space-around',
-		paddingRig: '1rem',
 	},
 }));
 
@@ -51,16 +50,17 @@ const NavBar = (props) => {
 	console.log('option:', option);
 
 	const renderizadoBotones = () => {
-		if (option === SESION_INICIADA) {
-			return <MiCuentaButton color={classes.colorElementNavBar} />;
-		}
+		//if (option === SESION_INICIADA) {
+		//return <MiCuentaButton color={classes.colorElementNavBar} />;
+		//}
 		if (option === SESION_CERRADA || option === '') {
 			return (
-				<div className={classes.botones}>
-					<div style={{ paddingRight: '1rem' }}>
+				<div>
+					<div className={classes.botones}>
+						<MiCuentaButton color={classes.colorElementNavBar} />
 						<CrearPaperButton color={classes.colorElementNavBar} />
+						<LoginButton color={classes.colorElementNavBar} />
 					</div>
-					<LoginButton color={classes.colorElementNavBar} />
 				</div>
 			);
 		}

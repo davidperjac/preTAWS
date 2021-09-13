@@ -5,12 +5,11 @@ import { NavLink } from 'react-router-dom';
 const LoginButton = ({ color }) => {
 	return (
 		<div>
-			<NavLink exact to="/login" >
+			<NavLink exact to="/login">
 				<Button variant="contened" color="default" className={color}>
 					INICIAR SESION
 				</Button>
 			</NavLink>
-			
 		</div>
 	);
 };

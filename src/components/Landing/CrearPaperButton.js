@@ -7,12 +7,7 @@ const crearPaperButton = ({ color }) => {
 	return (
 		<div>
 			<NavLink exact to="/crear-paper">
-				<Button
-					variant="outlined"
-					//color="primary"
-					startIcon={<AddIcon />}
-					className={color}
-				>
+				<Button startIcon={<AddIcon />} className={color}>
 					CREAR PAPER
 				</Button>
 			</NavLink>

@@ -1,18 +1,18 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import { NavLink } from 'react-router-dom';
+import { Button } from '@material-ui/core';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const LoginButton = ({ color }) => {
+export const MiCuentaButton = ({ color }) => {
 	return (
 		<div>
-			<NavLink exact to="/login" >
-				<Button variant="contened" color="default" className={color}>
-					INICIAR SESION
+			<NavLink exact to="/micuenta">
+				<Button startIcon={<AccountCircleIcon />} className={color}>
+					MI CUENTA
 				</Button>
 			</NavLink>
-			
 		</div>
 	);
 };
 
-export default LoginButton;
+export default MiCuentaButton;
