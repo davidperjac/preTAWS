@@ -15,7 +15,8 @@ import {
 import MiCuentaButton from './MiCuentaButton';
 import { NavLink } from 'react-router-dom';
 import CrearPaperButton from './CrearPaperButton';
-import { CREAR_PAPER_CLICK , onClick_CrearPaper } from '../../redux/actions/OpcionesUsuarioAction'
+import { onClick_CrearPaper } from '../../redux/actions/OpcionesUsuarioAction'
+import CerrarSesionButton from './CerrarSesionButton';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -62,7 +63,10 @@ const NavBar = (props) => {
 					<div className={classes.elementNavBar}>
 						<CrearPaperButton color={classes.colorElementNavBar}/>
 					</div>
-					<MiCuentaButton color={classes.colorElementNavBar} />
+					<div className={classes.elementNavBar}>
+						<MiCuentaButton color={classes.colorElementNavBar} />
+					</div>
+					<CerrarSesionButton color={classes.colorElementNavBar}/>
 				</div>
 			);
 		}

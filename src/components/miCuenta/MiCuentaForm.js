@@ -49,9 +49,9 @@ const UseStyles = makeStyles((theme) => ({
 		backgroundColor: 'white',
 	},
 	llena: {
-		marginLeft: '20rem',
-		paddingBottom: '2rem',
+		paddingBottom: '1rem',
 		paddingTop: '2rem',
+		textAlign: 'center'
 	},
 	subirbtn: {
 		marginTop: '1.5rem',

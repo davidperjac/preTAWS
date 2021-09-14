@@ -15,8 +15,6 @@ function App() {
 				<Route exact path="/" component={Landing} />
 				<Route exact path="/login" component={LoginPage} />
 				<Route exact path="/register" component={Register} />
-				<Route exact path="/crear-paper" component={CreatePaperPage} />
-				<Route exact path="/micuenta" component={MiCuentaPage} />
 				<Route exact path="/:usuario" component={Landing} />
 			</Switch>
 		</Router>
