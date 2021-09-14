@@ -1,15 +1,14 @@
 import React from 'react';
-//import Typography from '@material-ui/core/Typography';
 import {
-	makeStyles,
-	Button,
 	TextField,
-	Typography,
-	Grid,
 	Card,
+	Typography,
+	CardMedia,
+	Button,
+	makeStyles,
 } from '@material-ui/core';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
+import imageAccount from './account.png';
 
 const UseStyles = makeStyles((theme) => ({
 	btn_Style: {
@@ -57,93 +56,61 @@ const UseStyles = makeStyles((theme) => ({
 	subirbtn: {
 		marginTop: '1.5rem',
 	},
+	foto: {
+		width: '70%',
+		height: '70%',
+		marginLeft: '6rem',
+	},
 }));
 
-export const createPaperForm = () => {
+export const MiCuentaForm = () => {
 	const classes = UseStyles();
 	return (
 		<div>
 			<Typography variant="" component="h1" className={classes.llena}>
-				Llena la informacion de tu paper
+				Cambia la informacion de tu cuenta
 			</Typography>
 			<form>
 				<Card className={classes.contenedor}>
 					<div className={classes.inputs}>
 						<Typography variant="" component="h3">
-							Titulo
+							Foto
+						</Typography>
+						<CardMedia
+							className={classes.foto}
+							title="imagen Paper"
+							image={imageAccount}
+							component="img"
+						/>
+						<Typography variant="" component="h3">
+							Nombres
 						</Typography>
 						<TextField
-							id="titulo"
+							id="nombres"
 							variant="outlined"
 							className={classes.element}
 						/>
 						<Typography variant="" component="h3">
-							Descripcion
+							Usuario
 						</Typography>
 						<TextField
-							id="descripcion"
-							multiline
-							rows={4}
+							id="usuario"
 							variant="outlined"
 							className={classes.element}
 						/>
 						<Typography variant="" component="h3">
-							Link del Paper
+							Correo
 						</Typography>
 						<TextField
-							id="link_paper"
+							id="correo"
 							variant="outlined"
 							className={classes.element}
 						/>
 						<Typography variant="" component="h3">
-							Link del Repositorio
+							Contraseña
 						</Typography>
 						<TextField
-							id="link_repo"
-							variant="outlined"
-							className={classes.element}
-						/>
-						<Grid container>
-							<Grid item xs={12} sm={4}>
-								<Typography variant="" component="h3">
-									Foto
-								</Typography>
-								<input
-									hidden
-									accept="image/*"
-									className={classes.input}
-									id="contained-button-file"
-									multiple
-									type="file"
-								/>
-								<label htmlFor="contained-button-file">
-									<Button
-										variant="contained"
-										color="primary"
-										component="span"
-										startIcon={<CloudUploadIcon />}
-										className={classes.subirbtn}
-									>
-										SUBE UNA FOTO
-									</Button>
-								</label>
-							</Grid>
-							<Grid item xs={12} sm={4}>
-								<Typography variant="" component="h3">
-									Tags
-								</Typography>
-								<TextField
-									id="titulo"
-									variant="outlined"
-									className={classes.element}
-								/>
-							</Grid>
-						</Grid>
-						<Typography variant="" component="h3">
-							Colaboradores
-						</Typography>
-						<TextField
-							id="titulo"
+							id="contraseña"
 							variant="outlined"
 							className={classes.element}
 						/>
@@ -154,7 +121,7 @@ export const createPaperForm = () => {
 						color="primary"
 						startIcon={<SaveIcon />}
 					>
-						SUBIR PAPER
+						GUARDAR CAMBIOS
 					</Button>
 				</Card>
 			</form>
@@ -162,4 +129,4 @@ export const createPaperForm = () => {
 	);
 };
 
-export default createPaperForm;
+export default MiCuentaForm;

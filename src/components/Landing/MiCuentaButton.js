@@ -1,18 +1,27 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import { NavLink } from 'react-router-dom';
+import { Button } from '@material-ui/core';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { connect } from 'react-redux';
+import {MI_CUENTA_CLICK , onClick_MiCuenta} from '../../redux/actions/OpcionesUsuarioAction'
 
-const LoginButton = ({ color }) => {
+
+export const MiCuentaButton = (props) => {
 	return (
 		<div>
-			<NavLink exact to="/login" >
-				<Button variant="contened" color="default" className={color}>
-					INICIAR SESION
-				</Button>
-			</NavLink>
-			
+			<Button 
+				startIcon = {<AccountCircleIcon />} 
+				className = {props.color}
+				onClick = {() => props.onClick_MiCuenta(MI_CUENTA_CLICK)}
+			>
+				MI CUENTA
+			</Button>
 		</div>
 	);
 };
 
-export default LoginButton;
+const mapDispatchToProps = {
+	onClick_MiCuenta
+}
+
+export default connect(null,mapDispatchToProps)(MiCuentaButton);

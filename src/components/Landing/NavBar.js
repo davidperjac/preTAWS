@@ -1,4 +1,4 @@
-import React from 'react';
+import React  , {useEffect} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import SearchBar from './SearchBar';
@@ -12,9 +12,11 @@ import {
 	SESION_INICIADA,
 	SESION_CERRADA,
 } from '../../redux/actions/LoginAction';
-import MiCuentaButton from '../usuario/MiCuentaButton';
+import MiCuentaButton from './MiCuentaButton';
 import { NavLink } from 'react-router-dom';
 import CrearPaperButton from './CrearPaperButton';
+import { CREAR_PAPER_CLICK , onClick_CrearPaper } from '../../redux/actions/OpcionesUsuarioAction'
+
 
 const useStyles = makeStyles((theme) => ({
 	offset: theme.mixins.toolbar,
@@ -40,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
 	botones: {
 		display: 'flex',
 		justifyContent: 'space-around',
-		paddingRig: '1rem',
 	},
 }));
 
@@ -48,21 +49,25 @@ const NavBar = (props) => {
 	const classes = useStyles();
 	const option = props.login_Reducer.option;
 
-	
+	useEffect(() => {
+
+	},)
 
 	const renderizadoBotones = () => {
-		console.log('option:', option);
+		//console.log('option:', option);
 		if (option === SESION_INICIADA) {
+			console.log('SESION INICIADA');
 			return (
 				<div className={classes.botones}>
-					<div style={{ paddingRight: '1rem' }}>
-						<CrearPaperButton color={classes.colorElementNavBar} />
+					<div className={classes.elementNavBar}>
+						<CrearPaperButton color={classes.colorElementNavBar}/>
 					</div>
 					<MiCuentaButton color={classes.colorElementNavBar} />
 				</div>
 			);
 		}
 		if (option === SESION_CERRADA || option === '') {
+			console.log('SESION CERRADA');
 			return (
 				<div className={classes.botones}>
 					<LoginButton color={classes.colorElementNavBar} />
@@ -75,7 +80,7 @@ const NavBar = (props) => {
 			<AppBar position="fixed" color="White">
 				<Toolbar className={classes.root}>
 					<div className={classes.root}>
-						<NavLink exact to="/">
+						<NavLink exact to="/" onClick={() => props.onClick_CrearPaper('')}>
 							<img
 								src={logo}
 								className="logo"
@@ -101,4 +106,9 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(NavBar);
+const mapDispatchToProps = {
+	onClick_CrearPaper	
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(NavBar);

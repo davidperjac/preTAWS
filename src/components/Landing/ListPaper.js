@@ -29,6 +29,8 @@ const ListPaper = (props) => {
 		switch(option){
 			case POPULAR:  data.sort((a,b) => b.NumEstrellas - a.NumEstrellas);
 			break;
+			case ULTIMO: data.sort((a,b) => a.NumEstrellas - b.NumEstrellas);;
+			break;
 			default: 
 		}
 		

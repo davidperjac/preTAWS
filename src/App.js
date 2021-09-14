@@ -3,6 +3,10 @@ import Landing from './components/Landing/Landing.js';
 import LoginPage from './components/logginSession/LoginPage.js';
 import Register from './components/logginSession/Register.js';
 import CreatePaperPage from './components/createPaper/CreatePaperPage.js';
+import MiCuentaPage from './components/miCuenta/MiCuentaPage.js';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import {store , persistor} from './redux/store';
 
 function App() {
 	return (
@@ -12,6 +16,7 @@ function App() {
 				<Route exact path="/login" component={LoginPage} />
 				<Route exact path="/register" component={Register} />
 				<Route exact path="/crear-paper" component={CreatePaperPage} />
+				<Route exact path="/micuenta" component={MiCuentaPage} />
 				<Route exact path="/:usuario" component={Landing} />
 			</Switch>
 		</Router>

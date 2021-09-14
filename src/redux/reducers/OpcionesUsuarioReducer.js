@@ -1,20 +1,19 @@
-import { SESION_INICIADA , SESION_CERRADA } from '../actions/LoginAction';
+import { MI_CUENTA_CLICK , CREAR_PAPER_CLICK } from '../actions/OpcionesUsuarioAction';
 
 const state_Initial = {
-    option : SESION_CERRADA
+    option : ''
 
 }
 
-
-const login_Reducer = (state = state_Initial , action) => {
+const opciones_usuario_Reducer = (state = state_Initial , action) => {
     switch (action.type) {
-        case SESION_INICIADA: {
+        case MI_CUENTA_CLICK: {
           return {
             ...state,
             option: action.payload
           };
         }
-        case SESION_CERRADA: {
+        case CREAR_PAPER_CLICK: {
           return {
             ...state,
             option: action.payload
@@ -25,4 +24,4 @@ const login_Reducer = (state = state_Initial , action) => {
       }
 }
 
-export default login_Reducer;
+export default opciones_usuario_Reducer;
