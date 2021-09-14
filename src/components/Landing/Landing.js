@@ -3,16 +3,19 @@ import ListPaper from './ListPaper';
 import NavBar from './NavBar';
 import Footer from './Footer';
 import { Provider } from 'react-redux';
-import store from '../../redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import {store , persistor} from '../../redux/store';
 
 export const Landing = () => {
 	return (
 		<div>
 			<Provider store={store}>
-				<NavBar />
-				<FilterBar />
-				<ListPaper />
-				<Footer />
+				<PersistGate loading={null} persistor={persistor}>
+					<NavBar />
+					<FilterBar />
+					<ListPaper />
+					<Footer />
+				</PersistGate>
 			</Provider>
 		</div>
 	);

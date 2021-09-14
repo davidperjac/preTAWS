@@ -4,10 +4,13 @@ import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Logo from '../Landing/logo.png';
 import { Provider } from 'react-redux';
-import store from '../../redux/store';
+//import {store} from '../../redux/store';
 import fondo from './fondo.jpg';
 import { Grid } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
+import { PersistGate } from 'redux-persist/integration/react';
+import {store , persistor} from '../../redux/store';
+
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -41,35 +44,37 @@ const LoginPage = () => {
 
 	return (
 		<Provider store={store}>
-			<div style={{ backgroundColor: '#F3F7EE', overflow: 'hidden' }}>
-				<Grid container className={classes.root}>
-					<Grid item xs={12} sm={6}>
-						<img src={fondo} alt="logo" className={classes.foto} />
+			<PersistGate loading={null} persistor={persistor}>
+				<div style={{ backgroundColor: '#F3F7EE', overflow: 'hidden' }}>
+					<Grid container className={classes.root}>
+						<Grid item xs={12} sm={6}>
+							<img src={fondo} alt="logo" className={classes.foto} />
+						</Grid>
+						<Grid container item xs={12} sm={6} className={classes.formroot}>
+							<div className={classes.form}>
+								<Grid container justify="center" className={classes.logo}>
+									<NavLink exact to="/">
+										<img
+											src={Logo}
+											className="logo"
+											alt="Logo"
+											width="80"
+											height="80"
+										/>
+									</NavLink>
+								</Grid>
+								<Typography variant="" component="h2">
+									Bienvenido
+								</Typography>
+								<Typography variant="" component="h1">
+									Ingrese a su cuenta
+								</Typography>
+								<FormLogin />
+							</div>
+						</Grid>
 					</Grid>
-					<Grid container item xs={12} sm={6} className={classes.formroot}>
-						<div className={classes.form}>
-							<Grid container justify="center" className={classes.logo}>
-								<NavLink exact to="/">
-									<img
-										src={Logo}
-										className="logo"
-										alt="Logo"
-										width="80"
-										height="80"
-									/>
-								</NavLink>
-							</Grid>
-							<Typography variant="" component="h2">
-								Bienvenido
-							</Typography>
-							<Typography variant="" component="h1">
-								Ingrese a su cuenta
-							</Typography>
-							<FormLogin />
-						</div>
-					</Grid>
-				</Grid>
-			</div>
+				</div>
+			</PersistGate>
 		</Provider>
 	);
 };

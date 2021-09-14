@@ -48,18 +48,23 @@ const NavBar = (props) => {
 	const classes = useStyles();
 	const option = props.login_Reducer.option;
 
-	console.log('option:', option);
+	
 
 	const renderizadoBotones = () => {
+		console.log('option:', option);
 		if (option === SESION_INICIADA) {
-			return <MiCuentaButton color={classes.colorElementNavBar} />;
-		}
-		if (option === SESION_CERRADA || option === '') {
 			return (
 				<div className={classes.botones}>
 					<div style={{ paddingRight: '1rem' }}>
 						<CrearPaperButton color={classes.colorElementNavBar} />
 					</div>
+					<MiCuentaButton color={classes.colorElementNavBar} />
+				</div>
+			);
+		}
+		if (option === SESION_CERRADA || option === '') {
+			return (
+				<div className={classes.botones}>
 					<LoginButton color={classes.colorElementNavBar} />
 				</div>
 			);

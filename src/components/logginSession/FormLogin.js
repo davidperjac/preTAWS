@@ -68,7 +68,7 @@ const FormLogin = (props) => {
 			.then((res) => {
 				if (res.length > 0) {
 					props.onClick_Iniciar_Sesion(SESION_INICIADA);
-					props.onClick_Cerrar_Sesion(SESION_CERRADA);
+					//props.onClick_Cerrar_Sesion(SESION_CERRADA);
 					let respuesta = res[0];
 					cookies.set('id', respuesta.id, { path: '/' });
 					cookies.set('usuario', respuesta.usuario, { path: '/' });

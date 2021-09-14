@@ -8,8 +8,8 @@ const crearPaperButton = ({ color }) => {
 		<div>
 			<NavLink exact to="/crear-paper">
 				<Button
-					variant="outlined"
-					//color="primary"
+					variant="contened"
+					color="default"
 					startIcon={<AddIcon />}
 					className={color}
 				>

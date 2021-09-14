@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Logo from '../Landing/logo.png';
 import { Provider } from 'react-redux';
-import store from '../../redux/store';
+import {store} from '../../redux/store';
 import fondoR from './fondoR.jpeg';
 import { Grid } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
