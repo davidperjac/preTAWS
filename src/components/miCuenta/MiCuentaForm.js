@@ -51,7 +51,7 @@ const UseStyles = makeStyles((theme) => ({
 	llena: {
 		paddingBottom: '1rem',
 		paddingTop: '2rem',
-		textAlign: 'center'
+		textAlign: 'center',
 	},
 	subirbtn: {
 		marginTop: '1.5rem',

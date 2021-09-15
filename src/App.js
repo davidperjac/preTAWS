@@ -6,7 +6,7 @@ import CreatePaperPage from './components/createPaper/CreatePaperPage.js';
 import MiCuentaPage from './components/miCuenta/MiCuentaPage.js';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import {store , persistor} from './redux/store';
+import { store, persistor } from './redux/store';
 
 function App() {
 	return (
