@@ -8,21 +8,10 @@ import {
 } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
-import axios from 'axios';
-import md5 from 'md5';
-import Cookies from 'universal-cookie';
+
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
-import {
-	onClick_Iniciar_Sesion,
-	onClick_Cerrar_Sesion,
-	SESION_INICIADA,
-	SESION_CERRADA,
-} from '../../redux/actions/LoginAction';
-
-const DBURL = 'http://localhost:3001/usuarios';
-
-const cookies = new Cookies();
+import { useAuth } from '../../contexts/AuthContext';
+import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -40,59 +29,48 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const stateInitial = {
-	correo: '',
-	contrasena: '',
-};
-
-const FormLogin = (props) => {
-	const [form, setForm] = useState(stateInitial);
+export default function FormLogin() {
 	const classes = useStyles();
 
-	const handleChange = (e) => {
-		setForm({
-			...form,
-			[e.target.name]: e.target.value,
-		});
-	};
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 
-	const iniciarSesion = async () => {
-		await axios
-			.get(DBURL, {
-				params: { correo: form.correo, contrasena: md5(form.contrasena) },
-			})
-			.then((res) => {
-				//console.log(res.data);
-				return res.data;
-			})
-			.then((res) => {
-				if (res.length > 0) {
-					props.onClick_Iniciar_Sesion(SESION_INICIADA);
-					//props.onClick_Cerrar_Sesion(SESION_CERRADA);
-					let respuesta = res[0];
-					cookies.set('id', respuesta.id, { path: '/' });
-					cookies.set('usuario', respuesta.usuario, { path: '/' });
-					cookies.set('nombres', respuesta.nombres, { path: '/' });
-					cookies.set('correo', respuesta.correo, { path: '/' });
-					window.location.href = `/${respuesta.usuario}`;
-				} else {
-					setForm(stateInitial);
-				}
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
+	const { register } = useAuth();
+	const [error, setError] = useState('');
+	const [loading, setLoading] = useState(false);
+
+	async function handleSubmit(e) {
+		e.preventDefault();
+		//validaciones con la contraseña, quitar
+
+		if (password) {
+			return setError('Las contraseñas no coinciden');
+		}
+		//
+		try {
+			setError('');
+			setLoading(true);
+			await register(email, password);
+		} catch {
+			setError('Hubo un error al crear la cuenta');
+		}
+		setLoading(false);
+	}
 
 	return (
 		<div>
-			<form>
+			{error && (
+				<Alert className={classes.alert} severity="error">
+					{error}
+				</Alert>
+			)}
+			<form onChange={handleSubmit}>
 				<div className={classes.root}>
 					<TextField
 						className={classes.element}
-						value={form.correo}
+						value={email}
 						name="correo"
-						onChange={handleChange}
+						onChange={(event) => setEmail(event.target.value)}
 						id="correo"
 						label="Correo"
 						variant="outlined"
@@ -106,10 +84,10 @@ const FormLogin = (props) => {
 					/>
 					<TextField
 						className={classes.element}
-						value={form.contrasena}
+						value={password}
 						type="password"
 						name="contrasena"
-						onChange={handleChange}
+						onChange={(event) => setPassword(event.target.value)}
 						id="contraseña"
 						label="Password"
 						variant="outlined"
@@ -125,10 +103,12 @@ const FormLogin = (props) => {
 						variant="contained"
 						className={classes.btn_Style}
 						color="primary"
-						onClick={() => iniciarSesion()}
+						disabled={loading}
+						type="submit"
 					>
 						Iniciar Sesion
 					</Button>
+
 					<NavLink exact to="/register">
 						<Button
 							variant="contained"
@@ -142,11 +122,4 @@ const FormLogin = (props) => {
 			</form>
 		</div>
 	);
-};
-
-const mapDispatchToProps = {
-	onClick_Iniciar_Sesion,
-	onClick_Cerrar_Sesion,
-};
-
-export default connect(null, mapDispatchToProps)(FormLogin);
+}

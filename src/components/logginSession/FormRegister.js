@@ -6,23 +6,12 @@ import {
 	Button,
 	TextField,
 } from '@material-ui/core';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+//import AccountCircle from '@material-ui/icons/AccountCircle';
+import { Alert } from '@material-ui/lab';
 import LockIcon from '@material-ui/icons/Lock';
 import EmailIcon from '@material-ui/icons/Email';
-import axios from 'axios';
-import md5 from 'md5';
-import Cookies from 'universal-cookie';
-import { connect } from 'react-redux';
-import {
-	onClick_Iniciar_Sesion,
-	onClick_Cerrar_Sesion,
-	SESION_INICIADA,
-	SESION_CERRADA,
-} from '../../redux/actions/LoginAction';
 
-const DBURL = 'http://localhost:3001/usuarios';
-
-const cookies = new Cookies();
+import { useAuth } from '../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -37,63 +26,54 @@ const useStyles = makeStyles((theme) => ({
 	element: {
 		marginTop: '1rem',
 	},
+	alert: {
+		marginTop: '2rem',
+	},
 }));
-
-const stateInitial = {
-	correo: '',
-	usuario: '',
-	contrasena: '',
-	confirmar_contrasena: ''
-};
-
-const FormLogin = (props) => {
-	const [form, setForm] = useState(stateInitial);
+export default function FormRegister() {
 	const classes = useStyles();
 
-	const handleChange = (e) => {
-		setForm({
-			...form,
-			[e.target.name]: e.target.value,
-		});
-	};
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [passwordConf, setPasswordConf] = useState('');
 
-	const iniciarSesion = async () => {
-		await axios
-			.get(DBURL, {
-				params: { correo: form.correo, contrasena: md5(form.contrasena) },
-			})
-			.then((res) => {
-				//console.log(res.data);
-				return res.data;
-			})
-			.then((res) => {
-				if (res.length > 0) {
-					props.onClick_Iniciar_Sesion(SESION_INICIADA);
-					props.onClick_Cerrar_Sesion(SESION_CERRADA);
-					let respuesta = res[0];
-					cookies.set('id', respuesta.id, { path: '/' });
-					cookies.set('usuario', respuesta.usuario, { path: '/' });
-					cookies.set('nombres', respuesta.nombres, { path: '/' });
-					cookies.set('correo', respuesta.correo, { path: '/' });
-					window.location.href = `/${respuesta.usuario}`;
-				} else {
-					setForm(stateInitial);
-				}
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
+	const { register } = useAuth();
+	const [error, setError] = useState('');
+	const [loading, setLoading] = useState(false);
+
+	async function handleSubmit(e) {
+		e.preventDefault();
+
+		if (password !== passwordConf) {
+			return setError('Las contraseñas no coinciden');
+		} else if (password.length < 6) {
+			return setError('La contraseña debe tener minimo 6 caracteres');
+		}
+		try {
+			setError('');
+			setLoading(true);
+			await register(email, password);
+		} catch {
+			setError('Hubo un error al crear la cuenta');
+		}
+		setLoading(false);
+	}
 
 	return (
 		<div>
-			<form>
+			{error && (
+				<Alert className={classes.alert} severity="error">
+					{error}
+				</Alert>
+			)}
+			<form onSubmit={handleSubmit}>
 				<div className={classes.root}>
 					<TextField
 						className={classes.element}
-						value={form.correo}
+						value={email}
+						onChange={(event) => setEmail(event.target.value)}
+						required
 						name="correo"
-						onChange={handleChange}
 						id="correo"
 						label="Correo"
 						variant="outlined"
@@ -107,26 +87,11 @@ const FormLogin = (props) => {
 					/>
 					<TextField
 						className={classes.element}
-						value={form.usuario}
-						name="username"
-						onChange={handleChange}
-						id="username"
-						label="Username"
-						variant="outlined"
-						InputProps={{
-							startAdornment: (
-								<InputAdornment position="start">
-									<AccountCircle />
-								</InputAdornment>
-							),
-						}}
-					/>
-					<TextField
-						className={classes.element}
-						value={form.contrasena}
+						value={password}
+						onChange={(event) => setPassword(event.target.value)}
+						required
 						type="password"
 						name="contrasena"
-						onChange={handleChange}
 						id="contraseña"
 						label="Contraseña"
 						variant="outlined"
@@ -140,10 +105,11 @@ const FormLogin = (props) => {
 					/>
 					<TextField
 						className={classes.element}
-						value={form.confirmar_contrasena}
+						value={passwordConf}
+						onChange={(event) => setPasswordConf(event.target.value)}
+						required
 						type="password"
 						name="confirmar_contrasena"
-						onChange={handleChange}
 						id="confirmar_contraseña"
 						label="Confirmar contraseña"
 						variant="outlined"
@@ -159,6 +125,8 @@ const FormLogin = (props) => {
 						variant="contained"
 						className={classes.btn_Style}
 						color="primary"
+						disabled={loading}
+						type="submit"
 					>
 						Registrate
 					</Button>
@@ -166,11 +134,11 @@ const FormLogin = (props) => {
 			</form>
 		</div>
 	);
-};
-
+}
+/*
 const mapDispatchToProps = {
 	onClick_Iniciar_Sesion,
 	onClick_Cerrar_Sesion,
 };
-
-export default connect(null, mapDispatchToProps)(FormLogin);
+*/
+//export default connect(null, mapDispatchToProps)(FormLogin);

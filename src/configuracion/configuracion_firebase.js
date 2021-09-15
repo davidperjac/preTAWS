@@ -1,15 +1,14 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+//import { getAnalytics } from 'firebase/analytics';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-const firebase = require('firebase');
-require('firebase/firestore');
+//const firebase = require('firebase');
+//require('firebase/firestore');
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+const app = firebase.initializeApp({
 	apiKey: 'AIzaSyBhtgueuHzaA1k6Vwc6f-GnQ4U0gc63Dns',
 	authDomain: 'pretaws6.firebaseapp.com',
 	projectId: 'pretaws6',
@@ -17,12 +16,13 @@ const firebaseConfig = {
 	messagingSenderId: '350783653778',
 	appId: '1:350783653778:web:887e16cdf2cf35b257a34b',
 	measurementId: 'G-B8BJJ11ZE5',
-};
+});
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const auth = app.auth();
+
 //const analytics = getAnalytics(app);
 
-export const db = firebase.firestore();
-export const storage = firebase.storage();
-
+export default app;
+//export const db = firebase.firestore();
+//export const storage = firebase.storage();
