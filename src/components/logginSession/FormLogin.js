@@ -8,10 +8,10 @@ import {
 } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
+import { Alert } from '@material-ui/lab';
 
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
 	element: {
 		marginTop: '1rem',
 	},
+	alert: {
+		marginTop: '2rem',
+	},
 }));
 
 export default function FormLogin() {
@@ -35,24 +38,25 @@ export default function FormLogin() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
-	const { register } = useAuth();
+	const { login } = useAuth();
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
 
 	async function handleSubmit(e) {
 		e.preventDefault();
 		//validaciones con la contraseña, quitar
-
+		/*
 		if (password) {
 			return setError('Las contraseñas no coinciden');
 		}
+		*/
 		//
 		try {
 			setError('');
 			setLoading(true);
-			await register(email, password);
+			await login(email.trim(), password);
 		} catch {
-			setError('Hubo un error al crear la cuenta');
+			setError('Hubo un error al iniciar sesion');
 		}
 		setLoading(false);
 	}
@@ -64,13 +68,13 @@ export default function FormLogin() {
 					{error}
 				</Alert>
 			)}
-			<form onChange={handleSubmit}>
+			<form onSubmit={handleSubmit}>
 				<div className={classes.root}>
 					<TextField
 						className={classes.element}
 						value={email}
 						name="correo"
-						onChange={(event) => setEmail(event.target.value)}
+						onChange={(event) => setEmail(event.target.value.trim())}
 						id="correo"
 						label="Correo"
 						variant="outlined"
@@ -99,16 +103,17 @@ export default function FormLogin() {
 							),
 						}}
 					/>
-					<Button
-						variant="contained"
-						className={classes.btn_Style}
-						color="primary"
-						disabled={loading}
-						type="submit"
-					>
-						Iniciar Sesion
-					</Button>
-
+					<NavLink exact to="/">
+						<Button
+							variant="contained"
+							className={classes.btn_Style}
+							color="primary"
+							disabled={loading}
+							type="submit"
+						>
+							Iniciar Sesion
+						</Button>
+					</NavLink>
 					<NavLink exact to="/register">
 						<Button
 							variant="contained"

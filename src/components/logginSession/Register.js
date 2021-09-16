@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Logo from '../Landing/logo.png';
 import { Provider } from 'react-redux';
-import {store} from '../../redux/store';
+import { store } from '../../redux/store';
 import fondoR from './fondoR.jpeg';
 import { Grid } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
 	logo: {
 		paddingBottom: '5vh',
 	},
+	login: {
+		marginTop: '1.5rem',
+		marginLeft: '4rem',
+	},
 }));
 
 const Register = () => {
@@ -63,6 +67,12 @@ const Register = () => {
 								Cree una nueva cuenta
 							</Typography>
 							<FormRegister />
+							<Typography variant="p" component="p" className={classes.login}>
+								Ya tienes una cuenta?{' '}
+								<NavLink exacto to="login">
+									Inicia Sesion{' '}
+								</NavLink>
+							</Typography>
 						</div>
 					</Grid>
 				</Grid>
