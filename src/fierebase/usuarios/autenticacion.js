@@ -19,8 +19,21 @@ autenticacion.crearUsuario = (correo , contrasena) => {
     });
 }
 
-autenticacion.accederUsuario = () => {
-
+autenticacion.accederUsuario = (correo , contrasena) => {
+    auth.signInWithEmailAndPassword(correo , contrasena)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            const id = user.uid;
+            console.log('Usuario creado');
+            return id
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error('Codigo de error : ' , errorCode);
+            console.error('Mensaje de error: ' , errorMessage);
+            return null
+        });
 }
 
 autenticacion.cerrarSesion = () => {
@@ -31,8 +44,8 @@ autenticacion.cerrarSesion = () => {
       });
 }
 
-autenticacion.perfilUsuario = ({nombre , usaurio}) => {
-    const user = auth().currentUser;
+autenticacion.actualizarPerfilUsuario = ({nombre , usaurio}) => {
+    const user = auth.currentUser;
 
     if (user !== null) {
         user.updateProfile( {
@@ -45,6 +58,16 @@ autenticacion.perfilUsuario = ({nombre , usaurio}) => {
         });
     } else {
     }    
+}
+
+autenticacion.sesionActiva = () => {
+    const user = auth.currentUser;
+    if( user !== null){
+        const id = user.uid;
+        return id
+    }else { 
+        return null
+    }
 }
 
 export default autenticacion

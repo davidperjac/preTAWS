@@ -1,12 +1,10 @@
 import React from 'react';
 import Button from '@material-ui/core/Button'
 import InputIcon from '@material-ui/icons/Input';
-import Cookies from 'universal-cookie';
 import { connect } from 'react-redux';
 import {onClick_Cerrar_Sesion ,	SESION_CERRADA} from '../../redux/actions/LoginAction';
 import { onClick_CrearPaper , onClick_MiCuenta} from '../../redux/actions/OpcionesUsuarioAction';
 
-const cookies = new Cookies();
 
 const CerrarSesionButton = (props) => {
 
@@ -14,10 +12,6 @@ const CerrarSesionButton = (props) => {
 		props.onClick_Cerrar_Sesion(SESION_CERRADA);
         props.onClick_CrearPaper('');
         //props.onClick_MiCuenta('');
-        cookies.remove('id', { path: '/' });
-		cookies.remove('usuario', { path: '/' });
-		cookies.remove('nombres', { path: '/' });
-		cookies.remove('correo', { path: '/' });
 		window.location.href = `/`;
 	}
 

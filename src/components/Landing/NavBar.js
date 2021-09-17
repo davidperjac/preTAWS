@@ -1,4 +1,4 @@
-import React  , {useEffect} from 'react';
+import React  , {useEffect ,useState} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import SearchBar from './SearchBar';
@@ -17,7 +17,7 @@ import { NavLink } from 'react-router-dom';
 import CrearPaperButton from './CrearPaperButton';
 import { onClick_CrearPaper } from '../../redux/actions/OpcionesUsuarioAction'
 import CerrarSesionButton from './CerrarSesionButton';
-
+import autenticacion from '../../fierebase/usuarios/autenticacion';
 
 const useStyles = makeStyles((theme) => ({
 	offset: theme.mixins.toolbar,
@@ -48,15 +48,37 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = (props) => {
 	const classes = useStyles();
-	let option = props.login_Reducer.option;
+	const [sesion , setSesion] = useState('');
+	//const [botones , setBotones] = useState(BotonesDefault());
+	
 
 	useEffect(() => {
+		/*if (sesion === SESION_INICIADA) {
+			console.log('SESION INICIADA');
+			setBotones(BotonesSecionIniciada());
+		} 
+		if (sesion === SESION_CERRADA || sesion === '') {
+			console.log('SESION CERRADA');
+			setBotones(BotonesDefault());
+		}*/
+		setSesion(props.login_Reducer.option)
+		const idUser = autenticacion.sesionActiva()
+		if(idUser !== null){
 
-	},)
+		} else{
+
+		}
+
+	},[])
+
+	useEffect(() => {
+		setSesion(props.login_Reducer.option)
+	},[props.login_Reducer])
+
 
 	const renderizadoBotones = () => {
 		//console.log('option:', option);
-		if (option === SESION_INICIADA) {
+		if (sesion === SESION_INICIADA) {
 			console.log('SESION INICIADA');
 			return (
 				<div className={classes.botones}>
@@ -70,7 +92,7 @@ const NavBar = (props) => {
 				</div>
 			);
 		}
-		if (option === SESION_CERRADA || option === '') {
+		if (sesion === SESION_CERRADA || sesion === '') {
 			console.log('SESION CERRADA');
 			return (
 				<div className={classes.botones}>
@@ -95,7 +117,6 @@ const NavBar = (props) => {
 						</NavLink>
 						<SearchBar color={classes.colorElementNavBar} />
 					</div>
-
 					{renderizadoBotones()}
 				</Toolbar>
 			</AppBar>
@@ -103,6 +124,32 @@ const NavBar = (props) => {
 		</div>
 	);
 };
+
+/*
+const BotonesDefault = () => {
+	const classes = useStyles();
+	return (
+		<div className={classes.botones}>
+					<LoginButton color={classes.colorElementNavBar} />
+		</div>
+	);
+}
+
+const BotonesSecionIniciada = () => {
+	const classes = useStyles();
+	return (
+		<div className={classes.botones}>
+			<div className={classes.elementNavBar}>
+				<CrearPaperButton color={classes.colorElementNavBar}/>
+			</div>
+			<div className={classes.elementNavBar}>
+				<MiCuentaButton color={classes.colorElementNavBar} />
+			</div>
+				<CerrarSesionButton color={classes.colorElementNavBar}/>
+		</div>
+	);
+}
+*/
 
 const mapStateToProps = (state) => {
 	return {

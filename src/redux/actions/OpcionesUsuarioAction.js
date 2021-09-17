@@ -1,5 +1,6 @@
 export const MI_CUENTA_CLICK = "MI_CUENTA_CLICK",
-	   CREAR_PAPER_CLICK = "CREAR_PAPER_CLICK";
+	   CREAR_PAPER_CLICK = "CREAR_PAPER_CLICK",
+	   CERRAR_SESION = "CERRAR_SESION";
 
 export const onClick_MiCuenta = (value) => {
 	return {
@@ -14,3 +15,4 @@ export const onClick_CrearPaper = (value) => {
 		payload: value,
 	};
 };
+

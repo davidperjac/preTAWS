@@ -11,8 +11,8 @@ import LockIcon from '@material-ui/icons/Lock';
 import { Alert } from '@material-ui/lab';
 import {connect} from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import {onClick_Iniciar_Sesion,	onClick_Cerrar_Sesion} from '../../redux/actions/LoginAction'
+import {onClick_Iniciar_Sesion,	onClick_Cerrar_Sesion , SESION_INICIADA } from '../../redux/actions/LoginAction'
+import autenticacion from '../../fierebase/usuarios/autenticacion'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -35,10 +35,9 @@ const useStyles = makeStyles((theme) => ({
 const FormLogin = (props) => {
 	const classes = useStyles();
 
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+	const [correo, setCorreo] = useState('');
+	const [contrasena, setContrasena] = useState('');
 
-	const { login } = useAuth();
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
 
@@ -51,14 +50,17 @@ const FormLogin = (props) => {
 		}
 		*/
 		//
-		try {
+
+		const res = autenticacion.accederUsuario(correo , contrasena)
+		
+		if( res !== null ){
+			window.location.href = `/${res}`;
+			props.onClick_Iniciar_Sesion(SESION_INICIADA);
 			setError('');
 			setLoading(true);
-			await login(email.trim(), password);
-		} catch {
-			setError('Hubo un error al iniciar sesion');
+		} else {
+			setError('Error: credenciales no existen');
 		}
-		setLoading(false);
 	}
 
 	return (
@@ -72,9 +74,9 @@ const FormLogin = (props) => {
 				<div className={classes.root}>
 					<TextField
 						className={classes.element}
-						value={email}
+						value={correo}
 						name="correo"
-						onChange={(event) => setEmail(event.target.value.trim())}
+						onChange={(event) => setCorreo(event.target.value.trim())}
 						id="correo"
 						label="Correo"
 						variant="outlined"
@@ -88,10 +90,10 @@ const FormLogin = (props) => {
 					/>
 					<TextField
 						className={classes.element}
-						value={password}
+						value={contrasena}
 						type="password"
 						name="contrasena"
-						onChange={(event) => setPassword(event.target.value)}
+						onChange={(event) => setContrasena(event.target.value)}
 						id="contraseña"
 						label="Password"
 						variant="outlined"
@@ -128,8 +130,7 @@ const FormLogin = (props) => {
 }
 
 const mapDispatchToProps = {
-	onClick_Iniciar_Sesion,
-	onClick_Cerrar_Sesion,
+	onClick_Iniciar_Sesion
 };
 
 export default connect(null,mapDispatchToProps)(FormLogin);
