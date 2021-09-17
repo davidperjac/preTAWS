@@ -12,14 +12,12 @@ import { AuthProvider } from './contexts/AuthContext';
 function App() {
 	return (
 		<Router>
-			<AuthProvider>
 				<Switch>
 					<Route exact path="/" component={Landing} />
 					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/register" component={Register} />
 					<Route exact path="/:usuario" component={Landing} />
 				</Switch>
-			</AuthProvider>
 		</Router>
 	);
 }

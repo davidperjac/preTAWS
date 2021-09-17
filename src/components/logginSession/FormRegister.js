@@ -10,8 +10,8 @@ import {
 import { Alert } from '@material-ui/lab';
 import LockIcon from '@material-ui/icons/Lock';
 import EmailIcon from '@material-ui/icons/Email';
-
-import { useAuth } from '../../contexts/AuthContext';
+import autenticacion from '../../fierebase/usuarios/autenticacion'
+//import { useAuth } from '../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -33,30 +33,34 @@ const useStyles = makeStyles((theme) => ({
 export default function FormRegister() {
 	const classes = useStyles();
 
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [passwordConf, setPasswordConf] = useState('');
+	const [correo, setCorreo] = useState('');
+	const [contrasena, setContrasena] = useState('');
+	const [contrasenaConf, setContrasenaConf] = useState('');
 
-	const { register } = useAuth();
+	//const { register } = useAuth();
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
 
 	async function handleSubmit(e) {
-		e.preventDefault();
+		//e.preventDefault();
 
-		if (password !== passwordConf) {
+		if (contrasena !== contrasenaConf) {
 			return setError('Las contraseñas no coinciden');
-		} else if (password.length < 6) {
+		} else if (contrasena.length < 6) {
 			return setError('La contraseña debe tener minimo 6 caracteres');
 		}
-		try {
-			setError('');
+		console.log(correo)
+		const res = autenticacion.crearUsuario(correo , contrasena);
+		if( !res ){
+			setError('Usuario creado');
 			setLoading(true);
-			await register(email, password);
-		} catch {
+			setCorreo('');
+			setContrasena('');
+			setContrasenaConf('');
+		} else {
 			setError('Hubo un error al crear la cuenta');
-		}
-		setLoading(false);
+		}	
+		
 	}
 
 	return (
@@ -70,8 +74,8 @@ export default function FormRegister() {
 				<div className={classes.root}>
 					<TextField
 						className={classes.element}
-						value={email}
-						onChange={(event) => setEmail(event.target.value)}
+						value={correo}
+						onChange={(event) => setCorreo(event.target.value)}
 						required
 						name="correo"
 						id="correo"
@@ -87,8 +91,8 @@ export default function FormRegister() {
 					/>
 					<TextField
 						className={classes.element}
-						value={password}
-						onChange={(event) => setPassword(event.target.value)}
+						value={contrasena}
+						onChange={(event) => setContrasena(event.target.value)}
 						required
 						type="password"
 						name="contrasena"
@@ -105,8 +109,8 @@ export default function FormRegister() {
 					/>
 					<TextField
 						className={classes.element}
-						value={passwordConf}
-						onChange={(event) => setPasswordConf(event.target.value)}
+						value={contrasenaConf}
+						onChange={(event) => setContrasenaConf(event.target.value)}
 						required
 						type="password"
 						name="confirmar_contrasena"

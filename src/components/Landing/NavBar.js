@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = (props) => {
 	const classes = useStyles();
-	const option = props.login_Reducer.option;
+	let option = props.login_Reducer.option;
 
 	useEffect(() => {
 

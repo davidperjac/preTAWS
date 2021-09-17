@@ -11,9 +11,9 @@ const cookies = new Cookies();
 const CerrarSesionButton = (props) => {
 
 	const cerrarSeccion = () => {
+		props.onClick_Cerrar_Sesion(SESION_CERRADA);
         props.onClick_CrearPaper('');
         //props.onClick_MiCuenta('');
-		props.onClick_Cerrar_Sesion(SESION_CERRADA);
         cookies.remove('id', { path: '/' });
 		cookies.remove('usuario', { path: '/' });
 		cookies.remove('nombres', { path: '/' });

@@ -9,9 +9,10 @@ import {
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import { Alert } from '@material-ui/lab';
-
+import {connect} from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import {onClick_Iniciar_Sesion,	onClick_Cerrar_Sesion} from '../../redux/actions/LoginAction'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -31,8 +32,7 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: '2rem',
 	},
 }));
-
-export default function FormLogin() {
+const FormLogin = (props) => {
 	const classes = useStyles();
 
 	const [email, setEmail] = useState('');
@@ -103,17 +103,15 @@ export default function FormLogin() {
 							),
 						}}
 					/>
-					<NavLink exact to="/">
-						<Button
-							variant="contained"
-							className={classes.btn_Style}
-							color="primary"
-							disabled={loading}
-							type="submit"
-						>
-							Iniciar Sesion
-						</Button>
-					</NavLink>
+					<Button
+						variant="contained"
+						className={classes.btn_Style}
+						color="primary"
+						disabled={loading}
+						type="submit"
+					>
+						Iniciar Sesion
+					</Button>
 					<NavLink exact to="/register">
 						<Button
 							variant="contained"
@@ -128,3 +126,10 @@ export default function FormLogin() {
 		</div>
 	);
 }
+
+const mapDispatchToProps = {
+	onClick_Iniciar_Sesion,
+	onClick_Cerrar_Sesion,
+};
+
+export default connect(null,mapDispatchToProps)(FormLogin);
