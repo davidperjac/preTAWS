@@ -53,25 +53,6 @@ const NavBar = (props) => {
 	
 
 	useEffect(() => {
-		/*if (sesion === SESION_INICIADA) {
-			console.log('SESION INICIADA');
-			setBotones(BotonesSecionIniciada());
-		} 
-		if (sesion === SESION_CERRADA || sesion === '') {
-			console.log('SESION CERRADA');
-			setBotones(BotonesDefault());
-		}*/
-		setSesion(props.login_Reducer.option)
-		const idUser = autenticacion.sesionActiva()
-		if(idUser !== null){
-
-		} else{
-
-		}
-
-	},[])
-
-	useEffect(() => {
 		setSesion(props.login_Reducer.option)
 	},[props.login_Reducer])
 

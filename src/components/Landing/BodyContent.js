@@ -7,7 +7,8 @@ import MiCuentaForm from '../miCuenta/MiCuentaForm';
 import {
 	MI_CUENTA_CLICK,
 	CREAR_PAPER_CLICK,
-} from '../../redux/actions/OpcionesUsuarioAction';
+	SALIR
+} from '../../redux/actions/OpcionesUsuarioAction'
 
 const BodyContent = (props) => {
 	const [state , setState] =  useState();
@@ -26,7 +27,14 @@ const BodyContent = (props) => {
 					<MiCuentaForm />
 				</>
 			);
-		} else {
+		} else if (props.opciones_usuario_Reducer ===  SALIR) {
+			return (
+				<>
+					<FilterBar />
+					<ListPaper />
+				</>
+			);
+		}else  {
 			return (
 				<>
 					<FilterBar />
