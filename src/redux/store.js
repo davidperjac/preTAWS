@@ -14,7 +14,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = createStore(persistedReducer),
 	persistor = persistStore(store);
 
-//export default funcion();
+
+	//export default funcion();
 //export let store = createStore(persistedReducer);
 //export let persistor = persistStore(store);
 

@@ -19,26 +19,39 @@ autenticacion.crearUsuario = (correo , contrasena) => {
     });
 }
 
-autenticacion.accederUsuario = (correo , contrasena) => {
-    auth.signInWithEmailAndPassword(correo , contrasena)
-        .then((userCredential) => {
+autenticacion.accederUsuario = async (correo , contrasena) => {
+    
+    try {
+        const sesion = await auth.signInWithEmailAndPassword(correo , contrasena)
+        const user = sesion.user;
+        const id = user;
+        console.log('Usuario logeado correctamente');
+        return true
+    }catch(error){
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('Codigo de error : ' , errorCode);
+        console.log('Mensaje de error: ' , errorMessage);
+        return false
+    }
+        /*.then((userCredential) => {
             const user = userCredential.user;
-            const id = user.uid;
-            console.log('Usuario creado');
-            return id
+            const id = user;
+            console.log('Usuario logeado correctamente');
+            return true
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.error('Codigo de error : ' , errorCode);
-            console.error('Mensaje de error: ' , errorMessage);
-            return null
-        });
+            console.log('Codigo de error : ' , errorCode);
+            console.log('Mensaje de error: ' , errorMessage);
+            return false
+        });*/
 }
 
 autenticacion.cerrarSesion = () => {
     auth.signOut().then(() => {
-        // Sign-out successful.
+        console.log('Secion de usuario cerrada con exito')
       }).catch((error) => {
         // An error happened.
       });

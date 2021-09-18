@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 //import Typography from '@material-ui/core/Typography';
 import {
 	makeStyles,
@@ -11,8 +11,8 @@ import LockIcon from '@material-ui/icons/Lock';
 import { Alert } from '@material-ui/lab';
 import {connect} from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import {onClick_Iniciar_Sesion,	onClick_Cerrar_Sesion , SESION_INICIADA } from '../../redux/actions/LoginAction'
-import autenticacion from '../../fierebase/usuarios/autenticacion'
+import {onClick_Iniciar_Sesion, SESION_INICIADA } from '../../redux/actions/LoginAction'
+import autenticacion from '../../fierebase/usuarios/autenticacion';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -41,26 +41,28 @@ const FormLogin = (props) => {
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
 
+	useEffect(() => {
+		if(props.login_Reducer.option === SESION_INICIADA){
+			window.location.href = `/`;
+		}
+	},[props.login_Reducer]);
+
 	async function handleSubmit(e) {
 		e.preventDefault();
-		//validaciones con la contraseña, quitar
-		/*
-		if (password) {
-			return setError('Las contraseñas no coinciden');
-		}
-		*/
-		//
-
-		const res = autenticacion.accederUsuario(correo , contrasena)
-		
-		if( res !== null ){
-			window.location.href = `/${res}`;
+		setError('Cargando');
+		setLoading(true);
+		const res = await autenticacion.accederUsuario(correo , contrasena);
+		console.log(res);
+		if( res === true){
 			props.onClick_Iniciar_Sesion(SESION_INICIADA);
+			console.log(props.login_Reducer);
+			//window.location.href = `/${res}`;
 			setError('');
-			setLoading(true);
 		} else {
+			console.log('estoy aqui');
 			setError('Error: credenciales no existen');
 		}
+		setLoading(false);
 	}
 
 	return (
@@ -70,7 +72,7 @@ const FormLogin = (props) => {
 					{error}
 				</Alert>
 			)}
-			<form onSubmit={handleSubmit}>
+			<form>
 				<div className={classes.root}>
 					<TextField
 						className={classes.element}
@@ -110,11 +112,11 @@ const FormLogin = (props) => {
 						className={classes.btn_Style}
 						color="primary"
 						disabled={loading}
-						type="submit"
+						onClick = {(e) => handleSubmit(e)}
 					>
 						Iniciar Sesion
 					</Button>
-					<NavLink exact to="/register">
+					<NavLink exact to="/register" style={{ textDecoration: 'none' }}>
 						<Button
 							variant="contained"
 							className={classes.btn_Style}
@@ -129,8 +131,16 @@ const FormLogin = (props) => {
 	);
 }
 
+
+const mapStateToProps = (state) => {
+	return {
+		login_Reducer: state.login_Reducer,
+	};
+};
+
+
 const mapDispatchToProps = {
 	onClick_Iniciar_Sesion
 };
 
-export default connect(null,mapDispatchToProps)(FormLogin);
+export default connect(mapStateToProps,mapDispatchToProps)(FormLogin);

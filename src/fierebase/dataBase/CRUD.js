@@ -12,22 +12,27 @@ controlador.subirDocumento = (coleccion , documento ) => {
         })
 }
 
-controlador.cargarDocumento = (coleccion , correo) => {
-    db.collection(coleccion).where('correo', '==' , correo )
-        .onSnapshot((querySnapshot) => {
-            let usuario = {
-                usuario: '', 
-                nombre: '',
-                correo: '',
-                contrasena: '',
-                paper : []
+controlador.cargarPaper = () => {
+    db.collection('papers').onSnapshot((querySnapshot) => {
+        let papers = []
+        querySnapshot.forEach( (doc) => {
+            console.log(doc.data());
+            const paper = {
+                "id": doc.id,
+                "titulo": doc.data().titulo,
+                "Autor": doc.data().titulo,
+                "AreaEstudio": doc.data().AreaEstudio,
+                "fecha": doc.data().fecha,
+                "descripcion": doc.data().descripcion,
+                "NumEstrellas": doc.data().NumEstrellas,
+                "tags": doc.data().tags,
+                "gitHub": doc.data().gitHub
+                }
+                papers.push(paper);
             }
-            querySnapshot.forEach((doc) => {
-                usuario.usuario     = doc.data().usuario;
-                usuario.nombre      = doc.data().nombre;
-                usuario.correo      = doc.data().correo;
-                usuario.contrasena  = doc.data().contrasena;
-                usuario.paper       = doc.data().paper;
-            });
-        })
+        );
+        return papers;
+    });
 }
+
+export default controlador;
