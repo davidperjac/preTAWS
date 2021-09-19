@@ -14,7 +14,7 @@ import { NavLink } from 'react-router-dom';
 import {onClick_Iniciar_Sesion, SESION_INICIADA } from '../../redux/actions/LoginAction'
 import autenticacion from '../../fierebase/usuarios/autenticacion';
 import {useHistory} from 'react-router-dom';
-
+import { bindActionCreators } from 'redux'
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
@@ -56,13 +56,13 @@ const FormLogin = (props) => {
 		setLoading(true);
 		const res = await autenticacion.accederUsuario(correo , contrasena);
 		console.log(res);
-		if( res === true){
+		if(res){
 			props.onClick_Iniciar_Sesion(SESION_INICIADA);
 			console.log(props.login_Reducer ,'form');
+			const id = autenticacion.sesionActiva()
+			history.push(`/${id}`);
 			if(props.login_Reducer.option === SESION_INICIADA){
-				const id = autenticacion.sesionActiva()
 				//window.location.href = `/${id}`;
-				history.push(`/${id}`);
 			}
 			setError('');
 		} else {
@@ -146,8 +146,8 @@ const mapStateToProps = (state) => {
 };
 
 
-const mapDispatchToProps = {
-	onClick_Iniciar_Sesion
-};
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+	onClick_Iniciar_Sesion,
+}, dispatch);
 
 export default connect(mapStateToProps,mapDispatchToProps)(FormLogin);
