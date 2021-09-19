@@ -17,7 +17,7 @@ import { NavLink } from 'react-router-dom';
 import CrearPaperButton from './CrearPaperButton';
 import { onClick_CrearPaper } from '../../redux/actions/OpcionesUsuarioAction'
 import CerrarSesionButton from './CerrarSesionButton';
-import autenticacion from '../../fierebase/usuarios/autenticacion';
+//import autenticacion from '../../fierebase/usuarios/autenticacion';
 
 const useStyles = makeStyles((theme) => ({
 	offset: theme.mixins.toolbar,
@@ -48,13 +48,13 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = (props) => {
 	const classes = useStyles();
-	const [sesion , setSesion] = useState('');
+	//const [sesion , setSesion] = useState('');
 	//const [botones , setBotones] = useState(BotonesDefault());
-	
+	const sesion = props.login_Reducer.option;
 
-	useEffect(() => {
+	/*useEffect(() => {
 		setSesion(props.login_Reducer.option)
-	},[props.login_Reducer])
+	},[props.login_Reducer])*/
 
 
 	const renderizadoBotones = () => {

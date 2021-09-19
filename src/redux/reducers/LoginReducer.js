@@ -1,13 +1,13 @@
 import { SESION_INICIADA , SESION_CERRADA } from '../actions/LoginAction';
 
 const state_Initial = {
-    option : SESION_CERRADA
-
+    option : ''
 }
 
 
 const login_Reducer = (state = state_Initial , action) => {
-    switch (action.type) {
+  console.log(action)  
+  switch (action.type) {
         case SESION_INICIADA: {
           return {
             ...state,

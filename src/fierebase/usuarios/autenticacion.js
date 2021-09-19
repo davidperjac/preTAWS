@@ -6,7 +6,7 @@ const autenticacion = {}
 autenticacion.crearUsuario = (correo , contrasena) => {
   auth.createUserWithEmailAndPassword(correo, contrasena)
     .then((userCredential) => {
-        const user = userCredential.user;
+        //const user = userCredential.user;
         console.log('Usuario creado');
         return true
     })
@@ -23,8 +23,8 @@ autenticacion.accederUsuario = async (correo , contrasena) => {
     
     try {
         const sesion = await auth.signInWithEmailAndPassword(correo , contrasena)
-        const user = sesion.user;
-        const id = user;
+        //const user = sesion.user;
+        //const id = user;
         console.log('Usuario logeado correctamente');
         return true
     }catch(error){
@@ -53,7 +53,7 @@ autenticacion.cerrarSesion = () => {
     auth.signOut().then(() => {
         console.log('Secion de usuario cerrada con exito')
       }).catch((error) => {
-        // An error happened.
+        console.log()
       });
 }
 

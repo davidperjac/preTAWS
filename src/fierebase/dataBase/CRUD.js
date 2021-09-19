@@ -16,6 +16,7 @@ controlador.cargarPaper = () => {
     db.collection('papers').onSnapshot((querySnapshot) => {
         let papers = []
         querySnapshot.forEach( (doc) => {
+     
             console.log(doc.data());
             const paper = {
                 "id": doc.id,

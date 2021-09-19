@@ -1,5 +1,5 @@
-import FilterBar from './FilterBar';
-import ListPaper from './ListPaper';
+//import FilterBar from './FilterBar';
+//import ListPaper from './ListPaper';
 import NavBar from './NavBar';
 import Footer from './Footer';
 import BodyContent from './BodyContent';
