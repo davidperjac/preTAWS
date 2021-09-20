@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import FilterBar from './FilterBar';
 import ListPaper from './ListPaper';
 import { connect } from 'react-redux';
@@ -7,13 +7,11 @@ import MiCuentaForm from '../miCuenta/MiCuentaForm';
 import {
 	MI_CUENTA_CLICK,
 	CREAR_PAPER_CLICK,
-	SALIR
-} from '../../redux/actions/OpcionesUsuarioAction'
-import {SESION_CERRADA} from '../../redux/actions/LoginAction'
+	SALIR,
+} from '../../redux/actions/OpcionesUsuarioAction';
+import { SESION_CERRADA } from '../../redux/actions/LoginAction';
 
 const BodyContent = (props) => {
-	
-
 	const renderizadoCuerpo = () => {
 		if (props.opciones_usuario_Reducer === CREAR_PAPER_CLICK) {
 			return (
@@ -27,14 +25,14 @@ const BodyContent = (props) => {
 					<MiCuentaForm />
 				</>
 			);
-		} else if (props.opciones_usuario_Reducer ===  SALIR) {
+		} else if (props.opciones_usuario_Reducer === SALIR) {
 			return (
 				<>
 					<FilterBar />
 					<ListPaper />
 				</>
 			);
-		} else  {
+		} else {
 			return (
 				<>
 					<FilterBar />

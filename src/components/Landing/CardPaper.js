@@ -8,6 +8,7 @@ import { IconButton, Button, Chip, Grid } from '@material-ui/core';
 import './CardPaper.css';
 
 import { CardContent, CardMedia, Typography } from '@material-ui/core';
+import { NavLink, useHistory } from 'react-router-dom';
 
 const useStyle = makeStyles((theme) => ({
 	root: {
@@ -50,6 +51,9 @@ const useStyle = makeStyles((theme) => ({
 		paddingLeft: '25px',
 		margin: 0,
 	},
+	titulo: {
+		marginBottom: '1rem',
+	},
 }));
 
 const CardPaper = ({
@@ -63,6 +67,13 @@ const CardPaper = ({
 	gitHub,
 }) => {
 	const classes = useStyle();
+	const history = useHistory();
+
+	const handleClick = async (e) => {
+		e.preventDefault();
+		const linkTitulo = titulo.toLowerCase().replaceAll(' ', '-');
+		history.push(`/${linkTitulo}`);
+	};
 
 	return (
 		<div styles={{ borderRadius: '2%' }}>
@@ -80,9 +91,21 @@ const CardPaper = ({
 					<Grid item sm={7.2}>
 						<div>
 							<CardContent>
-								<Typography variant="" component="h1">
-									{titulo}
-								</Typography>
+								<NavLink
+									exact
+									to="/vista-paper"
+									style={{ textDecoration: 'none', color: 'black' }}
+								>
+									<div onClick={handleClick}>
+										<Typography
+											variant=""
+											component="h1"
+											className={classes.titulo}
+										>
+											{titulo}
+										</Typography>
+									</div>
+								</NavLink>
 								<div className={classes.extras}>
 									<Typography variant="subtitle2">{autor}</Typography>
 									<Typography variant="subtitle2">{fecha}</Typography>

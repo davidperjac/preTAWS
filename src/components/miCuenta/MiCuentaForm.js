@@ -68,7 +68,7 @@ export const MiCuentaForm = () => {
 	return (
 		<div>
 			<Typography variant="" component="h1" className={classes.llena}>
-				Cambia la informacion de tu cuenta
+				Consulta la informacion de tu cuenta
 			</Typography>
 			<form>
 				<Card className={classes.contenedor}>
