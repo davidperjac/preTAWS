@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import CardPaper from './CardPaper';
 import {connect} from 'react-redux';
-import { POPULAR , ULTIMO , LO_MEJOR } from '../../redux/actions/FilterPaperAction';
+import { POPULAR , ULTIMO  } from '../../redux/actions/FilterPaperAction';
 import controlador from '../../fierebase/dataBase/CRUD';
 
 //const initialData = controlador.cargarPaper()//paper.paper;
