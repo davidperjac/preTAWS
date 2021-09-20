@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import paper from './papers.json';
+//import paper from './papers.json';
 import Typography from '@material-ui/core/Typography';
 import CardPaper from './CardPaper';
 import {connect} from 'react-redux';
 import { POPULAR , ULTIMO , LO_MEJOR } from '../../redux/actions/FilterPaperAction';
 import controlador from '../../fierebase/dataBase/CRUD';
 
-const initialData = paper.paper;
+//const initialData = controlador.cargarPaper()//paper.paper;
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -19,11 +19,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ListPaper = (props) => {
-	const [data, setData] = useState(initialData),
+	const [data, setData] = useState([]),
 		  classes = useStyles(),
 		  option = props.filterPaper_Reducer.option;
 
-	//console.log(props.filterPaper_Reducer);
+	console.log('es',data);
 
 	const ordenar = () => {
 		switch(option){
@@ -35,6 +35,10 @@ const ListPaper = (props) => {
 		}
 		
 	}
+
+	useEffect(()=> {
+		controlador.cargarPaper(setData);
+	},[])
 
 	ordenar();
 
