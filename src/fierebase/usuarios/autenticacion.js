@@ -3,8 +3,20 @@ import { auth } from "../../configuracion/configuracion_firebase";
 
 const autenticacion = {}
 
-autenticacion.crearUsuario = (correo , contrasena) => {
-  auth.createUserWithEmailAndPassword(correo, contrasena)
+autenticacion.crearUsuario = async (correo , contrasena) => {
+    try{
+        await auth.createUserWithEmailAndPassword(correo, contrasena)
+        console.log('Usuario creado');
+        return true
+    }catch(error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error('Codigo de error : ' , errorCode);
+        console.error('Mensaje de error: ' , errorMessage);
+        return false
+    }
+    /*
+    auth.createUserWithEmailAndPassword(correo, contrasena)
     .then((userCredential) => {
         //const user = userCredential.user;
         console.log('Usuario creado');
@@ -17,6 +29,7 @@ autenticacion.crearUsuario = (correo , contrasena) => {
         console.error('Mensaje de error: ' , errorMessage);
         return false
     });
+    */
 }
 
 autenticacion.accederUsuario = async (correo , contrasena) => {

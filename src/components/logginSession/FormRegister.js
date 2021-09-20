@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-//import Typography from '@material-ui/core/Typography';
 import {
 	makeStyles,
 	InputAdornment,
 	Button,
 	TextField,
 } from '@material-ui/core';
-//import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Alert } from '@material-ui/lab';
 import LockIcon from '@material-ui/icons/Lock';
 import EmailIcon from '@material-ui/icons/Email';
 import autenticacion from '../../fierebase/usuarios/autenticacion'
-//import { useAuth } from '../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -36,8 +33,8 @@ export default function FormRegister() {
 	const [correo, setCorreo] = useState('');
 	const [contrasena, setContrasena] = useState('');
 	const [contrasenaConf, setContrasenaConf] = useState('');
-
-	//const { register } = useAuth();
+	const [nombres, setNombres] = useState('');
+	const [usuario, setUsuario] = useState('');
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
 
@@ -72,6 +69,40 @@ export default function FormRegister() {
 			)}
 			<form onSubmit={handleSubmit}>
 				<div className={classes.root}>
+					<TextField
+						className={classes.element}
+						value={nombres}
+						onChange={(event) => setNombres(event.target.value)}
+						required
+						name="nombres"
+						id="nombres"
+						label="nombres"
+						variant="outlined"
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<EmailIcon />
+								</InputAdornment>
+							),
+						}}
+					/>
+					<TextField
+						className={classes.element}
+						value={usuario}
+						onChange={(event) => setUsuario(event.target.value)}
+						required
+						name="usuario"
+						id="usuario"
+						label="usuario"
+						variant="outlined"
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<EmailIcon />
+								</InputAdornment>
+							),
+						}}
+					/>
 					<TextField
 						className={classes.element}
 						value={correo}
