@@ -9,6 +9,8 @@ import { Alert } from '@material-ui/lab';
 import LockIcon from '@material-ui/icons/Lock';
 import EmailIcon from '@material-ui/icons/Email';
 import autenticacion from '../../fierebase/usuarios/autenticacion'
+//import PersonIcon from '@mui/icons-material/Person';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -39,8 +41,8 @@ export default function FormRegister() {
 	const [loading, setLoading] = useState(false);
 
 	async function handleSubmit(e) {
-		//e.preventDefault();
-
+		e.preventDefault();
+		setLoading(true);
 		if (contrasena !== contrasenaConf) {
 			return setError('Las contraseñas no coinciden');
 		} else if (contrasena.length < 6) {
@@ -50,7 +52,7 @@ export default function FormRegister() {
 		const res = autenticacion.crearUsuario(correo , contrasena);
 		if( !res ){
 			setError('Usuario creado');
-			setLoading(true);
+			setLoading(false);
 			setCorreo('');
 			setContrasena('');
 			setContrasenaConf('');
@@ -81,7 +83,7 @@ export default function FormRegister() {
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">
-									<EmailIcon />
+									<PersonOutlineIcon />
 								</InputAdornment>
 							),
 						}}
@@ -98,7 +100,7 @@ export default function FormRegister() {
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">
-									<EmailIcon />
+									<PersonOutlineIcon />
 								</InputAdornment>
 							),
 						}}
@@ -170,10 +172,4 @@ export default function FormRegister() {
 		</div>
 	);
 }
-/*
-const mapDispatchToProps = {
-	onClick_Iniciar_Sesion,
-	onClick_Cerrar_Sesion,
-};
-*/
-//export default connect(null, mapDispatchToProps)(FormLogin);
+

@@ -1,10 +1,21 @@
 import { auth } from '../../configuracion/configuracion_firebase';
+import controlador from '../dataBase/CRUD';
 
 const autenticacion = {};
 
-autenticacion.crearUsuario = async (correo , contrasena) => {
+autenticacion.crearUsuario = async (correo , contrasena , nombre , usuario) => {
     try{
-        await auth.createUserWithEmailAndPassword(correo, contrasena)
+        const userCredential = await auth.createUserWithEmailAndPassword(correo, contrasena)
+        const id = userCredential.user.uid;
+        console.log("id usuario: " ,id);
+        const user = {
+            nombre: nombre,
+            usuario: usuario,
+            correo: correo,
+            contrasena: contrasena,
+            fotoPerfil: ''
+        }
+        controlador.subirDocumento('usaurios' , user , id)
         console.log('Usuario creado');
         return true
     }catch(error) {

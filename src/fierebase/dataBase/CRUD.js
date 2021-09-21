@@ -2,9 +2,8 @@ import { db } from '../../configuracion/configuracion_firebase.js';
 
 const controlador = {};
 
-controlador.subirDocumento = (coleccion, documento) => {
-	db.collection(coleccion)
-		.add(documento)
+controlador.subirDocumento = (coleccion, documento , idDoc) => {
+	db.collection(coleccion).doc(idDoc).set(documento)
 		.then((docRef) => {
 			console.log('Documentoagregado con ID: ', docRef.id);
 		})
