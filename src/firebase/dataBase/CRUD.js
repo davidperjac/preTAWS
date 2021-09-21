@@ -1,16 +1,21 @@
 import { db } from '../../configuracion/configuracion_firebase.js';
+import { collection, addDoc } from 'firebase/firestore';
 
 const controlador = {};
 
 controlador.subirDocumento = (coleccion, documento , idDoc) => {
 	db.collection(coleccion).doc(idDoc).set(documento)
 		.then((docRef) => {
-			console.log('Documentoagregado con ID: ', docRef.id);
+			console.log('Documento agregado con ID: ', docRef.id);
+			return true;
 		})
 		.catch((error) => {
 			console.error('Error al agregar el documento: ', error);
+			return false;
 		});
 };
+
+//controlador.registrarUsuarios = 
 
 controlador.cargarPaper = (setData) => {
 	db.collection('papers').onSnapshot((querySnapshot) => {

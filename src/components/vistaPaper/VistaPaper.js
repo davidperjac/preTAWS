@@ -1,6 +1,14 @@
 import React from 'react';
 
-import { Typography, makeStyles, Card } from '@material-ui/core';
+import {
+	Typography,
+	makeStyles,
+	Card,
+	IconButton,
+	Button,
+} from '@material-ui/core';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import StarRateIcon from '@material-ui/icons/StarRate';
 
 const UseStyles = makeStyles((theme) => ({
 	llena: {
@@ -27,7 +35,6 @@ const UseStyles = makeStyles((theme) => ({
 		display: 'flex',
 		flexDirection: 'column',
 		marginTop: '2rem',
-		justifyContent: 'center',
 		alignItems: 'center',
 		width: '60%',
 		backgroundColor: '#D7D7D7',
@@ -41,9 +48,6 @@ const UseStyles = makeStyles((theme) => ({
 		width: '75%',
 		flexDirection: 'column',
 		marginTop: '2rem',
-	},
-	inputColor: {
-		backgroundColor: 'white',
 	},
 	subirbtn: {
 		marginTop: '1.5rem',
@@ -82,9 +86,25 @@ const VistaPaper = ({
 				<Typography variant="" component="h1" className={classes.llena}>
 					Tags
 				</Typography>
+				<Typography variant="" component="h1" className={classes.llena}>
+					Estrellas
+				</Typography>
+				<Button variant="outlined" size="large" color="primary">
+					<StarRateIcon />
+					{numEstrellas}
+				</Button>
+				<Typography variant="" component="h1" className={classes.llena}>
+					GitHub
+				</Typography>
+				<IconButton aria-label="github" color="primary">
+					<GitHubIcon />
+				</IconButton>
+				<Typography variant="" component="h1" className={classes.llena}>
+					Tags
+				</Typography>
 			</Card>
 		</div>
 	);
 };
- 
+
 export default VistaPaper;

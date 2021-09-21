@@ -8,9 +8,8 @@ import {
 import { Alert } from '@material-ui/lab';
 import LockIcon from '@material-ui/icons/Lock';
 import EmailIcon from '@material-ui/icons/Email';
-import autenticacion from '../../fierebase/usuarios/autenticacion'
-//import PersonIcon from '@mui/icons-material/Person';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import autenticacion from '../../firebase/usuarios/autenticacion';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -38,11 +37,13 @@ export default function FormRegister() {
 	const [nombres, setNombres] = useState('');
 	const [usuario, setUsuario] = useState('');
 	const [error, setError] = useState('');
+	const [cargando, setCargando] = useState('');
 	const [loading, setLoading] = useState(false);
 
 	async function handleSubmit(e) {
 		e.preventDefault();
 		setLoading(true);
+		setCargando('creando usuario')
 		if (contrasena !== contrasenaConf) {
 			return setError('Las contraseñas no coinciden');
 		} else if (contrasena.length < 6) {
@@ -50,23 +51,29 @@ export default function FormRegister() {
 		}
 		console.log(correo)
 		const res = autenticacion.crearUsuario(correo , contrasena);
-		if( !res ){
-			setError('Usuario creado');
-			setLoading(false);
+		if( res ){
+			setCargando('Usuario creado');
 			setCorreo('');
 			setContrasena('');
 			setContrasenaConf('');
+			setNombres('');
+			setUsuario('');
 		} else {
+			setCargando('');
 			setError('Hubo un error al crear la cuenta');
-		}	
-		
+		}
+		setLoading(false);
 	}
-
 	return (
 		<div>
 			{error && (
 				<Alert className={classes.alert} severity="error">
 					{error}
+				</Alert>
+			)}
+			{cargando && (
+				<Alert className={classes.alert} severity="info">
+					{cargando}
 				</Alert>
 			)}
 			<form onSubmit={handleSubmit}>
@@ -78,12 +85,12 @@ export default function FormRegister() {
 						required
 						name="nombres"
 						id="nombres"
-						label="nombres"
+						label="Nombres"
 						variant="outlined"
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">
-									<PersonOutlineIcon />
+									<AccountCircleIcon />
 								</InputAdornment>
 							),
 						}}
@@ -95,12 +102,12 @@ export default function FormRegister() {
 						required
 						name="usuario"
 						id="usuario"
-						label="usuario"
+						label="Username"
 						variant="outlined"
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">
-									<PersonOutlineIcon />
+									<AccountCircleIcon />
 								</InputAdornment>
 							),
 						}}

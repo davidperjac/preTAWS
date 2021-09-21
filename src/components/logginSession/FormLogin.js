@@ -15,7 +15,7 @@ import {
 	onClick_Iniciar_Sesion,
 	SESION_INICIADA,
 } from '../../redux/actions/LoginAction';
-import autenticacion from '../../fierebase/usuarios/autenticacion';
+import autenticacion from '../../firebase/usuarios/autenticacion';
 import { useHistory } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 const useStyles = makeStyles((theme) => ({

@@ -15,9 +15,13 @@ autenticacion.crearUsuario = async (correo , contrasena , nombre , usuario) => {
             contrasena: contrasena,
             fotoPerfil: ''
         }
-        controlador.subirDocumento('usaurios' , user , id)
-        console.log('Usuario creado');
-        return true
+        const value = controlador.subirDocumento('usaurios' , user , id)
+		if(value){
+			console.log('Usuario creado');
+			return true
+		}
+        console.log('Usuario no registrado en la base de datos');
+        return false;
     }catch(error) {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -26,6 +30,7 @@ autenticacion.crearUsuario = async (correo , contrasena , nombre , usuario) => {
         return false
     }
     /*
+
     auth.createUserWithEmailAndPassword(correo, contrasena)
     .then((userCredential) => {
         //const user = userCredential.user;
@@ -40,24 +45,23 @@ autenticacion.crearUsuario = async (correo , contrasena , nombre , usuario) => {
         return false
     });
     */
-}
+};
 
-autenticacion.accederUsuario = async (correo , contrasena) => {
-    
-    try {
-        const sesion = await auth.signInWithEmailAndPassword(correo , contrasena)
-        //const user = sesion.user;
-        //const id = user;
-        console.log('Usuario logeado correctamente');
-        return true
-    }catch(error){
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log('Codigo de error : ' , errorCode);
-        console.log('Mensaje de error: ' , errorMessage);
-        return false
-    }
-        /*.then((userCredential) => {
+autenticacion.accederUsuario = async (correo, contrasena) => {
+	try {
+		const sesion = await auth.signInWithEmailAndPassword(correo, contrasena);
+		//const user = sesion.user;
+		//const id = user;
+		console.log('Usuario logeado correctamente');
+		return true;
+	} catch (error) {
+		const errorCode = error.code;
+		const errorMessage = error.message;
+		console.log('Codigo de error : ', errorCode);
+		console.log('Mensaje de error: ', errorMessage);
+		return false;
+	}
+	/*.then((userCredential) => {
 
             const user = userCredential.user;
             const id = user;
