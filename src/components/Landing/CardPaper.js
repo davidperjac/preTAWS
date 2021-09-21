@@ -6,8 +6,14 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import StarRateIcon from '@material-ui/icons/StarRate';
 import { IconButton, Button, Chip, Grid } from '@material-ui/core';
 import './CardPaper.css';
-import {onClick_Paper , PAPER_CLIK} from '../../redux/actions/OpcionesUsuarioAction';
-import {VISTA_PREVIA , onclick_Paper_Title} from '../../redux/actions/PaperVistaPreviaAction'
+import {
+	onClick_Paper,
+	PAPER_CLIK,
+} from '../../redux/actions/OpcionesUsuarioAction';
+import {
+	VISTA_PREVIA,
+	onclick_Paper_Title,
+} from '../../redux/actions/PaperVistaPreviaAction';
 import { connect } from 'react-redux';
 import { CardContent, CardMedia, Typography } from '@material-ui/core';
 import { NavLink, useHistory } from 'react-router-dom';
@@ -68,7 +74,7 @@ const CardPaper = ({
 	tags,
 	gitHub,
 	onClick_Paper,
-	onclick_Paper_Title
+	onclick_Paper_Title,
 }) => {
 	const classes = useStyle();
 	const history = useHistory();
@@ -85,7 +91,7 @@ const CardPaper = ({
 			fecha,
 			numEstrellas,
 			tags,
-			gitHub
+			gitHub,
 		});
 		/*onclick_Paper_Title({
 			autor,
@@ -112,7 +118,6 @@ const CardPaper = ({
 							component="img"
 						/>
 					</Grid>
-
 					<Grid item sm={7.2}>
 						<div>
 							<CardContent>
@@ -142,8 +147,6 @@ const CardPaper = ({
 										component="p"
 										className={classes.descripcion}
 									>
-										{descripcion}
-										<br />
 										{descripcion}
 										<br />
 									</Typography>
@@ -182,7 +185,7 @@ const CardPaper = ({
 
 const mapDispatchToProps = {
 	onClick_Paper,
-	onclick_Paper_Title
-}
+	onclick_Paper_Title,
+};
 
-export default connect(null , mapDispatchToProps)(CardPaper);
+export default connect(null, mapDispatchToProps)(CardPaper);

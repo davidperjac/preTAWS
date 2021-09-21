@@ -1,13 +1,20 @@
-import { Container } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
-import { Box } from '@material-ui/core';
+import { Container, makeStyles, Grid, Box } from '@material-ui/core';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 
+const UseStyles = makeStyles((theme) => ({
+	footer: {
+		position: 'fixed',
+		bottom: 0,
+		width: '100%',
+	},
+}));
+
 export const Footer = () => {
+	const classes = UseStyles();
 	return (
-		<footer className="footer">
+		<footer className={classes.footer}>
 			<Box
 				px={{ xs: 1, sm: 2 }}
 				py={{ xs: 1, sm: 2 }}

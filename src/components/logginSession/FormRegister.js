@@ -8,7 +8,10 @@ import {
 import { Alert } from '@material-ui/lab';
 import LockIcon from '@material-ui/icons/Lock';
 import EmailIcon from '@material-ui/icons/Email';
-import autenticacion from '../../fierebase/usuarios/autenticacion'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import autenticacion from '../../firebase/usuarios/autenticacion';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../configuracion/configuracion_firebase.js';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -36,6 +39,7 @@ export default function FormRegister() {
 	const [nombres, setNombres] = useState('');
 	const [usuario, setUsuario] = useState('');
 	const [error, setError] = useState('');
+	const [cargando, setCargando] = useState('');
 	const [loading, setLoading] = useState(false);
 
 	async function handleSubmit(e) {
@@ -46,25 +50,43 @@ export default function FormRegister() {
 		} else if (contrasena.length < 6) {
 			return setError('La contraseña debe tener minimo 6 caracteres');
 		}
-		console.log(correo)
-		const res = autenticacion.crearUsuario(correo , contrasena);
-		if( !res ){
-			setError('Usuario creado');
+		
+		const res = autenticacion.crearUsuario(correo, contrasena);
+		console.log(res);
+		if (res) {
 			setLoading(true);
 			setCorreo('');
 			setContrasena('');
 			setContrasenaConf('');
+			setError('');
+
+			try {
+				const docRef = await addDoc(collection(db, 'users'), {
+					nombres: nombres,
+					correo: correo,
+					contraseña: contrasena,
+					username: usuario,
+				});
+				setCargando('Creando usuario...');
+				console.log('Document written with ID: ', docRef.id);
+			} catch (e) {
+				setError('Hubo un error al crear la cuenta');
+				console.error('Error adding document: ', e);
+			}
 		} else {
 			setError('Hubo un error al crear la cuenta');
-		}	
-		
+		}
 	}
-
 	return (
 		<div>
 			{error && (
 				<Alert className={classes.alert} severity="error">
 					{error}
+				</Alert>
+			)}
+			{cargando && (
+				<Alert className={classes.alert} severity="info">
+					{cargando}
 				</Alert>
 			)}
 			<form onSubmit={handleSubmit}>
@@ -76,12 +98,12 @@ export default function FormRegister() {
 						required
 						name="nombres"
 						id="nombres"
-						label="nombres"
+						label="Nombres"
 						variant="outlined"
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">
-									<EmailIcon />
+									<AccountCircleIcon />
 								</InputAdornment>
 							),
 						}}
@@ -93,12 +115,12 @@ export default function FormRegister() {
 						required
 						name="usuario"
 						id="usuario"
-						label="usuario"
+						label="Username"
 						variant="outlined"
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">
-									<EmailIcon />
+									<AccountCircleIcon />
 								</InputAdornment>
 							),
 						}}

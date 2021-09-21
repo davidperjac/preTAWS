@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import CardPaper from './CardPaper';
 import { connect } from 'react-redux';
 import { POPULAR, ULTIMO } from '../../redux/actions/FilterPaperAction';
-import controlador from '../../fierebase/dataBase/CRUD';
+import controlador from '../../firebase/dataBase/CRUD';
 
 //const initialData = controlador.cargarPaper()//paper.paper;
 
@@ -47,13 +47,13 @@ const ListPaper = (props) => {
 		<div className={classes.root}>
 			<List>
 				{data.length === 0 ? (
-					<Typography variant="h1">No Hay Paper a mostrar</Typography>
+					<Typography variant="h1">No Hay Papers que mostrar</Typography>
 				) : (
 					data.map((e) => (
 						<ListItem>
 							<CardPaper
-								titulo={e.titulo}
 								autor={e.Autor}
+								titulo={e.titulo}
 								descripcion={e.descripcion}
 								fecha={e.fecha}
 								AreaEstudio={e.AreaEstudio}
