@@ -50,7 +50,7 @@ export default function FormRegister() {
 			return setError('La contraseña debe tener minimo 6 caracteres');
 		}
 		console.log(correo)
-		const res = autenticacion.crearUsuario(correo , contrasena);
+		const res = autenticacion.crearUsuario(correo , contrasena, nombres , usuario) ;
 		if( res ){
 			setCargando('Usuario creado');
 			setCorreo('');

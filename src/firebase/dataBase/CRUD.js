@@ -3,8 +3,18 @@ import { collection, addDoc } from 'firebase/firestore';
 
 const controlador = {};
 
-controlador.subirDocumento = (coleccion, documento , idDoc) => {
-	db.collection(coleccion).doc(idDoc).set(documento)
+controlador.subirDocumento = async (coleccion, documento , idDoc) => {
+	try{
+		console.log(documento);
+		const docRef = await db.collection(coleccion).doc(idDoc);
+		docRef.set(documento);
+		console.log('Documento agregado con ID: ', docRef);
+		return true;
+	}catch(error){
+		console.error('Error al agregar el documento: ', error);
+		return false;
+	}
+	/*db.collection(coleccion).doc(idDoc).set(documento)
 		.then((docRef) => {
 			console.log('Documento agregado con ID: ', docRef.id);
 			return true;
@@ -12,7 +22,7 @@ controlador.subirDocumento = (coleccion, documento , idDoc) => {
 		.catch((error) => {
 			console.error('Error al agregar el documento: ', error);
 			return false;
-		});
+		});*/
 };
 
 //controlador.registrarUsuarios = 

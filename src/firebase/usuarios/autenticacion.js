@@ -9,13 +9,15 @@ autenticacion.crearUsuario = async (correo , contrasena , nombre , usuario) => {
         const id = userCredential.user.uid;
         console.log("id usuario: " ,id);
         const user = {
+			id : id,
             nombre: nombre,
             usuario: usuario,
             correo: correo,
             contrasena: contrasena,
             fotoPerfil: ''
         }
-        const value = controlador.subirDocumento('usaurios' , user , id)
+        const value = controlador.subirDocumento('usuarios' , user , id)
+
 		if(value){
 			console.log('Usuario creado');
 			return true
