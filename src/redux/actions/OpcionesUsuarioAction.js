@@ -1,6 +1,7 @@
 export const MI_CUENTA_CLICK = "MI_CUENTA_CLICK",
 	   CREAR_PAPER_CLICK = "CREAR_PAPER_CLICK",
-	   SALIR = "SALIR";
+	   SALIR = "SALIR",
+	   PAPER_CLIK = "PAPER_CLICK";
 
 export const onClick_MiCuenta = (value) => {
 	return {
@@ -23,3 +24,9 @@ export const onClick_Salir = (value) => {
 	}
 }
 
+export const onClick_Paper = (value ) => {
+	return {
+		type: PAPER_CLIK,
+		payload:value,
+	}
+}

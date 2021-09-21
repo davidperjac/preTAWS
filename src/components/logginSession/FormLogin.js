@@ -9,12 +9,15 @@ import {
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import { Alert } from '@material-ui/lab';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import {onClick_Iniciar_Sesion, SESION_INICIADA } from '../../redux/actions/LoginAction'
+import {
+	onClick_Iniciar_Sesion,
+	SESION_INICIADA,
+} from '../../redux/actions/LoginAction';
 import autenticacion from '../../fierebase/usuarios/autenticacion';
-import {useHistory} from 'react-router-dom';
-import { bindActionCreators } from 'redux'
+import { useHistory } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
@@ -40,8 +43,9 @@ const FormLogin = (props) => {
 	const [contrasena, setContrasena] = useState('');
 
 	const [error, setError] = useState('');
+	const [cargando, setCargando] = useState('');
 	const [loading, setLoading] = useState(false);
-/*
+	/*
 	useEffect(() => {
 		if(props.login_Reducer.option === SESION_INICIADA){
 			window.location.href = `/`;
@@ -52,31 +56,35 @@ const FormLogin = (props) => {
 */
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setError('Cargando');
+		setCargando('Cargando...');
 		setLoading(true);
-		const res = await autenticacion.accederUsuario(correo , contrasena);
+		const res = await autenticacion.accederUsuario(correo, contrasena);
 		console.log(res);
-		if(res){
+		if (res) {
 			props.onClick_Iniciar_Sesion(SESION_INICIADA);
-			console.log(props.login_Reducer ,'form');
-			const id = autenticacion.sesionActiva()
+			console.log(props.login_Reducer, 'form');
+			const id = autenticacion.sesionActiva();
 			history.push(`/${id}`);
-			if(props.login_Reducer.option === SESION_INICIADA){
+			if (props.login_Reducer.option === SESION_INICIADA) {
 				//window.location.href = `/${id}`;
 			}
 			setError('');
 		} else {
-			console.log('estoy aqui');
 			setError('Error: credenciales no existen');
 		}
 		setLoading(false);
-	}
+	};
 
 	return (
 		<div>
 			{error && (
 				<Alert className={classes.alert} severity="error">
 					{error}
+				</Alert>
+			)}
+			{cargando && (
+				<Alert className={classes.alert} severity="info">
+					{cargando}
 				</Alert>
 			)}
 			<form>
@@ -119,7 +127,7 @@ const FormLogin = (props) => {
 						className={classes.btn_Style}
 						color="primary"
 						disabled={loading}
-						onClick = {(e) => handleSubmit(e)}
+						onClick={(e) => handleSubmit(e)}
 					>
 						Iniciar Sesion
 					</Button>
@@ -136,8 +144,7 @@ const FormLogin = (props) => {
 			</form>
 		</div>
 	);
-}
-
+};
 
 const mapStateToProps = (state) => {
 	return {
@@ -145,9 +152,12 @@ const mapStateToProps = (state) => {
 	};
 };
 
+const mapDispatchToProps = (dispatch) =>
+	bindActionCreators(
+		{
+			onClick_Iniciar_Sesion,
+		},
+		dispatch
+	);
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-	onClick_Iniciar_Sesion,
-}, dispatch);
-
-export default connect(mapStateToProps,mapDispatchToProps)(FormLogin);
+export default connect(mapStateToProps, mapDispatchToProps)(FormLogin);

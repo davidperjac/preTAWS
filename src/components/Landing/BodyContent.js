@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import FilterBar from './FilterBar';
 import ListPaper from './ListPaper';
 import { connect } from 'react-redux';
@@ -7,34 +7,41 @@ import MiCuentaForm from '../miCuenta/MiCuentaForm';
 import {
 	MI_CUENTA_CLICK,
 	CREAR_PAPER_CLICK,
-	SALIR
-} from '../../redux/actions/OpcionesUsuarioAction'
-import {SESION_CERRADA} from '../../redux/actions/LoginAction'
+	SALIR,
+	PAPER_CLIK,
+} from '../../redux/actions/OpcionesUsuarioAction';
+import VistaPaper from '../vistaPaper/VistaPaper';
+import { PinDropSharp } from '@material-ui/icons';
 
 const BodyContent = (props) => {
-	
-
 	const renderizadoCuerpo = () => {
-		if (props.opciones_usuario_Reducer === CREAR_PAPER_CLICK) {
+		if (props.opciones_usuario_Reducer.option === CREAR_PAPER_CLICK) {
 			return (
 				<>
 					<CreatePaperForm />
 				</>
 			);
-		} else if (props.opciones_usuario_Reducer === MI_CUENTA_CLICK) {
+		} else if (props.opciones_usuario_Reducer.option === MI_CUENTA_CLICK) {
 			return (
 				<>
 					<MiCuentaForm />
 				</>
 			);
-		} else if (props.opciones_usuario_Reducer ===  SALIR) {
+		} else if (props.opciones_usuario_Reducer.option === SALIR) {
 			return (
 				<>
 					<FilterBar />
 					<ListPaper />
 				</>
 			);
-		} else  {
+		} else if(props.opciones_usuario_Reducer.option === PAPER_CLIK) {
+			return (
+				<>
+					<VistaPaper
+					/>
+				</>
+			);
+		} else {
 			return (
 				<>
 					<FilterBar />
@@ -48,8 +55,8 @@ const BodyContent = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
-		opciones_usuario_Reducer: state.opciones_usuario_Reducer.option,
-		login_Reducer: state.login_Reducer.option,
+		opciones_usuario_Reducer: state.opciones_usuario_Reducer,
+		paper_vista_previa_Reducer: state.paper_vista_previa_Reducer
 	};
 };
 

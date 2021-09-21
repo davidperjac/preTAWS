@@ -1,4 +1,4 @@
-import { MI_CUENTA_CLICK , CREAR_PAPER_CLICK , SALIR} from '../actions/OpcionesUsuarioAction';
+import { MI_CUENTA_CLICK , CREAR_PAPER_CLICK , SALIR, PAPER_CLIK} from '../actions/OpcionesUsuarioAction';
 
 const state_Initial = {
     option : ''
@@ -23,6 +23,12 @@ const opciones_usuario_Reducer = (state = state_Initial , action) => {
           return {
             ...state,
             option: action.payload
+          }
+        }
+        case PAPER_CLIK: {
+          return {
+            ...state,
+            option: action.payload,
           }
         }
         default:

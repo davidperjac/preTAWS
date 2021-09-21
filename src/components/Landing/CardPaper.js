@@ -6,8 +6,11 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import StarRateIcon from '@material-ui/icons/StarRate';
 import { IconButton, Button, Chip, Grid } from '@material-ui/core';
 import './CardPaper.css';
-
+import {onClick_Paper , PAPER_CLIK} from '../../redux/actions/OpcionesUsuarioAction';
+import {VISTA_PREVIA , onclick_Paper_Title} from '../../redux/actions/PaperVistaPreviaAction'
+import { connect } from 'react-redux';
 import { CardContent, CardMedia, Typography } from '@material-ui/core';
+import { NavLink, useHistory } from 'react-router-dom';
 
 const useStyle = makeStyles((theme) => ({
 	root: {
@@ -50,6 +53,9 @@ const useStyle = makeStyles((theme) => ({
 		paddingLeft: '25px',
 		margin: 0,
 	},
+	titulo: {
+		marginBottom: '1rem',
+	},
 }));
 
 const CardPaper = ({
@@ -61,8 +67,38 @@ const CardPaper = ({
 	numEstrellas,
 	tags,
 	gitHub,
+	onClick_Paper,
+	onclick_Paper_Title
 }) => {
 	const classes = useStyle();
+	const history = useHistory();
+
+	const handleClick = async (e) => {
+		e.preventDefault();
+		const linkTitulo = titulo.toLowerCase().replaceAll(' ', '-');
+		history.push(`/${linkTitulo}`);
+		console.log({
+			autor,
+			titulo,
+			descripcion,
+			AreaEstudio,
+			fecha,
+			numEstrellas,
+			tags,
+			gitHub
+		});
+		/*onclick_Paper_Title({
+			autor,
+			titulo,
+			descripcion,
+			AreaEstudio,
+			fecha,
+			numEstrellas,
+			tags,
+			gitHub
+		});*/
+		onClick_Paper(PAPER_CLIK);
+	};
 
 	return (
 		<div styles={{ borderRadius: '2%' }}>
@@ -80,9 +116,21 @@ const CardPaper = ({
 					<Grid item sm={7.2}>
 						<div>
 							<CardContent>
-								<Typography variant="" component="h1">
-									{titulo}
-								</Typography>
+								<NavLink
+									exact
+									to="/vista-paper"
+									style={{ textDecoration: 'none', color: 'black' }}
+								>
+									<div onClick={handleClick}>
+										<Typography
+											variant=""
+											component="h1"
+											className={classes.titulo}
+										>
+											{titulo}
+										</Typography>
+									</div>
+								</NavLink>
 								<div className={classes.extras}>
 									<Typography variant="subtitle2">{autor}</Typography>
 									<Typography variant="subtitle2">{fecha}</Typography>
@@ -132,4 +180,9 @@ const CardPaper = ({
 	);
 };
 
-export default CardPaper;
+const mapDispatchToProps = {
+	onClick_Paper,
+	onclick_Paper_Title
+}
+
+export default connect(null , mapDispatchToProps)(CardPaper);
