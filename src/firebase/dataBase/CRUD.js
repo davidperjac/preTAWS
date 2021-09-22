@@ -1,5 +1,4 @@
 import { db, storage } from '../../configuracion/configuracion_firebase.js';
-import { doc, updateDoc } from 'firebase/firestore';
 import autenticacion from '../usuarios/autenticacion.js';
 import firebase from '@firebase/app-compat';
 
@@ -16,15 +15,6 @@ controlador.subirDocumento = async (coleccion, documento, idDoc) => {
 		console.error('Error al agregar el documento: ', error);
 		return false;
 	}
-	/*db.collection(coleccion).doc(idDoc).set(documento)
-		.then((docRef) => {
-			console.log('Documento agregado con ID: ', docRef.id);
-			return true;
-		})
-		.catch((error) => {
-			console.error('Error al agregar el documento: ', error);
-			return false;
-		});*/
 };
 
 controlador.cargarPaper = (setData) => {
@@ -50,56 +40,31 @@ controlador.cargarPaper = (setData) => {
 	});
 };
 
-/*
-const q = query(collection(db, "cities"), where("capital", "==", true));
-
-const querySnapshot = await getDocs(q);
-querySnapshot.forEach((doc) => {
-  console.log(doc.id, " => ", doc.data());
-});
-*/
-
 controlador.cargarUsuario = (setData) => {
-	db.collection('usuarios').onSnapshot((querySnapshot) => {
-		let users = [];
-		querySnapshot.forEach((doc) => {
-			const user = {
-				id: doc.id,
-				nombre: doc.data().nombre,
-				usuario: doc.data().usuario,
-				correo: doc.data().correo,
-				contrasena: doc.data().contrasena,
-			};
-			users.push(user);
-		});
-		users.forEach((user) => {
-			if (user.id === autenticacion.sesionActiva()) {
-				setData(user);
-			}
-		});
-		//const q = query(collection(db, 'usuarios'), where('capital', '==', true));
-		//setData(users);
+	db.collection('usuarios').doc(autenticacion.sesionActiva())
+	.onSnapshot((doc) => {
+		console.log('datos: ', doc.data);
+		setData(doc.data());
 	});
 };
 
 controlador.subirFoto = (e) => {
 	const file = e.target.files[0];
 
+	const storageRef = storage.ref('imagenes/usuario');
 	// Create the file metadata
 	const metadata = {
 		contentType: 'image/jpeg',
 	};
 
 	// Upload file and metadata to the object 'images/mountains.jpg'
-	const uploadTask = firebase
-		.storage()
-		.ref('images')
+	const uploadTask = storageRef
 		.child(file.name)
 		.put(file, metadata);
 
 	uploadTask.on(
 		firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-		function (snapshot) {
+		(snapshot) => {
 			var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 			console.log('Upload is ' + progress + '% done');
 			switch (snapshot.state) {
@@ -113,33 +78,35 @@ controlador.subirFoto = (e) => {
 					console.log('');
 			}
 		},
-		function (error) {
+		 (error) => {
 			switch (error.code) {
 				case 'storage/unauthorized':
+					console.log('El usuario no tiene permiso de acceso');
 					// User doesn't have permission to access the object
 					break;
 
 				case 'storage/canceled':
+					console.log('el usaurio cancelo la carga');
 					// User canceled the upload
 					break;
 
 				case 'storage/unknown':
+					console.log('error:', error.serverResponse);
 					// Unknown error occurred, inspect error.serverResponse
 					break;
 				default:
 					console.log('');
 			}
 		},
-		function () {
-			uploadTask.snapshot.ref
-				.getDownloadURL()
-				.then(async function (downloadURL) {
-					console.log('File available at', downloadURL);
-					const userRef = doc(db, 'usuarios', autenticacion.sesionActiva());
-					await updateDoc(userRef, {
-						fotoPerfil: file.name,
-					});
-				});
+		async () =>{
+					const userRef = await db.collection('usuarios').doc(autenticacion.sesionActiva());//doc(db, 'usuarios', autenticacion.sesionActiva());
+					userRef.update({
+						"fotoPerfil": file.name,
+					}).then(() => {
+						console.log('Documento Actualizado correctamente');
+					}).catch((error) => {
+						console.log('Error: ' , error);
+					})
 		}
 	);
 };

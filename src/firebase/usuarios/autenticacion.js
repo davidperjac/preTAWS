@@ -34,22 +34,7 @@ autenticacion.crearUsuario = async (correo, contrasena, nombre, usuario) => {
 		console.error('Mensaje de error: ', errorMessage);
 		return false;
 	}
-	/*
 
-    auth.createUserWithEmailAndPassword(correo, contrasena)
-    .then((userCredential) => {
-        //const user = userCredential.user;
-        console.log('Usuario creado');
-        return true
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error('Codigo de error : ' , errorCode);
-        console.error('Mensaje de error: ' , errorMessage);
-        return false
-    });
-    */
 };
 
 autenticacion.accederUsuario = async (correo, contrasena) => {
@@ -66,20 +51,7 @@ autenticacion.accederUsuario = async (correo, contrasena) => {
 		console.log('Mensaje de error: ', errorMessage);
 		return false;
 	}
-	/*.then((userCredential) => {
-
-            const user = userCredential.user;
-            const id = user;
-            console.log('Usuario logeado correctamente');
-            return true
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log('Codigo de error : ' , errorCode);
-            console.log('Mensaje de error: ' , errorMessage);
-            return false
-        });*/
+	
 };
 
 autenticacion.cerrarSesion = () => {
