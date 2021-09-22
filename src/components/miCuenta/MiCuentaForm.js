@@ -70,7 +70,7 @@ export const MiCuentaForm = () => {
 	const classes = UseStyles();
 	const [data, setData] = useState([]);
 	//const [imagen, setImagen] = useState(imageAccount);
-	console.log(data);
+	//console.log(data);
 
 	useEffect(() => {
 		controlador.cargarUsuario(setData);

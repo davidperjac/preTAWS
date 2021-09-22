@@ -35,18 +35,41 @@ controlador.cargarPaper = (setData) => {
 			};
 			papers.push(paper);
 		});
-		console.log(papers.length);
 		setData(papers);
 	});
 };
 
-controlador.cargarUsuario = async (setData) => {
-	const documento = await autenticacion.sesionActiva();
+controlador.cargarUsuario = (setData) => {
+	db.collection('usuarios').onSnapshot((querySnapshot) => {
+		let users = [];
+		querySnapshot.forEach((doc) => {
+			console.log(doc.data());
+			const user = {
+				id: doc.id,
+				nombre: doc.data().nombre,
+				usuario: doc.data().usuario,
+				correo: doc.data().correo,
+				contrasena: doc.data().contrasena,
+			};
+			users.push(user);
+		});
+		console.log(users);
+		users.forEach((user) => {
+			if (user.id === autenticacion.sesionActiva()) {
+				setData(user);
+			}
+		});
+	});
+	/*
+	const documento = autenticacion.sesionActiva();
 	console.log('Usuario actuar', documento);
-	db.collection('usuarios').doc(documento).onSnapshot((doc) => {
-		console.log('datos: ', doc.data);
-		setData(doc.data());
-	})
+	db.collection('usuarios')
+		.doc(documento)
+		.onSnapshot((doc) => {
+			console.log('datos: ', doc.data);
+			setData(doc.data());
+		});
+	*/
 };
 
 controlador.subirFoto = (e) => {
@@ -59,9 +82,7 @@ controlador.subirFoto = (e) => {
 	};
 
 	// Upload file and metadata to the object 'images/mountains.jpg'
-	const uploadTask = storageRef
-		.child(file.name)
-		.put(file, metadata);
+	const uploadTask = storageRef.child(file.name).put(file, metadata);
 
 	uploadTask.on(
 		firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -79,7 +100,7 @@ controlador.subirFoto = (e) => {
 					console.log('');
 			}
 		},
-		 (error) => {
+		(error) => {
 			switch (error.code) {
 				case 'storage/unauthorized':
 					console.log('El usuario no tiene permiso de acceso');
@@ -99,16 +120,19 @@ controlador.subirFoto = (e) => {
 					console.log('');
 			}
 		},
-		async () =>{
-			const documento = await autenticacion.sesionActiva(); 
-			const userRef = await db.collection('usuarios').doc(documento);//doc(db, 'usuarios', autenticacion.sesionActiva());
-			userRef.update({
-				"fotoPerfil": file.name,
-			}).then(() => {
-				console.log('Documento Actualizado correctamente');
-			}).catch((error) => {
-				console.log('Error: ' , error);
-			})
+		async () => {
+			const documento = autenticacion.sesionActiva();
+			const userRef = await db.collection('usuarios').doc(documento); //doc(db, 'usuarios', autenticacion.sesionActiva());
+			userRef
+				.update({
+					fotoPerfil: file.name,
+				})
+				.then(() => {
+					console.log('Documento Actualizado correctamente');
+				})
+				.catch((error) => {
+					console.log('Error: ', error);
+				});
 		}
 	);
 };
