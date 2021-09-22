@@ -82,10 +82,11 @@ autenticacion.actualizarPerfilUsuario = ({ nombre, usaurio }) => {
 	}
 };
 
-autenticacion.sesionActiva = () => {
-	const user = auth.currentUser;
+autenticacion.sesionActiva = async () => {
+	const user = await auth.currentUser;
 	if (user !== null) {
 		const id = user.uid;
+		console.log('ide: ', id );
 		return id;
 	} else {
 		return null;

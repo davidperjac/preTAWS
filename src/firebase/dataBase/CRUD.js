@@ -40,12 +40,13 @@ controlador.cargarPaper = (setData) => {
 	});
 };
 
-controlador.cargarUsuario = (setData) => {
-	db.collection('usuarios').doc(autenticacion.sesionActiva())
-	.onSnapshot((doc) => {
+controlador.cargarUsuario = async (setData) => {
+	const documento = await autenticacion.sesionActiva();
+	console.log('Usuario actuar', documento);
+	db.collection('usuarios').doc(documento).onSnapshot((doc) => {
 		console.log('datos: ', doc.data);
 		setData(doc.data());
-	});
+	})
 };
 
 controlador.subirFoto = (e) => {
@@ -99,14 +100,15 @@ controlador.subirFoto = (e) => {
 			}
 		},
 		async () =>{
-					const userRef = await db.collection('usuarios').doc(autenticacion.sesionActiva());//doc(db, 'usuarios', autenticacion.sesionActiva());
-					userRef.update({
-						"fotoPerfil": file.name,
-					}).then(() => {
-						console.log('Documento Actualizado correctamente');
-					}).catch((error) => {
-						console.log('Error: ' , error);
-					})
+			const documento = await autenticacion.sesionActiva(); 
+			const userRef = await db.collection('usuarios').doc(documento);//doc(db, 'usuarios', autenticacion.sesionActiva());
+			userRef.update({
+				"fotoPerfil": file.name,
+			}).then(() => {
+				console.log('Documento Actualizado correctamente');
+			}).catch((error) => {
+				console.log('Error: ' , error);
+			})
 		}
 	);
 };
