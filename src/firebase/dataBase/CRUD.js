@@ -43,10 +43,40 @@ controlador.cargarPaper = (setData) => {
 controlador.cargarUsuario = async (setData) => {
 	const documento = await autenticacion.sesionActiva();
 	console.log('Usuario actuar', documento);
-	db.collection('usuarios').doc(documento).onSnapshot((doc) => {
-		console.log('datos: ', doc.data);
-		setData(doc.data());
-	})
+	try {
+		const value = await db.collection('usuarios').doc(documento).get();
+		const datos = value.data();
+		console.log('datos: ', datos);
+		if(datos === undefined){
+			setData({
+				nombre:'',
+				usuario:'',
+				correo: '',
+				contrasena: ''
+			});
+		}else{
+			setData(datos);
+		}
+	}catch(error){
+		console.error('Error : ' , error);
+	}
+/*	const value = await db.collection('usuarios').doc(documento).get()
+	then((doc) => {
+		const datos = doc.data();
+		console.log('datos: ', datos);
+		if(datos === undefined){
+			setData({
+				nombre:'',
+				usuario:'',
+				correo: '',
+				contrasena: ''
+			});
+		}else{
+			setData(doc.data());
+		}
+	}).catch((error) => {
+		console.error('Error : ' , error);
+	});*/
 };
 
 controlador.subirFoto = (e) => {

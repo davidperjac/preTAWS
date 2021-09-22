@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 //import Typography from '@material-ui/core/Typography';
 import {
 	makeStyles,
@@ -59,8 +59,26 @@ const UseStyles = makeStyles((theme) => ({
 	},
 }));
 
-export const createPaperForm = () => {
+const initialForm = {
+	titulo: '', 
+	descripcion: '', 
+	linkPaper: '',
+	linkRepositorio: '',
+	foto : '',
+	tags: [],
+	colboradores: ''
+}
+
+export const CreatePaperForm = () => {
+	const [form , setForm] = useState(initialForm);
 	const classes = UseStyles();
+
+	const handleChange = (e) => {
+		setForm({
+			...form,
+			e.target.name = e.target.value
+		});
+	}
 	return (
 		<div>
 			<Typography variant="" component="h1" className={classes.llena}>
@@ -76,6 +94,9 @@ export const createPaperForm = () => {
 							id="titulo"
 							variant="outlined"
 							className={classes.element}
+							name="titulo"
+							value={form.titulo}
+							onChange={(e) => handleChange(e)}
 						/>
 						<Typography variant="" component="h3">
 							Descripcion

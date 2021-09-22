@@ -65,10 +65,15 @@ const UseStyles = makeStyles((theme) => ({
 		marginLeft: '12rem',
 	},
 }));
-
+const initialState = {
+	nombre:'',
+	usuario:'',
+	correo: '',
+	contrasena: ''
+}
 export const MiCuentaForm = () => {
 	const classes = UseStyles();
-	const [data, setData] = useState([]);
+	const [data, setData] = useState(initialState);
 	//const [imagen, setImagen] = useState(imageAccount);
 	console.log(data);
 
