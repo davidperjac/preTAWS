@@ -1,14 +1,16 @@
 import React from 'react';
 import {
-	TextField,
 	Card,
 	Typography,
-	CardMedia,
 	Button,
 	makeStyles,
+	Avatar,
 } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import imageAccount from './account.png';
+import { useEffect, useState } from 'react';
+import controlador from '../../firebase/dataBase/CRUD';
+import firebase from '@firebase/app-compat';
 
 const UseStyles = makeStyles((theme) => ({
 	btn_Style: {
@@ -38,8 +40,9 @@ const UseStyles = makeStyles((theme) => ({
 		marginLeft: '18rem',
 		marginBottom: '5rem',
 		borderRadius: '15px',
+		fontSize: 21,
 	},
-	inputs: {
+	texts: {
 		display: 'flex',
 		width: '75%',
 		flexDirection: 'column',
@@ -57,14 +60,26 @@ const UseStyles = makeStyles((theme) => ({
 		marginTop: '1.5rem',
 	},
 	foto: {
-		width: '70%',
-		height: '70%',
-		marginLeft: '6rem',
+		width: '40%',
+		height: '40%',
+		marginLeft: '12rem',
 	},
 }));
 
 export const MiCuentaForm = () => {
 	const classes = UseStyles();
+	const [data, setData] = useState([]);
+	//const [imagen, setImagen] = useState(imageAccount);
+	console.log(data);
+
+	useEffect(() => {
+		controlador.cargarUsuario(setData);
+	}, []);
+
+	function handleUpload(e) {
+		controlador.subirFoto(e);
+	}
+
 	return (
 		<div>
 			<Typography variant="" component="h1" className={classes.llena}>
@@ -72,54 +87,53 @@ export const MiCuentaForm = () => {
 			</Typography>
 			<form>
 				<Card className={classes.contenedor}>
-					<div className={classes.inputs}>
-						<Typography variant="" component="h3">
-							Foto
-						</Typography>
-						<CardMedia
-							className={classes.foto}
-							title="imagen Paper"
-							image={imageAccount}
-							component="img"
+					<div className={classes.texts}>
+						<input
+							hidden
+							className={classes.input}
+							id="foto-perfil"
+							type="file"
+							onChange={handleUpload}
 						/>
-						<Typography variant="" component="h3">
+						<label htmlFor="foto-perfil">
+							<Avatar
+								alt="Remy Sharp"
+								src={imageAccount}
+								sx={{ width: 56, height: 56 }}
+								className={classes.foto}
+							/>
+						</label>
+						<Typography variant="" component="h2">
 							Nombres
 						</Typography>
-						<TextField
-							id="nombres"
-							variant="outlined"
-							className={classes.element}
-						/>
-						<Typography variant="" component="h3">
+						<Typography variant="" component="p">
+							{data.nombre}
+						</Typography>
+						<Typography variant="" component="h2">
 							Usuario
 						</Typography>
-						<TextField
-							id="usuario"
-							variant="outlined"
-							className={classes.element}
-						/>
-						<Typography variant="" component="h3">
+						<Typography variant="" component="p">
+							{data.usuario}
+						</Typography>
+						<Typography variant="" component="h2">
 							Correo
 						</Typography>
-						<TextField
-							id="correo"
-							variant="outlined"
-							className={classes.element}
-						/>
-						<Typography variant="" component="h3">
+						<Typography variant="" component="p">
+							{data.correo}
+						</Typography>
+						<Typography variant="" component="h2">
 							Contraseña
 						</Typography>
-						<TextField
-							id="contraseña"
-							variant="outlined"
-							className={classes.element}
-						/>
+						<Typography variant="" component="p">
+							{data.contrasena}
+						</Typography>
 					</div>
 					<Button
 						variant="contained"
 						className={classes.btn_Style}
 						color="primary"
 						startIcon={<SaveIcon />}
+						type="submit"
 					>
 						GUARDAR CAMBIOS
 					</Button>

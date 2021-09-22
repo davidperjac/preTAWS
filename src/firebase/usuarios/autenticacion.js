@@ -3,35 +3,38 @@ import controlador from '../dataBase/CRUD';
 
 const autenticacion = {};
 
-autenticacion.crearUsuario = async (correo , contrasena , nombre , usuario) => {
-    try{
-        const userCredential = await auth.createUserWithEmailAndPassword(correo, contrasena)
-        const id = userCredential.user.uid;
-        console.log("id usuario: " ,id);
-        const user = {
-			id : id,
-            nombre: nombre,
-            usuario: usuario,
-            correo: correo,
-            contrasena: contrasena,
-            fotoPerfil: ''
-        }
-        const value = controlador.subirDocumento('usuarios' , user , id)
+autenticacion.crearUsuario = async (correo, contrasena, nombre, usuario) => {
+	try {
+		const userCredential = await auth.createUserWithEmailAndPassword(
+			correo,
+			contrasena
+		);
+		const id = userCredential.user.uid;
+		console.log('id usuario: ', id);
+		const user = {
+			id: id,
+			nombre: nombre,
+			usuario: usuario,
+			correo: correo,
+			contrasena: contrasena,
+			fotoPerfil: '',
+		};
+		const value = controlador.subirDocumento('usuarios', user, id);
 
-		if(value){
+		if (value) {
 			console.log('Usuario creado');
-			return true
+			return true;
 		}
-        console.log('Usuario no registrado en la base de datos');
-        return false;
-    }catch(error) {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error('Codigo de error : ' , errorCode);
-        console.error('Mensaje de error: ' , errorMessage);
-        return false
-    }
-    /*
+		console.log('Usuario no registrado en la base de datos');
+		return false;
+	} catch (error) {
+		const errorCode = error.code;
+		const errorMessage = error.message;
+		console.error('Codigo de error : ', errorCode);
+		console.error('Mensaje de error: ', errorMessage);
+		return false;
+	}
+	/*
 
     auth.createUserWithEmailAndPassword(correo, contrasena)
     .then((userCredential) => {
