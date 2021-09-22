@@ -84,7 +84,7 @@ autenticacion.sesionActiva = () => {
 	const user = auth.currentUser;
 	if (user !== null) {
 		const id = user.uid;
-		console.log('ide: ', id);
+		//console.log('ide: ', id);
 		return id;
 	} else {
 		return null;

@@ -43,7 +43,7 @@ controlador.cargarUsuario = (setData) => {
 	db.collection('usuarios').onSnapshot((querySnapshot) => {
 		let users = [];
 		querySnapshot.forEach((doc) => {
-			console.log(doc.data());
+			//console.log(doc.data());
 			const user = {
 				id: doc.id,
 				nombre: doc.data().nombre,
@@ -53,7 +53,7 @@ controlador.cargarUsuario = (setData) => {
 			};
 			users.push(user);
 		});
-		console.log(users);
+		//console.log(users);
 		users.forEach((user) => {
 			if (user.id === autenticacion.sesionActiva()) {
 				setData(user);
@@ -70,6 +70,97 @@ controlador.cargarUsuario = (setData) => {
 			setData(doc.data());
 		});
 	*/
+};
+
+/*
+	var citiesRef = db.collection('cities');
+
+	var query = citiesRef.where('capital', '==', true);
+
+	db.collection("cities").where("capital", "==", true)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+test.firestore.js
+
+*/
+
+controlador.recuperarDoc = async (coleccion, campo) => {
+	/*
+			async () => {
+			const documento = autenticacion.sesionActiva();
+			const userRef = await db.collection('usuarios').doc(documento); //doc(db, 'usuarios', autenticacion.sesionActiva());
+			userRef
+				.update({
+					fotoPerfil: file.name,
+				})
+				.then(() => {
+					console.log('Documento Actualizado correctamente');
+				})
+				.catch((error) => {
+					console.log('Error: ', error);
+				});
+		}
+	*/
+	const campoRef = await db
+		.collection(coleccion)
+		.where(campo, '==', 'ZxA6rFJyWDaHz9KFSabvnlqOEod2');
+	campoRef //autenticacion.sesionActiva())
+		.get()
+		.then((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				// doc.data() is never undefined for query doc snapshots
+				//console.log(doc.id, ' => ', doc.data());
+				const res = doc.data().fotoPerfil;
+				console.log(res);
+				return res;
+			});
+		})
+		.catch((error) => {
+			console.log('Error getting documents: ', error);
+		});
+};
+
+controlador.bajarFoto = (nombrefoto) => {
+	// Create a reference to the file we want to download
+	const storageRef = storage.ref('imagenes/usuario');
+	const starsRef = storageRef.child(nombrefoto);
+
+	// Get the download URL
+	starsRef
+		.getDownloadURL()
+		.then(function (url) {
+			// Insert url into an <img> tag to "download"
+			return url;
+		})
+		.catch(function (error) {
+			switch (error.code) {
+				case 'storage/object-not-found':
+					// File doesn't exist
+					break;
+
+				case 'storage/unauthorized':
+					// User doesn't have permission to access the object
+					break;
+
+				case 'storage/canceled':
+					// User canceled the upload
+					break;
+
+				case 'storage/unknown':
+					// Unknown error occurred, inspect the server response
+					break;
+				default:
+					console.log(error);
+			}
+		});
 };
 
 controlador.subirFoto = (e) => {
