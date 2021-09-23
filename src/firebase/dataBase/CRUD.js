@@ -35,17 +35,19 @@ controlador.cargarPaper = (setData) => {
 	db.collection('papers').onSnapshot((querySnapshot) => {
 		let papers = [];
 		querySnapshot.forEach((doc) => {
-			console.log(doc.data());
+			//console.log(doc.data());
 			const paper = {
 				id: doc.id,
 				titulo: doc.data().titulo,
-				Autor: doc.data().autor,
+				autor: doc.data().autor,
 				AreaEstudio: doc.data().AreaEstudio,
 				fecha: doc.data().fecha,
+				foto: doc.data().foto,
 				descripcion: doc.data().descripcion,
 				NumEstrellas: doc.data().NumEstrellas,
 				tags: doc.data().tags,
-				gitHub: doc.data().gitHub,
+				linkrepo: doc.data().linkrepo,
+				linkpaper: doc.data().linkpaper,
 			};
 			papers.push(paper);
 		});
@@ -54,33 +56,14 @@ controlador.cargarPaper = (setData) => {
 };
 
 controlador.cargarUsuario = (uid, setData) => {
-	const campoRef = db
-		.collection('usuarios')
-		.where('id', '==', uid);
+	const campoRef = db.collection('usuarios').where('id', '==', uid);
 	campoRef
 		.get()
 		.then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				const res = doc.data();
-				console.log('res', res)
+				console.log('res', res);
 				setData(res);
-			});
-		})
-		.catch((error) => {
-			console.log('Error getting documents: ', error);
-		});
-};
-
-controlador.recuperarDoc = (coleccion, campo, setImagen) => {
-	const campoRef = db
-		.collection(coleccion)
-		.where(campo, '==', autenticacion.sesionActiva());
-	campoRef
-		.get()
-		.then((querySnapshot) => {
-			querySnapshot.forEach((doc) => {
-				const res = doc.data().fotoPerfil;
-				setImagen(res);
 			});
 		})
 		.catch((error) => {
@@ -98,7 +81,7 @@ controlador.bajarFoto = (nombrefoto, setUrl, ruta) => {
 		.getDownloadURL()
 		.then(function (url) {
 			// Insert url into an <img> tag to "download"
-			console.log(url);
+			//console.log(url);
 			setUrl(url);
 		})
 		.catch(function (error) {

@@ -63,8 +63,10 @@ const VistaPaper = ({
 	fecha,
 	numEstrellas,
 	tags,
-	gitHub,
-	idPaper
+	linkpaper,
+	linkrepo,
+	colaboradores,
+	idPaper,
 }) => {
 	//const [paper, setPaper] = useState()
 	/* useEffect(() => {
@@ -121,6 +123,12 @@ const VistaPaper = ({
 				<IconButton aria-label="github" color="primary">
 					<GitHubIcon />
 				</IconButton>
+				<Typography variant="" component="h1" className={classes.llena}>
+					Link del Paper
+				</Typography>
+				<Typography variant="" component="h1" className={classes.llena}>
+					Colaboradores
+				</Typography>
 				<Typography variant="" component="h1" className={classes.llena}>
 					Tags
 				</Typography>

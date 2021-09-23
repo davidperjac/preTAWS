@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import { List, ListItem, Box } from '@material-ui/core';
 //import paper from './papers.json';
 import Typography from '@material-ui/core/Typography';
 import CardPaper from './CardPaper';
 import { connect } from 'react-redux';
 import { POPULAR, ULTIMO } from '../../redux/actions/FilterPaperAction';
 import controlador from '../../firebase/dataBase/CRUD';
+//import { CircularProgress } from '@material-ui/lab';
+//import Box from '@mui/material/Box';
 
 //const initialData = controlador.cargarPaper()//paper.paper;
 
@@ -16,10 +17,6 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		justifyContent: 'center',
 	},
-	contPaper: {
-		width: '1300px',
-		maxWidth: '1300px',
-	}
 }));
 
 const ListPaper = (props) => {
@@ -27,7 +24,7 @@ const ListPaper = (props) => {
 		classes = useStyles(),
 		option = props.filterPaper_Reducer.option;
 
-	console.log('es', data);
+	//console.log('es', data);
 
 	const ordenar = () => {
 		switch (option) {
@@ -51,14 +48,11 @@ const ListPaper = (props) => {
 		<div className={classes.root}>
 			<List>
 				{data.length === 0 ? (
-					<Typography variant="h1">No Hay Papers que mostrar</Typography>
+					<Typography variant="h1">No hay papers que mostrar</Typography>
 				) : (
 					data.map((e, idx) => (
-						<ListItem className={classes.contPaper}>
-							<CardPaper
-								key={idx}
-								{...e}
-							/>
+						<ListItem>
+							<CardPaper key={idx} {...e} />
 						</ListItem>
 					))
 				)}

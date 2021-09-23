@@ -79,7 +79,7 @@ export const CreatePaperForm = ({ uid }) => {
 	const [tags, setTags] = useState('');
 
 	useEffect(() => {
-		controlador.cargarUsuario(uid ,setUser);
+		controlador.cargarUsuario(uid, setUser);
 		setAutor(user);
 	}, []);
 
@@ -99,6 +99,7 @@ export const CreatePaperForm = ({ uid }) => {
 			fecha: new Date().toLocaleDateString(),
 			AreaEstudio: areaEstudio,
 			linkrepo: linkrepo,
+			numEstrellas: [],
 			foto: foto,
 			colaboradores: colaboradores.split(','),
 			tags: tags.split(','),
@@ -236,8 +237,8 @@ export const CreatePaperForm = ({ uid }) => {
 
 const mapStateToProps = (state) => {
 	return {
-		uid: state.login_Reducer.uid
-	}
+		uid: state.login_Reducer.uid,
+	};
 };
 
 export default connect(mapStateToProps)(CreatePaperForm);
