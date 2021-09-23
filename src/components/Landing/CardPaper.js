@@ -114,6 +114,7 @@ const CardPaper = ({
         fecha,
         numEstrellas,
         tags,
+		foto,
         likes,
         linkrepo,
         linkpaper,

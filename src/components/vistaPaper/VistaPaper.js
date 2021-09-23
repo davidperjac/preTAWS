@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState , useEffect} from 'react';
 
 import {
 	Typography,
@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import StarRateIcon from '@material-ui/icons/StarRate';
+import controlador from '../../firebase/dataBase/CRUD';
 
 const UseStyles = makeStyles((theme) => ({
 	llena: {
@@ -72,6 +73,7 @@ const VistaPaper = ({
 	numEstrellas,
 	tags,
 	linkpaper,
+	foto,
 	linkrepo,
 	colaboradores,
 	idPaper,
@@ -91,6 +93,7 @@ const VistaPaper = ({
 			</div>
 		);
 	} */
+	const [imagen ,  setImagen] = useState('');
 	console.log('datos:', { autor,
 		titulo,
 		descripcion,
@@ -105,6 +108,13 @@ const VistaPaper = ({
 
 	let t = '';
 	let c = ''
+
+	useEffect(() => {	
+		if(foto){
+			console.log('foto' , foto);
+			controlador.bajarFoto(foto, setImagen, 'papers');
+		}
+	}, []);
 
 	const writeTags = () => {
 		if(tags !== undefined){
@@ -128,6 +138,8 @@ const VistaPaper = ({
 		
 	}
 
+	
+
 	writeTags();
 	writeColaboradores();
 	
@@ -136,10 +148,10 @@ const VistaPaper = ({
 			<Card className={classes.contenedor}>
 				<div className={classes.texts}>
 				<Avatar
-					alt="Remy Sharp"
-					src={{}}
-					sx={{ width: 56, height: 56 }}
-					className={classes.foto}
+						alt="Remy Sharp"
+						src={imagen}
+						sx={{ width: 56, height: 56 }}
+						className={classes.foto}
 				/>
 				<Typography variant="" component="h1" className={classes.llena}>
 					Titulo
