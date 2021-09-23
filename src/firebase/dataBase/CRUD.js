@@ -85,9 +85,9 @@ controlador.recuperarDoc = (coleccion, campo, setImagen) => {
 		});
 };
 
-controlador.bajarFoto = (nombrefoto, setUrl) => {
+controlador.bajarFoto = (nombrefoto, setUrl, ruta) => {
 	// Create a reference to the file we want to download
-	const storageRef = storage.ref('imagenes/usuario/');
+	const storageRef = storage.ref(`imagenes/${ruta}/`);
 	const starsRef = storageRef.child(nombrefoto);
 
 	// Get the download URL
@@ -95,6 +95,7 @@ controlador.bajarFoto = (nombrefoto, setUrl) => {
 		.getDownloadURL()
 		.then(function (url) {
 			// Insert url into an <img> tag to "download"
+			console.log(url);
 			setUrl(url);
 		})
 		.catch(function (error) {

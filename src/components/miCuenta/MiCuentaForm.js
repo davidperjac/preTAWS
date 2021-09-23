@@ -89,7 +89,7 @@ export const MiCuentaForm = () => {
 	useEffect(() => {
 		controlador.cargarUsuario(setData);
 		controlador.recuperarDoc('usuarios', 'id', setNombre);
-		controlador.bajarFoto(nombre, setUrl);
+		controlador.bajarFoto(nombre, setUrl,'usuarios');
 		setImagen(url);
 	}, [nombre, url]);
 
