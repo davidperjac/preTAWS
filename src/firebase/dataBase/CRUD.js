@@ -70,7 +70,7 @@ controlador.cargarPaperDeUsuario = (setData, nombre) => {
 				fecha: doc.data().fecha,
 				foto: doc.data().foto,
 				descripcion: doc.data().descripcion,
-				NumEstrellas: doc.data().NumEstrellas,
+				numEstrellas: doc.data().numEstrellas,
 				tags: doc.data().tags,
 				linkrepo: doc.data().linkrepo,
 				linkpaper: doc.data().linkpaper,
