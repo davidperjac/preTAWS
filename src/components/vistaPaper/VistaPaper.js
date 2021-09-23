@@ -6,12 +6,13 @@ import {
 	Card,
 	IconButton,
 	Button,
-	Avatar,
 	CardMedia,
+	Chip,
 } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import StarRateIcon from '@material-ui/icons/StarRate';
 import controlador from '../../firebase/dataBase/CRUD';
+import DescriptionIcon from '@material-ui/icons/Description';
 
 const UseStyles = makeStyles((theme) => ({
 	llena: {
@@ -30,12 +31,6 @@ const UseStyles = makeStyles((theme) => ({
 		alignItems: 'center',
 		flexDirection: 'column',
 		marginTop: '2rem',
-	},
-	btn_Style: {
-		marginTop: '5rem',
-		padding: '1rem',
-		width: '70%',
-		marginBottom: '2rem',
 	},
 	element: {
 		marginTop: '1rem',
@@ -58,14 +53,11 @@ const UseStyles = makeStyles((theme) => ({
 		marginBottom: '5rem',
 		borderRadius: '15px',
 	},
-	inputs: {
-		display: 'flex',
-		width: '75%',
-		flexDirection: 'column',
-		marginTop: '2rem',
-	},
-	subirbtn: {
-		marginTop: '1.5rem',
+	chips: {
+		marginRight: '1rem',
+		marginLeft: '1rem',
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 }));
 
@@ -112,46 +104,11 @@ const VistaPaper = ({
 		colaboradores,
 	});
 
-	let t = '';
-	let c = '';
-
 	useEffect(() => {
 		if (foto) {
-			console.log('foto', foto);
 			controlador.bajarFoto(foto, setImagen, 'papers');
 		}
 	}, []);
-
-	const writeTags = () => {
-		if (tags !== undefined) {
-			tags.forEach((element) => {
-				if (element !== tags[tags.length - 1]) {
-					t += element + ' , ';
-				} else {
-					t += element;
-				}
-			});
-		} else {
-			t = 'ninguno';
-		}
-	};
-
-	const writeColaboradores = () => {
-		if (colaboradores !== undefined) {
-			colaboradores.forEach((element) => {
-				if (element !== colaboradores[colaboradores.length - 1]) {
-					c += element + ' , ';
-				} else {
-					c += element;
-				}
-			});
-		} else {
-			c = 'ninguno';
-		}
-	};
-
-	writeTags();
-	writeColaboradores();
 
 	return (
 		<div>
@@ -195,7 +152,18 @@ const VistaPaper = ({
 						Tags
 					</Typography>
 					<Typography variant="" component="p" className={classes.llena}>
-						{t}
+						<div className={classes.chips}>
+							{tags.map((tag) => {
+								return (
+									<Chip
+										label={tag}
+										color="primary"
+										clickable
+										className={classes.chips}
+									/>
+								);
+							})}
+						</div>
 					</Typography>
 					<Typography variant="" component="h1" className={classes.llena}>
 						Estrellas
@@ -207,20 +175,35 @@ const VistaPaper = ({
 					<Typography variant="" component="h1" className={classes.llena}>
 						GitHub
 					</Typography>
-					<IconButton aria-label="github" color="primary">
-						<GitHubIcon />
-					</IconButton>
+					<a href={linkrepo}>
+						<IconButton aria-label="github" color="primary">
+							<GitHubIcon />
+						</IconButton>
+					</a>
 					<Typography variant="" component="h1" className={classes.llena}>
 						Link del Paper
 					</Typography>
-					<Typography variant="" component="p" className={classes.llena}>
-						{linkpaper}
-					</Typography>
+					<a href={linkpaper}>
+						<IconButton aria-label="paper" color="primary">
+							<DescriptionIcon />
+						</IconButton>
+					</a>
 					<Typography variant="" component="h1" className={classes.llena}>
 						Colaboradores
 					</Typography>
 					<Typography variant="" component="p" className={classes.llena}>
-						{c}
+						<div className={classes.chips}>
+							{colaboradores.map((colaborador) => {
+								return (
+									<Chip
+										label={colaborador}
+										color="primary"
+										clickable
+										className={classes.chips}
+									/>
+								);
+							})}
+						</div>
 					</Typography>
 				</div>
 			</Card>

@@ -80,57 +80,54 @@ const CardPaper = ({
 	likes = [],
 	linkrepo,
 	linkpaper,
-	onClick_Paper
+	onClick_Paper,
 }) => {
 	const classes = useStyle();
 	const history = useHistory();
 	const [imagen, setImagen] = useState(imagePaper);
 
+	const handleClick = async (e) => {
+		e.preventDefault();
+		const linkTitulo = titulo.toLowerCase().replaceAll(' ', '-');
+		history.push(`/${linkTitulo}`);
+		console.log({
+			autor,
+			titulo,
+			descripcion,
+			AreaEstudio,
+			fecha,
+			numEstrellas,
+			tags,
+			linkrepo,
+		});
 
-  const handleClick = async (e) => {
-    e.preventDefault();
-    const linkTitulo = titulo.toLowerCase().replaceAll(' ', '-');
-    history.push(`/${linkTitulo}`);
-    console.log({
-      autor,
-      titulo,
-      descripcion,
-      AreaEstudio,
-      fecha,
-      numEstrellas,
-      tags,
-      linkrepo,
-    });
-   
 		//controllador.like([ ...likes, uid ])
-    onClick_Paper({ 
-      option: PAPER_CLIK, 
-      datos: {
-        idPaper,
-        autor,
-        titulo,
-        descripcion,
-        AreaEstudio,
-        fecha,
-        numEstrellas,
-        tags,
-		foto,
-        likes,
-        linkrepo,
-        linkpaper,
-        colaboradores
-      } 
-    });
-  };
+		onClick_Paper({
+			option: PAPER_CLIK,
+			datos: {
+				idPaper,
+				autor,
+				titulo,
+				descripcion,
+				AreaEstudio,
+				fecha,
+				numEstrellas,
+				tags,
+				foto,
+				likes,
+				linkrepo,
+				linkpaper,
+				colaboradores,
+			},
+		});
+	};
 
-  useEffect(() => {
+	useEffect(() => {
 		console.log(linkrepo);
 		if (foto !== undefined) {
 			controlador.bajarFoto(foto, setImagen, 'papers');
 		}
 	}, [foto]);
-
-
 
 	const liked = likes.includes(uid);
 	//logic nice
@@ -235,7 +232,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-	onClick_Paper
+	onClick_Paper,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardPaper);
