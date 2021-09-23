@@ -71,8 +71,10 @@ const VistaPaper = ({
 	fecha,
 	numEstrellas,
 	tags,
-	gitHub,
-	id
+	linkpaper,
+	linkrepo,
+	colaboradores,
+	idPaper,
 }) => {
 	//const [paper, setPaper] = useState()
 	/* useEffect(() => {
@@ -96,19 +98,38 @@ const VistaPaper = ({
 		fecha,
 		numEstrellas,
 		tags,
-		gitHub,
-		id}
+		linkpaper,
+		idPaper,
+		colaboradores}
 		);
 
 	let t = '';
+	let c = ''
 
 	const writeTags = () => {
-		tags.forEach(element => {
-			t += element + ' , ';
-		});
+		if(tags !== undefined){
+			tags.forEach(element => {
+				t += element + ' , ';
+			});
+		}else{
+			t= 'ninguno'
+		}
+		
+	}
+
+	const writeColaboradores = () => {
+		if(colaboradores!== undefined){
+			colaboradores.forEach(element => {
+				c += element + ' , ';
+			});
+		}else{
+			c = 'ninguno' 
+		}
+		
 	}
 
 	writeTags();
+	writeColaboradores();
 	
 	return (
 		<div>
@@ -167,6 +188,18 @@ const VistaPaper = ({
 				<IconButton aria-label="github" color="primary">
 					<GitHubIcon />
 				</IconButton>
+				<Typography variant="" component="h1" className={classes.llena}>
+					Link del Paper
+				</Typography>
+				<Typography variant="" component="p" className={classes.llena}>
+					{linkpaper}
+				</Typography>
+				<Typography variant="" component="h1" className={classes.llena}>
+					Colaboradores
+				</Typography>
+				<Typography variant="" component="p" className={classes.llena}>
+					{c}
+				</Typography>
 				</div>
 			</Card>
 		</div>
