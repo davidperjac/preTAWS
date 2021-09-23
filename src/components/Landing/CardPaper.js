@@ -77,7 +77,6 @@ const CardPaper = ({
 	colaboradores,
 	foto,
 	tags,
-	likes = [],
 	linkrepo,
 	linkpaper,
 	onClick_Paper,
@@ -114,7 +113,6 @@ const CardPaper = ({
 				numEstrellas,
 				tags,
 				foto,
-				likes,
 				linkrepo,
 				linkpaper,
 				colaboradores,
@@ -129,17 +127,17 @@ const CardPaper = ({
 		}
 	}, [foto]);
 
-	const liked = likes.includes(uid);
+	//const liked = likes.includes(uid);
 	//logic nice
 
-	const clickLike = () => {
+	/*const clickLike = () => {
 		const liked = likes.includes(uid);
 		if (liked) {
 			//unlike
 			//controllador.unlike(likes.filter((id) => id !== uid));
 		}
 		//controllador.like([...likes, uid]);
-	};
+	};*/
 	return (
 		<div styles={{ borderRadius: '2%' }}>
 			<Card className={classes.root}>
