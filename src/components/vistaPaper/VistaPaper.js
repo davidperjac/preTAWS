@@ -170,7 +170,7 @@ const VistaPaper = ({
 					</Typography>
 					<Button variant="outlined" size="large" color="primary">
 						<StarRateIcon />
-						{numEstrellas? numEstrellas.length: 0}
+						{numEstrellas? numEstrellas.length: '0'}
 					</Button>
 					<Typography variant="" component="h1" className={classes.llena}>
 						GitHub
