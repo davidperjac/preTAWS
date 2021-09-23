@@ -84,7 +84,7 @@ export const CreatePaperForm = () => {
 
 	function handleUpload(e) {
 		controlador.subirFoto(e, 'papers');
-		console.log(e);
+		setFoto(e.target.files[0].name);
 	}
 
 	async function handleSubmit(e) {
@@ -98,7 +98,7 @@ export const CreatePaperForm = () => {
 			fecha: new Date().toLocaleDateString(),
 			AreaEstudio: areaEstudio,
 			linkrepo: linkrepo,
-			foto: foto.name,
+			foto: foto,
 			colaboradores: colaboradores.split(','),
 			tags: tags.split(','),
 		};
