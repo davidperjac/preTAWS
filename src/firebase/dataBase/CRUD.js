@@ -45,7 +45,7 @@ controlador.cargarPaper = (setData) => {
 				fecha: doc.data().fecha,
 				foto: doc.data().foto,
 				descripcion: doc.data().descripcion,
-				NumEstrellas: doc.data().NumEstrellas,
+				numEstrellas: doc.data().numEstrellas,
 				tags: doc.data().tags,
 				linkrepo: doc.data().linkrepo,
 				linkpaper: doc.data().linkpaper,
@@ -202,5 +202,16 @@ controlador.cambiarFoto = async (e) => {
 			console.log('Error: ', error);
 		});
 };
+
+controlador.actualizarDocumento = async (collection, id , addValue) => {
+	const  documento = await db.collection(collection).doc(id);
+	documento.update({
+		numEstrellas: addValue
+	}).then(() => {
+		console.log("Documento actualizado correctamente");
+	}).catch((error) => {
+		console.log("Error: " , error);
+	});
+}
 
 export default controlador;

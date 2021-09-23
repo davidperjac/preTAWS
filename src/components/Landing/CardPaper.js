@@ -66,7 +66,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const CardPaper = ({
-	idPaper,
+	id,
 	uid,
 	autor,
 	titulo,
@@ -84,6 +84,7 @@ const CardPaper = ({
 	const classes = useStyle();
 	const history = useHistory();
 	const [imagen, setImagen] = useState(imagePaper);
+	const [likes , setLikes] = useState(0);
 
 	const handleClick = async (e) => {
 		e.preventDefault();
@@ -104,7 +105,7 @@ const CardPaper = ({
 		onClick_Paper({
 			option: PAPER_CLIK,
 			datos: {
-				idPaper,
+				id,
 				autor,
 				titulo,
 				descripcion,
@@ -119,9 +120,24 @@ const CardPaper = ({
 			},
 		});
 	};
+	useEffect(() => {
+		console.log('paper: ' ,{ id,
+		autor,
+		titulo,
+		descripcion,
+		AreaEstudio,
+		fecha,
+		numEstrellas,
+		tags,
+		foto,
+		linkrepo,
+		linkpaper,
+		colaboradores});
+		numEstrellas?setLikes(numEstrellas.length):setLikes(0)
+	}, [])
 
 	useEffect(() => {
-		console.log(linkrepo);
+		//console.log(linkrepo);
 		if (foto !== undefined) {
 			controlador.bajarFoto(foto, setImagen, 'papers');
 		}
@@ -130,14 +146,19 @@ const CardPaper = ({
 	//const liked = likes.includes(uid);
 	//logic nice
 
-	/*const clickLike = () => {
-		const liked = likes.includes(uid);
-		if (liked) {
-			//unlike
-			//controllador.unlike(likes.filter((id) => id !== uid));
+	const clickLike = () => {
+		console.log('entro');
+		if(numEstrellas !== undefined){
+			console.log('entro');
+			const n = numEstrellas.length;
+			if( !numEstrellas.includes(uid) ){
+				numEstrellas.push(uid);
+				controlador.actualizarDocumento("papers" , id , numEstrellas);
+				setLikes(n+1);
+				console.log('likes',likes);
+			}
 		}
-		//controllador.like([...likes, uid]);
-	};*/
+	};
 	return (
 		<div styles={{ borderRadius: '2%' }}>
 			<Card className={classes.root}>
@@ -208,9 +229,14 @@ const CardPaper = ({
 					</Grid>
 					<Grid item sm={2}>
 						<CardContent className={classes.gitHub}>
-							<Button variant="outlined" size="large" color="primary">
+							<Button 
+								variant="outlined" 
+								size="large" 
+								color="primary" 
+								onClick = {clickLike}
+							>
 								<StarRateIcon />
-								{numEstrellas}
+								{likes}
 							</Button>
 							<a href={linkrepo}>
 								<IconButton aria-label="github" color="primary">

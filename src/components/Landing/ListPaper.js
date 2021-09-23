@@ -41,6 +41,7 @@ const ListPaper = (props) => {
 
 	useEffect(() => {
 		controlador.cargarPaper(setData);
+		console.log('Se vuelve a cargar');
 	}, []);
 
 	ordenar();

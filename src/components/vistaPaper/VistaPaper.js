@@ -73,11 +73,11 @@ const VistaPaper = ({
 	foto,
 	linkrepo,
 	colaboradores,
-	idPaper,
+	id,
 }) => {
 	//const [paper, setPaper] = useState()
 	/* useEffect(() => {
-		controllador.getPaper(idPaper)
+		controllador.getPaper(id)
 		.then((result) => setPaper(result))
 		.catch();
 	}, []) */
@@ -100,7 +100,7 @@ const VistaPaper = ({
 		numEstrellas,
 		tags,
 		linkpaper,
-		idPaper,
+		id,
 		colaboradores,
 	});
 
