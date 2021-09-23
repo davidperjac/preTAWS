@@ -1,4 +1,4 @@
-import React , {useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
 	Typography,
@@ -7,6 +7,7 @@ import {
 	IconButton,
 	Button,
 	Avatar,
+	CardMedia,
 } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import StarRateIcon from '@material-ui/icons/StarRate';
@@ -17,6 +18,10 @@ const UseStyles = makeStyles((theme) => ({
 		paddingBottom: '1rem',
 		paddingTop: '2rem',
 		textAlign: 'center',
+	},
+	cover: {
+		width: '100%',
+		height: '100%',
 	},
 	texts: {
 		display: 'flex',
@@ -93,8 +98,9 @@ const VistaPaper = ({
 			</div>
 		);
 	} */
-	const [imagen ,  setImagen] = useState('');
-	console.log('datos:', { autor,
+	const [imagen, setImagen] = useState('');
+	console.log('datos:', {
+		autor,
 		titulo,
 		descripcion,
 		AreaEstudio,
@@ -103,115 +109,119 @@ const VistaPaper = ({
 		tags,
 		linkpaper,
 		idPaper,
-		colaboradores}
-		);
+		colaboradores,
+	});
 
 	let t = '';
-	let c = ''
+	let c = '';
 
-	useEffect(() => {	
-		if(foto){
-			console.log('foto' , foto);
+	useEffect(() => {
+		if (foto) {
+			console.log('foto', foto);
 			controlador.bajarFoto(foto, setImagen, 'papers');
 		}
 	}, []);
 
 	const writeTags = () => {
-		if(tags !== undefined){
-			tags.forEach(element => {
-				t += element + ' , ';
+		if (tags !== undefined) {
+			tags.forEach((element) => {
+				if (element !== tags[tags.length - 1]) {
+					t += element + ' , ';
+				} else {
+					t += element;
+				}
 			});
-		}else{
-			t= 'ninguno'
+		} else {
+			t = 'ninguno';
 		}
-		
-	}
+	};
 
 	const writeColaboradores = () => {
-		if(colaboradores!== undefined){
-			colaboradores.forEach(element => {
-				c += element + ' , ';
+		if (colaboradores !== undefined) {
+			colaboradores.forEach((element) => {
+				if (element !== colaboradores[colaboradores.length - 1]) {
+					c += element + ' , ';
+				} else {
+					c += element;
+				}
 			});
-		}else{
-			c = 'ninguno' 
+		} else {
+			c = 'ninguno';
 		}
-		
-	}
-
-	
+	};
 
 	writeTags();
 	writeColaboradores();
-	
+
 	return (
 		<div>
 			<Card className={classes.contenedor}>
 				<div className={classes.texts}>
-				<Avatar
-						alt="Remy Sharp"
-						src={imagen}
-						sx={{ width: 56, height: 56 }}
-						className={classes.foto}
-				/>
-				<Typography variant="" component="h1" className={classes.llena}>
-					Titulo
-				</Typography>
-				<Typography variant="" component="p" className={classes.llena}>
-					{titulo}
-				</Typography>
-				<Typography variant="" component="h1" className={classes.llena}>
-					Autor
-				</Typography>
-				<Typography variant="" component="p" className={classes.llena}>
-					{autor}
-				</Typography>
-				<Typography variant="" component="h1" className={classes.llena}>
-					Descripcion
-				</Typography>
+					<CardMedia
+						className={classes.cover}
+						title="imagen Paper"
+						image={imagen}
+						component="img"
+					/>
+					<Typography variant="" component="h1" className={classes.llena}>
+						Titulo
+					</Typography>
+					<Typography variant="" component="p" className={classes.llena}>
+						{titulo}
+					</Typography>
+					<Typography variant="" component="h1" className={classes.llena}>
+						Autor
+					</Typography>
+					<Typography variant="" component="p" className={classes.llena}>
+						{autor}
+					</Typography>
+					<Typography variant="" component="h1" className={classes.llena}>
+						Descripcion
+					</Typography>
 					{descripcion}
-				<Typography variant="" component="h1" className={classes.llena}>
-					Area de Estudio
-				</Typography>
-				<Typography variant="" component="p" className={classes.llena}>
-					{AreaEstudio}
-				</Typography>
-				<Typography variant="" component="h1" className={classes.llena}>
-					Fecha
-				</Typography>
-				<Typography variant="" component="p" className={classes.llena}>
-					{fecha}
-				</Typography>
-				<Typography variant="" component="h1" className={classes.llena}>
-					Tags
-				</Typography>
-				<Typography variant="" component="p" className={classes.llena}>
-					{t}
-				</Typography>
-				<Typography variant="" component="h1" className={classes.llena}>
-					Estrellas
-				</Typography>
-				<Button variant="outlined" size="large" color="primary">
-					<StarRateIcon />
-					{numEstrellas}
-				</Button>
-				<Typography variant="" component="h1" className={classes.llena}>
-					GitHub
-				</Typography>
-				<IconButton aria-label="github" color="primary">
-					<GitHubIcon />
-				</IconButton>
-				<Typography variant="" component="h1" className={classes.llena}>
-					Link del Paper
-				</Typography>
-				<Typography variant="" component="p" className={classes.llena}>
-					{linkpaper}
-				</Typography>
-				<Typography variant="" component="h1" className={classes.llena}>
-					Colaboradores
-				</Typography>
-				<Typography variant="" component="p" className={classes.llena}>
-					{c}
-				</Typography>
+					<Typography variant="" component="h1" className={classes.llena}>
+						Area de Estudio
+					</Typography>
+					<Typography variant="" component="p" className={classes.llena}>
+						{AreaEstudio}
+					</Typography>
+					<Typography variant="" component="h1" className={classes.llena}>
+						Fecha
+					</Typography>
+					<Typography variant="" component="p" className={classes.llena}>
+						{fecha}
+					</Typography>
+					<Typography variant="" component="h1" className={classes.llena}>
+						Tags
+					</Typography>
+					<Typography variant="" component="p" className={classes.llena}>
+						{t}
+					</Typography>
+					<Typography variant="" component="h1" className={classes.llena}>
+						Estrellas
+					</Typography>
+					<Button variant="outlined" size="large" color="primary">
+						<StarRateIcon />
+						{numEstrellas}
+					</Button>
+					<Typography variant="" component="h1" className={classes.llena}>
+						GitHub
+					</Typography>
+					<IconButton aria-label="github" color="primary">
+						<GitHubIcon />
+					</IconButton>
+					<Typography variant="" component="h1" className={classes.llena}>
+						Link del Paper
+					</Typography>
+					<Typography variant="" component="p" className={classes.llena}>
+						{linkpaper}
+					</Typography>
+					<Typography variant="" component="h1" className={classes.llena}>
+						Colaboradores
+					</Typography>
+					<Typography variant="" component="p" className={classes.llena}>
+						{c}
+					</Typography>
 				</div>
 			</Card>
 		</div>
