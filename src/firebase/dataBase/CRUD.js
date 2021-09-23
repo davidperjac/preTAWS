@@ -22,7 +22,7 @@ controlador.subirDocumentosSinID = async (coleccion, documento) => {
 	try {
 		console.log(documento);
 		const docRef = await db.collection(coleccion).doc();
-		docRef.set({ ...documento, likes: [] });
+		docRef.set({ ...documento });
 		console.log('Documento agregado con ID: ', docRef);
 		return true;
 	} catch (error) {
@@ -63,7 +63,7 @@ controlador.cargarUsuario = (uid, setData) => {
 		.then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				const res = doc.data();
-				console.log('res', res);
+				//console.log('res', res);
 				setData(res);
 			});
 		})
@@ -155,22 +155,23 @@ controlador.subirFoto = (e, ruta) => {
 				default:
 					console.log('');
 			}
-		},
-		async () => {
-			const documento = autenticacion.sesionActiva();
-			const userRef = await db.collection('usuarios').doc(documento); //doc(db, 'usuarios', autenticacion.sesionActiva());
-			userRef
-				.update({
-					fotoPerfil: file.name,
-				})
-				.then(() => {
-					console.log('Documento Actualizado correctamente');
-				})
-				.catch((error) => {
-					console.log('Error: ', error);
-				});
 		}
 	);
+};
+controlador.cambiarFoto = async (e) => {
+	const file = e.target.files[0];
+	const documento = autenticacion.sesionActiva();
+	const userRef = await db.collection('usuarios').doc(documento); //doc(db, 'usuarios', autenticacion.sesionActiva());
+	userRef
+		.update({
+			fotoPerfil: file.name,
+		})
+		.then(() => {
+			console.log('Documento Actualizado correctamente');
+		})
+		.catch((error) => {
+			console.log('Error: ', error);
+		});
 };
 
 export default controlador;

@@ -12,7 +12,9 @@ import { connect } from 'react-redux';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
 import controlador from '../../firebase/dataBase/CRUD';
-import { DateRange } from '@material-ui/icons';
+import { Alert } from '@material-ui/lab';
+import { NavLink } from 'react-router-dom';
+//import { DateRange } from '@material-ui/icons';
 
 const UseStyles = makeStyles((theme) => ({
 	btn_Style: {
@@ -66,6 +68,8 @@ export const CreatePaperForm = ({ uid }) => {
 	const classes = UseStyles();
 
 	const [user, setUser] = useState('');
+	const [cargando, setCargando] = useState('');
+	const [error, setError] = useState('');
 
 	const [titulo, setTitulo] = useState('');
 	const [autor, setAutor] = useState('');
@@ -104,21 +108,27 @@ export const CreatePaperForm = ({ uid }) => {
 			colaboradores: colaboradores.split(','),
 			tags: tags.split(','),
 		};
-		console.log(foto);
-		controlador.subirDocumentosSinID('papers', paper);
-
-		setTitulo('');
-		setAutor('');
-		setDescripcion('');
-		setLinkPaper('');
-		setLinkRepo('');
-		setFoto('');
-		setColaboradores('');
-		setTags('');
+		try {
+			controlador.subirDocumentosSinID('papers', paper);
+			setCargando('Paper creado...');
+			setTitulo('');
+			setAutor('');
+			setDescripcion('');
+			setLinkPaper('');
+			setLinkRepo('');
+			setFoto('');
+			setColaboradores('');
+			setTags('');
+		} catch (e) {
+			setCargando('');
+			setError('No se ha podido subir el paper');
+		}
+		setCargando('');
 	}
-
 	return (
 		<div>
+			{cargando && <Alert severity="info">{cargando}</Alert>}
+			{error && <Alert severity="info">{error}</Alert>}
 			<Typography variant="" component="h1" className={classes.llena}>
 				Llena la informacion de tu paper
 			</Typography>
