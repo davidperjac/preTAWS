@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import imagePaper from './paper.jpg';
@@ -105,6 +105,12 @@ const CardPaper = ({
 		});*/
 		onClick_Paper(PAPER_CLIK);
 	};
+	useEffect(() => {
+		//effect;
+		return () => {
+			//cleanup;
+		};
+	}, []);
 
 	return (
 		<div styles={{ borderRadius: '2%' }}>
