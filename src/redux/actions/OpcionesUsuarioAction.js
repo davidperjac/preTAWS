@@ -24,7 +24,7 @@ export const onClick_Salir = (value) => {
 	}
 }
 
-export const onClick_Paper = (value ) => {
+export const onClick_Paper = (value) => {
 	return {
 		type: PAPER_CLIK,
 		payload:value,

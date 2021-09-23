@@ -64,8 +64,23 @@ const VistaPaper = ({
 	numEstrellas,
 	tags,
 	gitHub,
+	idPaper
 }) => {
+	//const [paper, setPaper] = useState()
+	/* useEffect(() => {
+		controllador.getPaper(idPaper)
+		.then((result) => setPaper(result))
+		.catch();
+	}, []) */
 	const classes = UseStyles();
+	/* if (!paper) {
+		//loading component from Material UI
+		return (
+			<div className={classes.llena}>
+				<Typography variant="h5">Cargando...</Typography>
+			</div>
+		);
+	} */
 	return (
 		<div>
 			<Card className={classes.contenedor}>

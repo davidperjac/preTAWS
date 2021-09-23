@@ -58,10 +58,10 @@ const FormLogin = (props) => {
 		e.preventDefault();
 		setCargando('Cargando...');
 		setLoading(true);
-		const res = await autenticacion.accederUsuario(correo, contrasena);
-		console.log(res);
-		if (res) {
-			props.onClick_Iniciar_Sesion(SESION_INICIADA);
+		const uid = await autenticacion.accederUsuario(correo, contrasena);
+		console.log(uid);
+		if (uid) {
+			props.onClick_Iniciar_Sesion({ option: SESION_INICIADA, uid });
 			console.log(props.login_Reducer, 'form');
 			const id = autenticacion.sesionActiva();
 			history.push(`/${id}`);
@@ -147,6 +147,7 @@ const FormLogin = (props) => {
 };
 
 const mapStateToProps = (state) => {
+	console.log('UID: ', state.login_Reducer.uid);
 	return {
 		login_Reducer: state.login_Reducer,
 	};

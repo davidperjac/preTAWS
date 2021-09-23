@@ -1,14 +1,15 @@
 // Import the functions you need from the SDKs you need
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
+import firebase from 'firebase/compat';
+/* import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import 'firebase/compat/storage';
+import 'firebase/compat/storage'; */
 //import { getAnalytics } from 'firebase/analytics';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 //const firebase = require('firebase');
 //require('firebase/firestore');
+
 
 const app = firebase.initializeApp({
 	apiKey: 'AIzaSyBhtgueuHzaA1k6Vwc6f-GnQ4U0gc63Dns',
