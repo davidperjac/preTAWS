@@ -6,6 +6,7 @@ import {
 	Card,
 	IconButton,
 	Button,
+	Avatar,
 } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import StarRateIcon from '@material-ui/icons/StarRate';
@@ -68,6 +69,12 @@ const VistaPaper = ({
 	return (
 		<div>
 			<Card className={classes.contenedor}>
+				<Avatar
+					alt="Remy Sharp"
+					src={{}}
+					sx={{ width: 56, height: 56 }}
+					className={classes.foto}
+				/>
 				<Typography variant="" component="h1" className={classes.llena}>
 					Titulo
 				</Typography>

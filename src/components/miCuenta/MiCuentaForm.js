@@ -5,12 +5,12 @@ import {
 	Button,
 	makeStyles,
 	Avatar,
+	TextField,
 } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import imageAccount from './account.png';
 import { useEffect, useState } from 'react';
 import controlador from '../../firebase/dataBase/CRUD';
-import firebase from '@firebase/app-compat';
 
 const UseStyles = makeStyles((theme) => ({
 	btn_Style: {
@@ -45,6 +45,8 @@ const UseStyles = makeStyles((theme) => ({
 	texts: {
 		display: 'flex',
 		width: '75%',
+		justifyContent: 'center',
+		alignItems: 'center',
 		flexDirection: 'column',
 		marginTop: '2rem',
 	},
@@ -60,9 +62,14 @@ const UseStyles = makeStyles((theme) => ({
 		marginTop: '1.5rem',
 	},
 	foto: {
-		width: '40%',
-		height: '40%',
-		marginLeft: '12rem',
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '30%',
+		height: '30%',
+		marginTop: '2rem',
+		marginLeft: '18.5rem',
 	},
 }));
 
@@ -70,21 +77,18 @@ export const MiCuentaForm = () => {
 	const classes = UseStyles();
 	const [data, setData] = useState([]);
 	const [imagen, setImagen] = useState(imageAccount);
-	//console.log(data);
-
-	async function fetchData() {
-		const foto = await controlador.recuperarDoc('usuarios', 'id');
-		console.log(foto);
-	}
+	const [nombre, setNombre] = useState('');
+	const [url, setUrl] = useState('');
 
 	useEffect(() => {
 		controlador.cargarUsuario(setData);
-		//setImagen(controlador.bajarFoto(foto));
-		fetchData();
-	}, []);
+		controlador.recuperarDoc('usuarios', 'id', setNombre);
+		controlador.bajarFoto(nombre, setUrl);
+		setImagen(url);
+	}, [nombre, url]);
 
 	const handleUpload = (e) => {
-		controlador.subirFoto(e);
+		controlador.subirFoto(e, 'usuarios');
 	};
 
 	return (
@@ -94,46 +98,48 @@ export const MiCuentaForm = () => {
 			</Typography>
 			<form>
 				<Card className={classes.contenedor}>
-					<div className={classes.texts}>
-						<input
-							hidden
-							className={classes.input}
-							id="foto-perfil"
-							type="file"
-							onChange={handleUpload}
+					<input
+						hidden
+						className={classes.input}
+						id="foto-perfil"
+						type="file"
+						onChange={handleUpload}
+					/>
+					<label htmlFor="foto-perfil">
+						<Avatar
+							alt="Remy Sharp"
+							src={imagen}
+							sx={{ width: 56, height: 56 }}
+							className={classes.foto}
 						/>
-						<label htmlFor="foto-perfil">
-							<Avatar
-								alt="Remy Sharp"
-								src={imagen}
-								sx={{ width: 56, height: 56 }}
-								className={classes.foto}
-							/>
-						</label>
-						<Typography variant="" component="h2">
-							Nombres
-						</Typography>
-						<Typography variant="" component="p">
-							{data.nombre}
-						</Typography>
-						<Typography variant="" component="h2">
-							Usuario
-						</Typography>
-						<Typography variant="" component="p">
-							{data.usuario}
-						</Typography>
-						<Typography variant="" component="h2">
-							Correo
-						</Typography>
-						<Typography variant="" component="p">
-							{data.correo}
-						</Typography>
-						<Typography variant="" component="h2">
-							Contraseña
-						</Typography>
-						<Typography variant="" component="p">
-							{data.contrasena}
-						</Typography>
+					</label>
+					<div className={classes.texts}>
+						<div className={classes.texts}>
+							<Typography variant="" component="h2">
+								Nombres
+							</Typography>
+							<Typography variant="" component="p">
+								{data.nombre}
+							</Typography>
+							<Typography variant="" component="h2">
+								Usuario
+							</Typography>
+							<Typography variant="" component="p">
+								{data.usuario}
+							</Typography>
+							<Typography variant="" component="h2">
+								Correo
+							</Typography>
+							<Typography variant="" component="p">
+								{data.correo}
+							</Typography>
+							<Typography variant="" component="h2">
+								Contraseña
+							</Typography>
+							<Typography variant="" component="p">
+								{data.contrasena}
+							</Typography>
+						</div>
 					</div>
 					<Button
 						variant="contained"

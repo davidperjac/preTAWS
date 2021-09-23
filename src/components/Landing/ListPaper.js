@@ -52,7 +52,7 @@ const ListPaper = (props) => {
 					data.map((e) => (
 						<ListItem>
 							<CardPaper
-								autor={e.Autor}
+								autor={e.autor}
 								titulo={e.titulo}
 								descripcion={e.descripcion}
 								fecha={e.fecha}

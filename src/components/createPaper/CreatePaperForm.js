@@ -10,6 +10,9 @@ import {
 } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
+import { useState, useEffect } from 'react';
+import controlador from '../../firebase/dataBase/CRUD';
+import { DateRange } from '@material-ui/icons';
 
 const UseStyles = makeStyles((theme) => ({
 	btn_Style: {
@@ -59,14 +62,65 @@ const UseStyles = makeStyles((theme) => ({
 	},
 }));
 
-export const createPaperForm = () => {
+export const CreatePaperForm = () => {
 	const classes = UseStyles();
+
+	const [user, setUser] = useState('');
+
+	const [titulo, setTitulo] = useState('');
+	const [autor, setAutor] = useState('');
+	const [descripcion, setDescripcion] = useState('');
+	const [linkpaper, setLinkPaper] = useState('');
+	const [linkrepo, setLinkRepo] = useState('');
+	const [areaEstudio, setAreaEstudio] = useState('');
+	const [foto, setFoto] = useState('');
+	const [colaboradores, setColaboradores] = useState('');
+	const [tags, setTags] = useState('');
+
+	useEffect(() => {
+		controlador.cargarUsuario(setUser);
+		setAutor(user);
+	}, [user]);
+
+	function handleUpload(e) {
+		controlador.subirFoto(e, 'papers');
+		console.log(e);
+	}
+
+	async function handleSubmit(e) {
+		e.preventDefault();
+
+		const paper = {
+			titulo: titulo,
+			autor: autor.nombre,
+			descripcion: descripcion,
+			linkpaper: linkpaper,
+			fecha: new Date().toLocaleDateString(),
+			AreaEstudio: areaEstudio,
+			linkrepo: linkrepo,
+			foto: foto.name,
+			colaboradores: colaboradores.split(','),
+			tags: tags.split(','),
+		};
+		console.log(foto);
+		controlador.subirDocumentosSinID('papers', paper);
+
+		setTitulo('');
+		setAutor('');
+		setDescripcion('');
+		setLinkPaper('');
+		setLinkRepo('');
+		setFoto('');
+		setColaboradores('');
+		setTags('');
+	}
+
 	return (
 		<div>
 			<Typography variant="" component="h1" className={classes.llena}>
 				Llena la informacion de tu paper
 			</Typography>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<Card className={classes.contenedor}>
 					<div className={classes.inputs}>
 						<Typography variant="" component="h3">
@@ -76,6 +130,7 @@ export const createPaperForm = () => {
 							id="titulo"
 							variant="outlined"
 							className={classes.element}
+							onChange={(event) => setTitulo(event.target.value)}
 						/>
 						<Typography variant="" component="h3">
 							Descripcion
@@ -86,6 +141,7 @@ export const createPaperForm = () => {
 							rows={4}
 							variant="outlined"
 							className={classes.element}
+							onChange={(event) => setDescripcion(event.target.value)}
 						/>
 						<Typography variant="" component="h3">
 							Link del Paper
@@ -94,6 +150,7 @@ export const createPaperForm = () => {
 							id="link_paper"
 							variant="outlined"
 							className={classes.element}
+							onChange={(event) => setLinkPaper(event.target.value)}
 						/>
 						<Typography variant="" component="h3">
 							Link del Repositorio
@@ -102,6 +159,16 @@ export const createPaperForm = () => {
 							id="link_repo"
 							variant="outlined"
 							className={classes.element}
+							onChange={(event) => setLinkRepo(event.target.value)}
+						/>
+						<Typography variant="" component="h3">
+							Area de Estudio
+						</Typography>
+						<TextField
+							id="area-estudio"
+							variant="outlined"
+							className={classes.element}
+							onChange={(event) => setAreaEstudio(event.target.value)}
 						/>
 						<Grid container>
 							<Grid item xs={12} sm={4}>
@@ -112,17 +179,18 @@ export const createPaperForm = () => {
 									hidden
 									accept="image/*"
 									className={classes.input}
-									id="contained-button-file"
-									multiple
+									id="foto"
 									type="file"
+									onChange={handleUpload}
 								/>
-								<label htmlFor="contained-button-file">
+								<label htmlFor="foto">
 									<Button
 										variant="contained"
 										color="primary"
 										component="span"
 										startIcon={<CloudUploadIcon />}
 										className={classes.subirbtn}
+										onChange={(event) => handleUpload(event)}
 									>
 										SUBE UNA FOTO
 									</Button>
@@ -136,6 +204,7 @@ export const createPaperForm = () => {
 									id="titulo"
 									variant="outlined"
 									className={classes.element}
+									onChange={(event) => setTags(event.target.value)}
 								/>
 							</Grid>
 						</Grid>
@@ -146,6 +215,7 @@ export const createPaperForm = () => {
 							id="titulo"
 							variant="outlined"
 							className={classes.element}
+							onChange={(event) => setColaboradores(event.target.value)}
 						/>
 					</div>
 					<Button
@@ -153,6 +223,7 @@ export const createPaperForm = () => {
 						className={classes.btn_Style}
 						color="primary"
 						startIcon={<SaveIcon />}
+						type="submit"
 					>
 						SUBIR PAPER
 					</Button>
@@ -162,4 +233,4 @@ export const createPaperForm = () => {
 	);
 };
 
-export default createPaperForm;
+export default CreatePaperForm;
