@@ -34,7 +34,6 @@ autenticacion.crearUsuario = async (correo, contrasena, nombre, usuario) => {
 		console.error('Mensaje de error: ', errorMessage);
 		return false;
 	}
-
 };
 
 autenticacion.accederUsuario = async (correo, contrasena) => {
@@ -51,7 +50,6 @@ autenticacion.accederUsuario = async (correo, contrasena) => {
 		console.log('Mensaje de error: ', errorMessage);
 		return false;
 	}
-	
 };
 
 autenticacion.cerrarSesion = () => {
@@ -82,11 +80,11 @@ autenticacion.actualizarPerfilUsuario = ({ nombre, usaurio }) => {
 	}
 };
 
-autenticacion.sesionActiva = async () => {
+autenticacion.sesionActiva = () => {
 	const user = auth.currentUser;
 	if (user !== null) {
 		const id = user.uid;
-		console.log('ide: ', id );
+		//console.log('ide: ', id);
 		return id;
 	} else {
 		return null;

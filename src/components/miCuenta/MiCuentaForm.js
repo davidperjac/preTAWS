@@ -73,17 +73,25 @@ const initialState = {
 }
 export const MiCuentaForm = () => {
 	const classes = UseStyles();
-	const [data, setData] = useState(initialState);
-	//const [imagen, setImagen] = useState(imageAccount);
-	console.log(data);
+
+	const [data, setData] = useState([]);
+	const [imagen, setImagen] = useState(imageAccount);
+	//console.log(data);
+
+	async function fetchData() {
+		const foto = await controlador.recuperarDoc('usuarios', 'id');
+		console.log(foto);
+	}
 
 	useEffect(() => {
 		controlador.cargarUsuario(setData);
+		//setImagen(controlador.bajarFoto(foto));
+		fetchData();
 	}, []);
 
-	function handleUpload(e) {
+	const handleUpload = (e) => {
 		controlador.subirFoto(e);
-	}
+	};
 
 	return (
 		<div>
@@ -103,7 +111,7 @@ export const MiCuentaForm = () => {
 						<label htmlFor="foto-perfil">
 							<Avatar
 								alt="Remy Sharp"
-								src={imageAccount}
+								src={imagen}
 								sx={{ width: 56, height: 56 }}
 								className={classes.foto}
 							/>
