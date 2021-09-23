@@ -2,6 +2,8 @@ import { db, storage } from '../../configuracion/configuracion_firebase.js';
 import autenticacion from '../usuarios/autenticacion.js';
 import firebase from '@firebase/app-compat';
 
+import firebaseALT from 'firebase/compat';
+
 const controlador = {};
 
 controlador.subirDocumento = async (coleccion, documento, idDoc) => {
@@ -20,7 +22,7 @@ controlador.subirDocumentosSinID = async (coleccion, documento) => {
 	try {
 		console.log(documento);
 		const docRef = await db.collection(coleccion).doc();
-		docRef.set(documento);
+		docRef.set({ ...documento, likes: [] });
 		console.log('Documento agregado con ID: ', docRef);
 		return true;
 	} catch (error) {
@@ -37,7 +39,7 @@ controlador.cargarPaper = (setData) => {
 			const paper = {
 				id: doc.id,
 				titulo: doc.data().titulo,
-				Autor: doc.data().titulo,
+				autor: doc.data().autor,
 				AreaEstudio: doc.data().AreaEstudio,
 				fecha: doc.data().fecha,
 				descripcion: doc.data().descripcion,
@@ -51,15 +53,16 @@ controlador.cargarPaper = (setData) => {
 	});
 };
 
-controlador.cargarUsuario = (setData) => {
+controlador.cargarUsuario = (uid, setData) => {
 	const campoRef = db
 		.collection('usuarios')
-		.where('id', '==', autenticacion.sesionActiva());
+		.where('id', '==', uid);
 	campoRef
 		.get()
 		.then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				const res = doc.data();
+				console.log('res', res)
 				setData(res);
 			});
 		})

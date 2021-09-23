@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		justifyContent: 'center',
 	},
+	contPaper: {
+		width: '1300px',
+		maxWidth: '1300px',
+	}
 }));
 
 const ListPaper = (props) => {
@@ -45,21 +49,15 @@ const ListPaper = (props) => {
 
 	return (
 		<div className={classes.root}>
-			<List>
+			<List >
 				{data.length === 0 ? (
 					<Typography variant="h1">No Hay Papers que mostrar</Typography>
 				) : (
-					data.map((e) => (
-						<ListItem>
+					data.map((e, idx) => (
+						<ListItem >
 							<CardPaper
-								autor={e.autor}
-								titulo={e.titulo}
-								descripcion={e.descripcion}
-								fecha={e.fecha}
-								AreaEstudio={e.AreaEstudio}
-								numEstrellas={e.NumEstrellas}
-								tags={e.tags}
-								gitHub={e.gitHub}
+								key={idx}
+								{...e}
 							/>
 						</ListItem>
 					))

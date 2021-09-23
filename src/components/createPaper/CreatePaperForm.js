@@ -8,6 +8,7 @@ import {
 	Grid,
 	Card,
 } from '@material-ui/core';
+import { connect } from 'react-redux';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
 import controlador from '../../firebase/dataBase/CRUD';
@@ -61,7 +62,7 @@ const UseStyles = makeStyles((theme) => ({
 	},
 }));
 
-export const CreatePaperForm = () => {
+export const CreatePaperForm = ({ uid }) => {
 	const classes = UseStyles();
 
 	const [user, setUser] = useState('');
@@ -77,9 +78,9 @@ export const CreatePaperForm = () => {
 	const [tags, setTags] = useState('');
 
 	useEffect(() => {
-		controlador.cargarUsuario(setUser);
+		controlador.cargarUsuario(uid ,setUser);
 		setAutor(user);
-	}, [user]);
+	}, []);
 
 	function handleUpload(e) {
 		controlador.subirFoto(e, 'papers');
@@ -233,4 +234,10 @@ export const CreatePaperForm = () => {
 	);
 };
 
-export default CreatePaperForm;
+const mapStateToProps = (state) => {
+	return {
+		uid: state.login_Reducer.uid
+	}
+};
+
+export default connect(mapStateToProps)(CreatePaperForm);

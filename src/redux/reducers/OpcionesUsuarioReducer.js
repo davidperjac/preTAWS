@@ -26,9 +26,12 @@ const opciones_usuario_Reducer = (state = state_Initial , action) => {
           }
         }
         case PAPER_CLIK: {
+          console.log('======')
+          console.log(action.payload)
           return {
             ...state,
-            option: action.payload,
+            option: action.payload.option,
+            datos: action.payload.datos
           }
         }
         default:

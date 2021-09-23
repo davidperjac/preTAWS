@@ -42,7 +42,7 @@ autenticacion.accederUsuario = async (correo, contrasena) => {
 		//const user = sesion.user;
 		//const id = user;
 		console.log('Usuario logeado correctamente');
-		return true;
+		return sesion.user.uid;
 	} catch (error) {
 		const errorCode = error.code;
 		const errorMessage = error.message;

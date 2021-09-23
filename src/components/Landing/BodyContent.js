@@ -38,6 +38,7 @@ const BodyContent = (props) => {
 			return (
 				<>
 					<VistaPaper
+						{...props.opciones_usuario_Reducer.datos}
 					/>
 				</>
 			);

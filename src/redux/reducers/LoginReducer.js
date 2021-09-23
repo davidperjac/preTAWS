@@ -6,12 +6,12 @@ const state_Initial = {
 
 
 const login_Reducer = (state = state_Initial , action) => {
-  console.log(action)  
   switch (action.type) {
         case SESION_INICIADA: {
           return {
             ...state,
-            option: action.payload
+            option: action.payload.option,
+            uid: action.payload.uid,
           };
         }
         case SESION_CERRADA: {

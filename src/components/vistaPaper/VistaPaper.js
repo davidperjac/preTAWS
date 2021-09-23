@@ -17,6 +17,14 @@ const UseStyles = makeStyles((theme) => ({
 		paddingTop: '2rem',
 		textAlign: 'center',
 	},
+	texts: {
+		display: 'flex',
+		width: '75%',
+		justifyContent: 'center',
+		alignItems: 'center',
+		flexDirection: 'column',
+		marginTop: '2rem',
+	},
 	btn_Style: {
 		marginTop: '5rem',
 		padding: '1rem',
@@ -64,11 +72,48 @@ const VistaPaper = ({
 	numEstrellas,
 	tags,
 	gitHub,
+	id
 }) => {
+	//const [paper, setPaper] = useState()
+	/* useEffect(() => {
+		controllador.getPaper(idPaper)
+		.then((result) => setPaper(result))
+		.catch();
+	}, []) */
 	const classes = UseStyles();
+	/* if (!paper) {
+		//loading component from Material UI
+		return (
+			<div className={classes.llena}>
+				<Typography variant="h5">Cargando...</Typography>
+			</div>
+		);
+	} */
+	console.log('datos:', { autor,
+		titulo,
+		descripcion,
+		AreaEstudio,
+		fecha,
+		numEstrellas,
+		tags,
+		gitHub,
+		id}
+		);
+
+	let t = '';
+
+	const writeTags = () => {
+		tags.forEach(element => {
+			t += element + ' , ';
+		});
+	}
+
+	writeTags();
+	
 	return (
 		<div>
 			<Card className={classes.contenedor}>
+				<div className={classes.texts}>
 				<Avatar
 					alt="Remy Sharp"
 					src={{}}
@@ -78,20 +123,36 @@ const VistaPaper = ({
 				<Typography variant="" component="h1" className={classes.llena}>
 					Titulo
 				</Typography>
+				<Typography variant="" component="p" className={classes.llena}>
+					{titulo}
+				</Typography>
 				<Typography variant="" component="h1" className={classes.llena}>
 					Autor
+				</Typography>
+				<Typography variant="" component="p" className={classes.llena}>
+					{autor}
 				</Typography>
 				<Typography variant="" component="h1" className={classes.llena}>
 					Descripcion
 				</Typography>
+					{descripcion}
 				<Typography variant="" component="h1" className={classes.llena}>
 					Area de Estudio
+				</Typography>
+				<Typography variant="" component="p" className={classes.llena}>
+					{AreaEstudio}
 				</Typography>
 				<Typography variant="" component="h1" className={classes.llena}>
 					Fecha
 				</Typography>
+				<Typography variant="" component="p" className={classes.llena}>
+					{fecha}
+				</Typography>
 				<Typography variant="" component="h1" className={classes.llena}>
 					Tags
+				</Typography>
+				<Typography variant="" component="p" className={classes.llena}>
+					{t}
 				</Typography>
 				<Typography variant="" component="h1" className={classes.llena}>
 					Estrellas
@@ -106,9 +167,7 @@ const VistaPaper = ({
 				<IconButton aria-label="github" color="primary">
 					<GitHubIcon />
 				</IconButton>
-				<Typography variant="" component="h1" className={classes.llena}>
-					Tags
-				</Typography>
+				</div>
 			</Card>
 		</div>
 	);

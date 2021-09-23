@@ -7,6 +7,7 @@ import {
 	Avatar,
 	TextField,
 } from '@material-ui/core';
+import { connect } from 'react-redux';
 import SaveIcon from '@material-ui/icons/Save';
 import imageAccount from './account.png';
 import { useEffect, useState } from 'react';
@@ -72,26 +73,34 @@ const UseStyles = makeStyles((theme) => ({
 		marginLeft: '18.5rem',
 	},
 }));
-const initialState = {
-	nombre:'',
-	usuario:'',
-	correo: '',
-	contrasena: ''
-}
-export const MiCuentaForm = () => {
+
+
+export const MiCuentaForm = ({ uid }) => {
 	const classes = UseStyles();
 
 	const [data, setData] = useState([]);
 	const [imagen, setImagen] = useState(imageAccount);
-	const [nombre, setNombre] = useState('');
-	const [url, setUrl] = useState('');
+	//const [nombre, setNombre] = useState('');
+	//const [url, setUrl] = useState();
 
 	useEffect(() => {
-		controlador.cargarUsuario(setData);
-		controlador.recuperarDoc('usuarios', 'id', setNombre);
-		controlador.bajarFoto(nombre, setUrl,'usuarios');
-		setImagen(url);
-	}, [nombre, url]);
+		console.log('test')
+		console.log('uids', uid)
+		controlador.cargarUsuario(uid, setData);
+		//controlador.recuperarDoc('usuarios', 'id', setNombre);
+		//controlador.bajarFoto(nombre, setUrl,'usuarios');
+		//setImagen(url);
+	}, []);
+
+	useEffect(() => {
+		if (data?.fotoPerfil) {
+			controlador.bajarFoto(data.fotoPerfil, setImagen,'usuarios');
+		}
+	}, [data?.fotoPerfil]);
+
+	useEffect(() => {
+		console.log(data)
+	}, [data]);
 
 	const handleUpload = (e) => {
 		controlador.subirFoto(e, 'usuarios');
@@ -162,4 +171,13 @@ export const MiCuentaForm = () => {
 	);
 };
 
-export default MiCuentaForm;
+//connect with state
+const mapStateToProps = (state) => {
+	console.log(state.login_Reducer);
+	return {
+		uid: state.login_Reducer.uid,
+	};
+}
+
+export default connect(mapStateToProps)(MiCuentaForm);
+
