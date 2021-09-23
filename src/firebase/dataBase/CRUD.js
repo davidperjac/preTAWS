@@ -3,6 +3,7 @@ import autenticacion from '../usuarios/autenticacion.js';
 import firebase from '@firebase/app-compat';
 
 import firebaseALT from 'firebase/compat';
+import { useState } from 'react';
 
 const controlador = {};
 
@@ -48,9 +49,37 @@ controlador.cargarPaper = (setData) => {
 				tags: doc.data().tags,
 				linkrepo: doc.data().linkrepo,
 				linkpaper: doc.data().linkpaper,
-				colaboradores: doc.data().colaboradores
+				colaboradores: doc.data().colaboradores,
 			};
 			papers.push(paper);
+		});
+		setData(papers);
+	});
+};
+
+controlador.cargarPaperDeUsuario = (setData, nombre) => {
+	db.collection('papers').onSnapshot((querySnapshot) => {
+		let papers = [];
+		querySnapshot.forEach((doc) => {
+			//console.log(doc.data());
+			const paper = {
+				id: doc.id,
+				titulo: doc.data().titulo,
+				autor: doc.data().autor,
+				AreaEstudio: doc.data().AreaEstudio,
+				fecha: doc.data().fecha,
+				foto: doc.data().foto,
+				descripcion: doc.data().descripcion,
+				NumEstrellas: doc.data().NumEstrellas,
+				tags: doc.data().tags,
+				linkrepo: doc.data().linkrepo,
+				linkpaper: doc.data().linkpaper,
+				colaboradores: doc.data().colaboradores,
+			};
+			if (paper.autor === nombre) {
+				papers.push(paper);
+				console.log(paper);
+			}
 		});
 		setData(papers);
 	});

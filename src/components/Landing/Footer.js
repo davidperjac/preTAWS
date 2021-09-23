@@ -8,6 +8,7 @@ const UseStyles = makeStyles((theme) => ({
 		position: 'fixed',
 		bottom: 0,
 		width: '100%',
+		marginTop: '2rem',
 	},
 }));
 

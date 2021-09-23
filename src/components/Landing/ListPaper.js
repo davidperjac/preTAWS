@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 		justifyContent: 'center',
+		marginBottom: '2rem',
 	},
 }));
 
@@ -46,7 +47,7 @@ const ListPaper = (props) => {
 
 	return (
 		<div className={classes.root}>
-			<List >
+			<List>
 				{data.length === 0 ? (
 					<Typography variant="h1">No hay papers que mostrar</Typography>
 				) : (
