@@ -82,8 +82,8 @@ export const MiCuentaForm = ({ uid }) => {
 	//const [url, setUrl] = useState();
 
 	useEffect(() => {
-		console.log('test')
-		console.log('uids', uid)
+		console.log('test');
+		console.log('uids', uid);
 		controlador.cargarUsuario(uid, setData);
 		//controlador.recuperarDoc('usuarios', 'id', setNombre);
 		//controlador.bajarFoto(nombre, setUrl,'usuarios');
@@ -92,16 +92,16 @@ export const MiCuentaForm = ({ uid }) => {
 
 	useEffect(() => {
 		if (data?.fotoPerfil) {
-			controlador.bajarFoto(data.fotoPerfil, setImagen,'usuarios');
+			controlador.bajarFoto(data.fotoPerfil, setImagen, 'usuarios');
 		}
 	}, [data?.fotoPerfil]);
 
-	useEffect(() => {
-		console.log(data)
-	}, [data]);
-
 	const handleUpload = (e) => {
 		controlador.subirFoto(e, 'usuarios');
+		controlador.cambiarFoto(e);
+	};
+	const handleSubmit = (e) => {
+		window.location.reload();
 	};
 
 	return (
@@ -109,7 +109,7 @@ export const MiCuentaForm = ({ uid }) => {
 			<Typography variant="" component="h1" className={classes.llena}>
 				Consulta la informacion de tu cuenta
 			</Typography>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<Card className={classes.contenedor}>
 					<input
 						hidden
@@ -175,7 +175,6 @@ const mapStateToProps = (state) => {
 	return {
 		uid: state.login_Reducer.uid,
 	};
-}
+};
 
 export default connect(mapStateToProps)(MiCuentaForm);
-
