@@ -5,13 +5,15 @@ import {
 	Button,
 	makeStyles,
 	Avatar,
-	TextField,
+	List,
+	ListItem,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import SaveIcon from '@material-ui/icons/Save';
 import imageAccount from './account.png';
 import { useEffect, useState } from 'react';
 import controlador from '../../firebase/dataBase/CRUD';
+import CardPaper from '../Landing/CardPaper';
 
 const UseStyles = makeStyles((theme) => ({
 	btn_Style: {
@@ -72,29 +74,29 @@ const UseStyles = makeStyles((theme) => ({
 		marginTop: '2rem',
 		marginLeft: '18.5rem',
 	},
+	root: {
+		display: 'flex',
+		justifyContent: 'center',
+		marginBottom: '2rem',
+	},
 }));
-
 
 export const MiCuentaForm = ({ uid }) => {
 	const classes = UseStyles();
 
+	const [papers, setPapers] = useState('');
 	const [data, setData] = useState([]);
 	const [imagen, setImagen] = useState(imageAccount);
-	//const [nombre, setNombre] = useState('');
-	//const [url, setUrl] = useState();
 
 	useEffect(() => {
-		console.log('test');
-		console.log('uids', uid);
 		controlador.cargarUsuario(uid, setData);
-		//controlador.recuperarDoc('usuarios', 'id', setNombre);
-		//controlador.bajarFoto(nombre, setUrl,'usuarios');
-		//setImagen(url);
+		controlador.cargarPaperDeUsuario(setPapers, data.nombre);
 	}, []);
 
 	useEffect(() => {
 		if (data?.fotoPerfil) {
 			controlador.bajarFoto(data.fotoPerfil, setImagen, 'usuarios');
+			controlador.cargarPaperDeUsuario(setPapers, data.nombre);
 		}
 	}, [data?.fotoPerfil]);
 
@@ -167,13 +169,28 @@ export const MiCuentaForm = ({ uid }) => {
 					</Button>
 				</Card>
 			</form>
+			<Typography variant="" component="h1" className={classes.llena}>
+				Consulta tus papers
+			</Typography>
+			<div className={classes.root}>
+				<List>
+					{papers.length === 0 ? (
+						<Typography variant="h1">No hay papers que mostrar</Typography>
+					) : (
+						papers.map((e, idx) => (
+							<ListItem>
+								<CardPaper key={idx} {...e} />
+							</ListItem>
+						))
+					)}
+				</List>
+			</div>
 		</div>
 	);
 };
 
 //connect with state
 const mapStateToProps = (state) => {
-	console.log(state.login_Reducer);
 	return {
 		uid: state.login_Reducer.uid,
 	};
