@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import imagePaper from './paper.jpg';
+import imageAccount from './account.png';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import StarRateIcon from '@material-ui/icons/StarRate';
-import { IconButton, Button, Chip, Grid } from '@material-ui/core';
+import { IconButton, Button, Chip, Grid, Avatar } from '@material-ui/core';
 import './CardPaper.css';
 import {
 	onClick_Paper,
@@ -63,6 +64,11 @@ const useStyle = makeStyles((theme) => ({
 	titulo: {
 		marginBottom: '1rem',
 	},
+	foto: {
+		marginBottom: '1rem',
+		alignItems: 'right',
+		marginLeft: theme.spacing(3),
+	},
 }));
 
 const CardPaper = ({
@@ -83,8 +89,11 @@ const CardPaper = ({
 }) => {
 	const classes = useStyle();
 	const history = useHistory();
+
 	const [imagen, setImagen] = useState(imagePaper);
-	const [likes , setLikes] = useState(0);
+	const [user, setUser] = useState('');
+	const [imagePerfil, setImagePerfil] = useState(imageAccount);
+	const [likes, setLikes] = useState(0);
 
 	const handleClick = async (e) => {
 		e.preventDefault();
@@ -121,20 +130,24 @@ const CardPaper = ({
 		});
 	};
 	useEffect(() => {
-		console.log('paper: ' ,{ id,
-		autor,
-		titulo,
-		descripcion,
-		AreaEstudio,
-		fecha,
-		numEstrellas,
-		tags,
-		foto,
-		linkrepo,
-		linkpaper,
-		colaboradores});
-		numEstrellas?setLikes(numEstrellas.length):setLikes(0)
-	}, [])
+		console.log('paper: ', {
+			id,
+			autor,
+			titulo,
+			descripcion,
+			AreaEstudio,
+			fecha,
+			numEstrellas,
+			tags,
+			foto,
+			linkrepo,
+			linkpaper,
+			colaboradores,
+		});
+		numEstrellas ? setLikes(numEstrellas.length) : setLikes(0);
+		controlador.cargarUsuarioConNombre(autor, setUser);
+		//controlador.bajarFoto(user.fotoPerfil, setImagePerfil, 'usuarios');
+	}, []);
 
 	useEffect(() => {
 		//console.log(linkrepo);
@@ -148,14 +161,14 @@ const CardPaper = ({
 
 	const clickLike = () => {
 		console.log('entro');
-		if(numEstrellas !== undefined){
+		if (numEstrellas !== undefined) {
 			console.log('entro');
 			const n = numEstrellas.length;
-			if( !numEstrellas.includes(uid) ){
+			if (!numEstrellas.includes(uid)) {
 				numEstrellas.push(uid);
-				controlador.actualizarDocumento("papers" , id , numEstrellas);
-				setLikes(n+1);
-				console.log('likes',likes);
+				controlador.actualizarDocumento('papers', id, numEstrellas);
+				setLikes(n + 1);
+				console.log('likes', likes);
 			}
 		}
 	};
@@ -194,6 +207,12 @@ const CardPaper = ({
 									</Grid>
 									<Grid container item sm={12}>
 										<Grid container item sm={12} className={classes.extras}>
+											<Avatar
+												alt="Remy Sharp"
+												src={imagePerfil}
+												sx={{ width: 50, height: 50 }}
+												className={classes.foto}
+											/>
 											<Typography variant="subtitle2">{autor}</Typography>
 											<Typography variant="subtitle2">{fecha}</Typography>
 											<Typography variant="subtitle2">{AreaEstudio}</Typography>
@@ -229,11 +248,11 @@ const CardPaper = ({
 					</Grid>
 					<Grid item sm={2}>
 						<CardContent className={classes.gitHub}>
-							<Button 
-								variant="outlined" 
-								size="large" 
-								color="primary" 
-								onClick = {clickLike}
+							<Button
+								variant="outlined"
+								size="large"
+								color="primary"
+								onClick={clickLike}
 							>
 								<StarRateIcon />
 								{likes}

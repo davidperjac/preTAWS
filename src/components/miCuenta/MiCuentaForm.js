@@ -77,7 +77,6 @@ const UseStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 		justifyContent: 'center',
-		marginBottom: '2rem',
 	},
 }));
 

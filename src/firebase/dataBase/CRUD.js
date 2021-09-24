@@ -93,6 +93,24 @@ controlador.cargarUsuario = (uid, setData) => {
 			querySnapshot.forEach((doc) => {
 				const res = doc.data();
 				//console.log('res', res);
+				console.log(res);
+				setData(res);
+			});
+		})
+		.catch((error) => {
+			console.log('Error getting documents: ', error);
+		});
+};
+
+controlador.cargarUsuarioConNombre = (nombre, setData) => {
+	const campoRef = db.collection('usuarios').where('nombre', '==', nombre);
+	campoRef
+		.get()
+		.then((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				const res = doc.data();
+				//console.log('res', res);
+				console.log(res);
 				setData(res);
 			});
 		})
@@ -203,15 +221,18 @@ controlador.cambiarFoto = async (e) => {
 		});
 };
 
-controlador.actualizarDocumento = async (collection, id , addValue) => {
-	const  documento = await db.collection(collection).doc(id);
-	documento.update({
-		numEstrellas: addValue
-	}).then(() => {
-		console.log("Documento actualizado correctamente");
-	}).catch((error) => {
-		console.log("Error: " , error);
-	});
-}
+controlador.actualizarDocumento = async (collection, id, addValue) => {
+	const documento = await db.collection(collection).doc(id);
+	documento
+		.update({
+			numEstrellas: addValue,
+		})
+		.then(() => {
+			console.log('Documento actualizado correctamente');
+		})
+		.catch((error) => {
+			console.log('Error: ', error);
+		});
+};
 
 export default controlador;
