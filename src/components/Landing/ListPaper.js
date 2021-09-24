@@ -23,12 +23,13 @@ const useStyles = makeStyles((theme) => ({
 
 const ListPaper = (props) => {
 	const [data, setData] = useState([]),
-		classes = useStyles(),
-		option = props.filterPaper_Reducer.option;
+			classes = useStyles(),
+			option = props.filterPaper_Reducer.option;
 
 	//console.log('es', data);
 
 	const ordenar = () => {
+		//const array = data
 		switch (option) {
 			case POPULAR:
 				data.sort((a, b) => b.numEstrellas.length - a.numEstrellas.length);
@@ -63,13 +64,14 @@ const ListPaper = (props) => {
 		}
 	};
 
+
 	useEffect(() => {
 		console.log('estado :' , props.opciones_usuario_Reducer.option);
 		if(props.opciones_usuario_Reducer.option === FILTRO_PAPER){
 			console.log('Lista de paper filtrados');
 			console.log(props.opciones_usuario_Reducer.datos)
 			controlador.cargarPaperFiltrado(setData , props.opciones_usuario_Reducer.datos);
-			props.onClik_Filtro_Paper('');
+			//props.onClik_Filtro_Paper('');
 		}else{
 			controlador.cargarPaper(setData);
 		}

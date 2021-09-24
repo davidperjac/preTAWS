@@ -31,7 +31,7 @@ const FilterBar = (props) => {
 				//className={classes.botones}
 				onClick={() => {
 					props.onClick_Popular(POPULAR);
-					window.location.reload();
+					//window.location.reload();
 				}}
 			>
 				popular
@@ -40,7 +40,7 @@ const FilterBar = (props) => {
 				className={classes.botones}
 				onClick={() => {
 					props.onClick_ULTIMO(ULTIMO);
-					window.location.reload();
+					//window.location.reload();
 				}}
 			>
 				Ultimo

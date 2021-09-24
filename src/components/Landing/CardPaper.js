@@ -102,7 +102,7 @@ const CardPaper = ({
 
 	const handleClick = async (e) => {
 		e.preventDefault();
-		const linkTitulo = titulo.toLowerCase().replaceAll(' ', '-');
+		const linkTitulo = titulo.toLowerCase().replaceAll(' ', '-'); 
 		history.push(`/${linkTitulo}`);
 		//controllador.like([ ...likes, uid ])
 		onClick_Paper({
@@ -270,7 +270,7 @@ const CardPaper = ({
 								onClick={clickLike}
 							>
 								<StarRateIcon />
-								{likes}
+								{numEstrellas.length}
 							</Button>
 							<a href={linkrepo}>
 								<IconButton aria-label="github" color="primary">
