@@ -48,12 +48,13 @@ const SearchBar = ({ color ,  onClik_Filtro_Paper }) => {
 	
 	
 	const handelSubmit = (e) => {
+		
 		//e.preventDefault();
 		console.log('presione enter');
 		console.log('valor a filtrar: ' , value);
 		onClik_Filtro_Paper({
-				FILTRO_PAPER,
-				value
+				option:FILTRO_PAPER,
+				datos:value
 			});
 		
 	}

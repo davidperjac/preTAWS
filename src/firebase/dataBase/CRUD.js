@@ -74,7 +74,7 @@ controlador.cargarPaperFiltrado = (setData , valor) => {
 				linkpaper: doc.data().linkpaper,
 				colaboradores: doc.data().colaboradores,
 			};
-			if(expReg.exec(paper.titulo) !== null){
+			if(paper.titulo === valor){
 				console.log('paper filtrado: ' , paper)
 				papers.push(paper);
 			}

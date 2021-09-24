@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import CardPaper from './CardPaper';
 import { connect } from 'react-redux';
 import { POPULAR, ULTIMO } from '../../redux/actions/FilterPaperAction';
-import { FILTRO_PAPER } from '../../redux/actions/OpcionesUsuarioAction';
+import { FILTRO_PAPER ,  onClik_Filtro_Paper} from '../../redux/actions/OpcionesUsuarioAction';
 import controlador from '../../firebase/dataBase/CRUD';
 //import { CircularProgress } from '@material-ui/lab';
 //import Box from '@mui/material/Box';
@@ -69,6 +69,7 @@ const ListPaper = (props) => {
 			console.log('Lista de paper filtrados');
 			console.log(props.opciones_usuario_Reducer.datos)
 			controlador.cargarPaperFiltrado(setData , props.opciones_usuario_Reducer.datos);
+			props.onClik_Filtro_Paper('');
 		}else{
 			controlador.cargarPaper(setData);
 		}
@@ -101,4 +102,8 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(ListPaper);
+const mapDispatchToProps = {
+	onClik_Filtro_Paper
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(ListPaper);

@@ -87,7 +87,13 @@ const NavBar = (props) => {
 			<AppBar position="fixed" color="White">
 				<Toolbar className={classes.root}>
 					<div className={classes.root}>
-						<NavLink exact to="/" onClick={() => props.onClick_CrearPaper('')}>
+						<NavLink 
+							exact to="/" 
+							onClick={() => {
+								props.onClick_CrearPaper('')
+								window.location.reload();
+							}}
+						>
 							<img
 								src={logo}
 								className="logo"

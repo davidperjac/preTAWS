@@ -35,7 +35,7 @@ const opciones_usuario_Reducer = (state = state_Initial , action) => {
           }
         }
         case FILTRO_PAPER :{
-          console.log('Sefiltra');
+          console.log('Sefiltra', action.payload);
           return {
             ...state,
             option: action.payload.option,
