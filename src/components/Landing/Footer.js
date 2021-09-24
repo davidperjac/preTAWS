@@ -5,7 +5,7 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 
 const UseStyles = makeStyles((theme) => ({
 	footer: {
-		position: 'fixed',
+		position: 'relative',
 		bottom: 0,
 		width: '100%',
 		marginTop: '2rem',

@@ -26,14 +26,18 @@ const useStyle = makeStyles((theme) => ({
 		boxShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
 		marginBottom: '30px',
 		alignItems: 'center',
+		backgroundColor: '#fafafa',
 	},
 	cover: {
 		width: '100%',
 		height: '100%',
 	},
 	extras: {
-		display: 'flex',
 		justifyContent: 'space-around',
+		marginBottom: '0.5rem',
+	},
+	profile: {
+		justifyContent: 'left',
 	},
 	descripcion: {
 		justifyContent: 'space-around',
@@ -41,28 +45,24 @@ const useStyle = makeStyles((theme) => ({
 		wordBreak: 'break-all',
 	},
 	gitHub: {
-		paddingTop: 50,
+		marginTop: '6rem',
 		padding: 'auto',
 		alignItems: 'center',
-		[theme.breakpoints.down('sm')]: {
-			display: 'flex',
-			justifyContent: 'space-around',
-		},
+		margin: theme.spacing(5),
 	},
 	chip: {
 		margin: theme.spacing(0.5),
 	},
 	chips: {
-		display: 'flex',
-		justifyContent: 'left',
-		flexWrap: 'wrap',
-		listStyle: 'none',
-		paddingTop: '25px',
 		paddingLeft: '25px',
-		margin: 0,
+		marginTop: '1rem',
 	},
 	titulo: {
 		marginBottom: '1rem',
+	},
+	nombre: {
+		marginLeft: '1rem',
+		marginTop: '0.5rem',
 	},
 	foto: {
 		marginBottom: '1rem',
@@ -99,17 +99,6 @@ const CardPaper = ({
 		e.preventDefault();
 		const linkTitulo = titulo.toLowerCase().replaceAll(' ', '-');
 		history.push(`/${linkTitulo}`);
-		console.log({
-			autor,
-			titulo,
-			descripcion,
-			AreaEstudio,
-			fecha,
-			numEstrellas,
-			tags,
-			linkrepo,
-		});
-
 		//controllador.like([ ...likes, uid ])
 		onClick_Paper({
 			option: PAPER_CLIK,
@@ -130,31 +119,16 @@ const CardPaper = ({
 		});
 	};
 	useEffect(() => {
-		console.log('paper: ', {
-			id,
-			autor,
-			titulo,
-			descripcion,
-			AreaEstudio,
-			fecha,
-			numEstrellas,
-			tags,
-			foto,
-			linkrepo,
-			linkpaper,
-			colaboradores,
-		});
 		numEstrellas ? setLikes(numEstrellas.length) : setLikes(0);
 		controlador.cargarUsuarioConNombre(autor, setUser);
-		//controlador.bajarFoto(user.fotoPerfil, setImagePerfil, 'usuarios');
 	}, []);
 
 	useEffect(() => {
-		//console.log(linkrepo);
-		if (foto !== undefined) {
-			controlador.bajarFoto(foto, setImagen, 'papers');
+		controlador.bajarFoto(foto, setImagen, 'papers');
+		if (user?.fotoPerfil) {
+			controlador.bajarFoto(user.fotoPerfil, setImagePerfil, 'usuarios');
 		}
-	}, [foto]);
+	}, [user?.fotoPerfil, foto]);
 
 	//const liked = likes.includes(uid);
 	//logic nice
@@ -174,7 +148,7 @@ const CardPaper = ({
 	};
 	return (
 		<div styles={{ borderRadius: '2%' }}>
-			<Card className={classes.root}>
+			<Card className={classes.root} variant="outlined">
 				<Grid container spacing={0}>
 					<Grid item sm={2}>
 						<CardMedia
@@ -206,14 +180,21 @@ const CardPaper = ({
 										</NavLink>
 									</Grid>
 									<Grid container item sm={12}>
-										<Grid container item sm={12} className={classes.extras}>
+										<Grid container item sm={12} className={classes.profile}>
 											<Avatar
 												alt="Remy Sharp"
 												src={imagePerfil}
 												sx={{ width: 50, height: 50 }}
 												className={classes.foto}
 											/>
-											<Typography variant="subtitle2">{autor}</Typography>
+											<Typography
+												className={classes.nombre}
+												variant="subtitle2"
+											>
+												{autor}
+											</Typography>
+										</Grid>
+										<Grid container item sm={12} className={classes.extras}>
 											<Typography variant="subtitle2">{fecha}</Typography>
 											<Typography variant="subtitle2">{AreaEstudio}</Typography>
 										</Grid>

@@ -2,9 +2,6 @@ import { db, storage } from '../../configuracion/configuracion_firebase.js';
 import autenticacion from '../usuarios/autenticacion.js';
 import firebase from '@firebase/app-compat';
 
-import firebaseALT from 'firebase/compat';
-import { useState } from 'react';
-
 const controlador = {};
 
 controlador.subirDocumento = async (coleccion, documento, idDoc) => {
@@ -78,7 +75,7 @@ controlador.cargarPaperDeUsuario = (setData, nombre) => {
 			};
 			if (paper.autor === nombre) {
 				papers.push(paper);
-				console.log(paper);
+				//console.log(paper);
 			}
 		});
 		setData(papers);
@@ -93,7 +90,7 @@ controlador.cargarUsuario = (uid, setData) => {
 			querySnapshot.forEach((doc) => {
 				const res = doc.data();
 				//console.log('res', res);
-				console.log(res);
+				//console.log(res);
 				setData(res);
 			});
 		})
@@ -110,7 +107,7 @@ controlador.cargarUsuarioConNombre = (nombre, setData) => {
 			querySnapshot.forEach((doc) => {
 				const res = doc.data();
 				//console.log('res', res);
-				console.log(res);
+				//console.log(res);
 				setData(res);
 			});
 		})
@@ -155,7 +152,7 @@ controlador.bajarFoto = (nombrefoto, setUrl, ruta) => {
 		});
 };
 
-controlador.subirFoto = (e, ruta) => {
+controlador.subirFoto = (e, ruta, setProgress) => {
 	const file = e.target.files[0];
 
 	const storageRef = storage.ref(`imagenes/${ruta}/`);
@@ -171,6 +168,7 @@ controlador.subirFoto = (e, ruta) => {
 		firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
 		(snapshot) => {
 			var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+			setProgress(progress);
 			console.log('Upload is ' + progress + '% done');
 			switch (snapshot.state) {
 				case firebase.storage.TaskState.PAUSED: // or 'paused'

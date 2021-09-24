@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { List, ListItem, Box } from '@material-ui/core';
+import { List, ListItem} from '@material-ui/core';
 //import paper from './papers.json';
 import Typography from '@material-ui/core/Typography';
 import CardPaper from './CardPaper';
