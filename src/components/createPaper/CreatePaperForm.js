@@ -84,6 +84,7 @@ export const CreatePaperForm = ({ uid }) => {
 	useEffect(() => {
 		controlador.cargarUsuario(uid, setUser);
 		setAutor(user);
+		console.log('autor actual: ' , autor.nombre);
 	}, []);
 
 	function handleUpload(e) {

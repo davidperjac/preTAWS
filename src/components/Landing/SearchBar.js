@@ -1,8 +1,10 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { Icon, makeStyles } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import { fade } from '@material-ui/core/styles';
+import {connect} from 'react-redux';
+import {FILTRO_PAPER , onClik_Filtro_Paper} from '../../redux/actions/OpcionesUsuarioAction';
 
 const useStyles = makeStyles((theme) => ({
 	searchIcon: {
@@ -39,22 +41,43 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SearchBar = ({ color }) => {
+const SearchBar = ({ color ,  onClik_Filtro_Paper }) => {
 	const classes = useStyles();
+	const [value , setValue] = useState('')
+
+	
+	
+	const handelSubmit = (e) => {
+		//e.preventDefault();
+		console.log('presione enter');
+		console.log('valor a filtrar: ' , value);
+		onClik_Filtro_Paper({
+				FILTRO_PAPER,
+				value
+			});
+		
+	}
 
 	return (
 		<div className={color}>
-			<form className={classes.root}>
+			<form className={classes.root} onSubmit={handelSubmit}>
 				<Icon aria-label="Search Icon" className={classes.elementSearchBar}>
 					<SearchIcon />
 				</Icon>
 				<InputBase
 					classes={{ root: classes.inputRoot, input: classes.inputInput }}
 					inputProps={{ 'aria-label': 'Buscar Paper...' }}
+					value={value}
+					onChange = {(e) => setValue(e.target.value)}
+					placeholder = 'Nombre del paper'
 				/>
 			</form>
 		</div>
 	);
 };
 
-export default SearchBar;
+const mapDispatchToProps = {
+	onClik_Filtro_Paper
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar);

@@ -57,6 +57,36 @@ controlador.cargarPaper = (setData) => {
 	});
 };
 
+controlador.cargarPaperFiltrado = (setData , valor) => {
+	const expReg = /.*(valor).*/g;
+	db.collection('papers').onSnapshot((querySnapshot) => {
+		let papers = [];
+		querySnapshot.forEach((doc) => {
+			//console.log(doc.data());
+			const paper = {
+				id: doc.id,
+				titulo: doc.data().titulo,
+				autor: doc.data().autor,
+				AreaEstudio: doc.data().AreaEstudio,
+				fecha: doc.data().fecha,
+				foto: doc.data().foto,
+				descripcion: doc.data().descripcion,
+				numEstrellas: doc.data().numEstrellas,
+				tags: doc.data().tags,
+				linkrepo: doc.data().linkrepo,
+				linkpaper: doc.data().linkpaper,
+				colaboradores: doc.data().colaboradores,
+			};
+			if(expReg.exec(paper.titulo) !== null){
+				console.log('paper filtrado: ' , paper)
+				papers.push(paper);
+			}
+			
+		});
+		setData(papers);
+	});
+}
+
 controlador.cargarPaperDeUsuario = (setData, nombre) => {
 	db.collection('papers').onSnapshot((querySnapshot) => {
 		let papers = [];
@@ -92,7 +122,7 @@ controlador.cargarUsuario = (uid, setData) => {
 		.then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				const res = doc.data();
-				//console.log('res', res);
+				console.log('res', res);
 				setData(res);
 			});
 		})
