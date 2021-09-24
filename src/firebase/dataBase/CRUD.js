@@ -55,7 +55,7 @@ controlador.cargarPaper = (setData) => {
 };
 
 controlador.cargarPaperFiltrado = (setData , valor) => {
-	const expReg = /.*(valor).*/g;
+	const expReg = new RegExp(valor , 'gi')
 	db.collection('papers').onSnapshot((querySnapshot) => {
 		let papers = [];
 		querySnapshot.forEach((doc) => {
@@ -74,7 +74,8 @@ controlador.cargarPaperFiltrado = (setData , valor) => {
 				linkpaper: doc.data().linkpaper,
 				colaboradores: doc.data().colaboradores,
 			};
-			if(paper.titulo === valor){
+			console.log('estoy aqui')
+			if(expReg.test(paper.titulo)/*paper.titulo === valor*/){
 				console.log('paper filtrado: ' , paper)
 				papers.push(paper);
 			}
