@@ -82,7 +82,7 @@ export const CreatePaperForm = ({ uid }) => {
 	const [error, setError] = useState('');
 
 	const [titulo, setTitulo] = useState('');
-	const [autor, setAutor] = useState('');
+	//const [autor, setAutor] = useState('');
 	const [descripcion, setDescripcion] = useState('');
 	const [linkpaper, setLinkPaper] = useState('');
 	const [linkrepo, setLinkRepo] = useState('');
@@ -96,8 +96,8 @@ export const CreatePaperForm = ({ uid }) => {
 
 	useEffect(() => {
 		controlador.cargarUsuario(uid, setUser);
-		setAutor(user);
-		console.log('autor actual: ' , autor.nombre);
+		//setAutor(user);
+		console.log('autor actual: ', user.nombre);
 	}, []);
 
 	function handleUpload(e) {
@@ -111,7 +111,7 @@ export const CreatePaperForm = ({ uid }) => {
 
 		const paper = {
 			titulo: titulo,
-			autor: autor.nombre,
+			autor: user.nombre,
 			descripcion: descripcion,
 			linkpaper: linkpaper,
 			fecha: new Date().toLocaleDateString(),
@@ -122,27 +122,24 @@ export const CreatePaperForm = ({ uid }) => {
 			colaboradores: colaboradores.split(','),
 			tags: tags.split(','),
 		};
-		try {
-			controlador.subirDocumentosSinID('papers', paper);
-			setCargando('Paper creado...');
+		const res = controlador.subirDocumentosSinID('papers', paper);
+		if (res) {
+			setCargando('Paper creado');
 			setTitulo('');
-			setAutor('');
 			setDescripcion('');
 			setLinkPaper('');
 			setLinkRepo('');
 			setFoto('');
 			setColaboradores('');
 			setTags('');
-		} catch (e) {
-			setCargando('');
+		} else {
 			setError('No se ha podido subir el paper');
+			setCargando('');
 		}
-		setCargando('');
+		//setAutor('');
 	}
 	return (
 		<div>
-			{cargando && <Alert severity="info">{cargando}</Alert>}
-			{error && <Alert severity="info">{error}</Alert>}
 			<Typography variant="" component="h1" className={classes.llena}>
 				Llena la informacion de tu paper
 			</Typography>
@@ -231,7 +228,7 @@ export const CreatePaperForm = ({ uid }) => {
 									</Box>
 								)}
 								{progress === 100 && (
-									<Alert className={classes.alert} severity="info">
+									<Alert className={classes.alert} severity="success">
 										Foto Subida!
 									</Alert>
 								)}
@@ -258,6 +255,8 @@ export const CreatePaperForm = ({ uid }) => {
 							onChange={(event) => setColaboradores(event.target.value)}
 						/>
 					</div>
+					{cargando && <Alert severity="success">{cargando}</Alert>}
+					{error && <Alert severity="error">{error}</Alert>}
 					<Button
 						variant="contained"
 						className={classes.btn_Style}

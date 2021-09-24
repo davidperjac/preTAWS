@@ -146,7 +146,7 @@ export const MiCuentaForm = ({ uid }) => {
 								</Box>
 							)}
 							{progress === 100 && (
-								<Alert className={classes.alert} severity="info">
+								<Alert className={classes.alert} severity="success">
 									Foto Subida!
 								</Alert>
 							)}
