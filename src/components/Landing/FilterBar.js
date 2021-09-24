@@ -29,13 +29,19 @@ const FilterBar = (props) => {
 		<Box bgcolor="gray.400" className={classes.root}>
 			<Button
 				//className={classes.botones}
-				onClick={() => props.onClick_Popular(POPULAR)}
+				onClick={() => {
+					props.onClick_Popular(POPULAR);
+					window.location.reload();
+				}}
 			>
 				popular
 			</Button>
 			<Button
 				className={classes.botones}
-				onClick={() => props.onClick_ULTIMO(ULTIMO)}
+				onClick={() => {
+					props.onClick_ULTIMO(ULTIMO);
+					window.location.reload();
+				}}
 			>
 				Ultimo
 			</Button>
