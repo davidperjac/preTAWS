@@ -4,7 +4,7 @@ import InputIcon from '@material-ui/icons/Input';
 import { connect } from 'react-redux';
 import {onClick_Cerrar_Sesion ,	SESION_CERRADA} from '../../redux/actions/LoginAction';
 import {onClick_Salir ,SALIR} from '../../redux/actions/OpcionesUsuarioAction';
-//import autenticacion from '../../fierebase/usuarios/autenticacion';
+import autenticacion from '../../firebase/usuarios/autenticacion';
 
 
 
@@ -13,6 +13,7 @@ const CerrarSesionButton = (props) => {
 	const cerrarSeccion = () => {
 		props.onClick_Salir(SALIR)
 		props.onClick_Cerrar_Sesion(SESION_CERRADA);
+		autenticacion.cerrarSesion();
         //props.onClick_CrearPaper('');
         //props.onClick_MiCuenta('');
 		//window.location.href = `/`;

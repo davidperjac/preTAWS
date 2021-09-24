@@ -15,6 +15,7 @@ import {
 //	VISTA_PREVIA,
 //	onclick_Paper_Title,
 //} from '../../redux/actions/PaperVistaPreviaAction';
+import { SESION_INICIADA } from '../../redux/actions/LoginAction';
 import { connect } from 'react-redux';
 import { CardContent, CardMedia, Typography } from '@material-ui/core';
 import { NavLink, useHistory } from 'react-router-dom';
@@ -75,6 +76,7 @@ const useStyle = makeStyles((theme) => ({
 const CardPaper = ({
 	id,
 	uid,
+	option,
 	autor,
 	titulo,
 	descripcion,
@@ -96,6 +98,7 @@ const CardPaper = ({
 	const [imagePerfil, setImagePerfil] = useState(imageAccount);
 	const [likes, setLikes] = useState(0);
 	const [fondo , setFondo] = useState('outlined')
+	const [click , setClick] = useState(true);
 
 	const handleClick = async (e) => {
 		e.preventDefault();
@@ -123,10 +126,25 @@ const CardPaper = ({
 	useEffect(() => {
 		numEstrellas ? setLikes(numEstrellas.length) : setLikes(0);
 		controlador.cargarUsuarioConNombre(autor, setUser);
-		if (numEstrellas.includes(uid)){
-			setFondo('contained');
+		if(option === SESION_INICIADA){
+			if (numEstrellas.includes(uid)){
+				setFondo('contained');
+			}
+			setClick(false);
 		}
-	}, []);
+		
+	}, [ ]);
+
+	useEffect(() => {
+		if(option === SESION_INICIADA){
+			if (numEstrellas.includes(uid)){
+				setFondo('contained');
+			}
+			setClick(false);
+		}else{
+			setClick(true);
+		}
+	},[option])
 
 	useEffect(() => {
 		controlador.bajarFoto(foto, setImagen, 'papers');
@@ -245,6 +263,7 @@ const CardPaper = ({
 					<Grid item sm={2}>
 						<CardContent className={classes.gitHub}>
 							<Button
+								disabled={click}
 								variant={fondo}
 								size="large"
 								color="primary"
@@ -268,6 +287,7 @@ const CardPaper = ({
 
 const mapStateToProps = (state) => ({
 	uid: state.login_Reducer.uid,
+	option: state.login_Reducer.option
 });
 
 const mapDispatchToProps = {
