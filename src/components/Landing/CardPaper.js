@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import imagePaper from './paper.jpg';
+import imageAccount from './account.png';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import StarRateIcon from '@material-ui/icons/StarRate';
-import { IconButton, Button, Chip, Grid } from '@material-ui/core';
+import { IconButton, Button, Chip, Grid, Avatar } from '@material-ui/core';
 import './CardPaper.css';
 import {
 	onClick_Paper,
@@ -18,6 +19,7 @@ import { connect } from 'react-redux';
 import { CardContent, CardMedia, Typography } from '@material-ui/core';
 import { NavLink, useHistory } from 'react-router-dom';
 import controlador from '../../firebase/dataBase/CRUD';
+const _ = require('lodash');
 
 const useStyle = makeStyles((theme) => ({
 	root: {
@@ -25,14 +27,18 @@ const useStyle = makeStyles((theme) => ({
 		boxShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
 		marginBottom: '30px',
 		alignItems: 'center',
+		backgroundColor: '#fafafa',
 	},
 	cover: {
 		width: '100%',
 		height: '100%',
 	},
 	extras: {
-		display: 'flex',
 		justifyContent: 'space-around',
+		marginBottom: '0.5rem',
+	},
+	profile: {
+		justifyContent: 'left',
 	},
 	descripcion: {
 		justifyContent: 'space-around',
@@ -40,28 +46,29 @@ const useStyle = makeStyles((theme) => ({
 		wordBreak: 'break-all',
 	},
 	gitHub: {
-		paddingTop: 50,
+		marginTop: '6rem',
 		padding: 'auto',
 		alignItems: 'center',
-		[theme.breakpoints.down('sm')]: {
-			display: 'flex',
-			justifyContent: 'space-around',
-		},
+		margin: theme.spacing(5),
 	},
 	chip: {
 		margin: theme.spacing(0.5),
 	},
 	chips: {
-		display: 'flex',
-		justifyContent: 'left',
-		flexWrap: 'wrap',
-		listStyle: 'none',
-		paddingTop: '25px',
 		paddingLeft: '25px',
-		margin: 0,
+		marginTop: '1rem',
 	},
 	titulo: {
 		marginBottom: '1rem',
+	},
+	nombre: {
+		marginLeft: '1rem',
+		marginTop: '0.5rem',
+	},
+	foto: {
+		marginBottom: '1rem',
+		alignItems: 'right',
+		marginLeft: theme.spacing(3),
 	},
 }));
 
@@ -83,24 +90,17 @@ const CardPaper = ({
 }) => {
 	const classes = useStyle();
 	const history = useHistory();
+
 	const [imagen, setImagen] = useState(imagePaper);
-	const [likes , setLikes] = useState(0);
+	const [user, setUser] = useState('');
+	const [imagePerfil, setImagePerfil] = useState(imageAccount);
+	const [likes, setLikes] = useState(0);
+	const [fondo , setFondo] = useState('outlined')
 
 	const handleClick = async (e) => {
 		e.preventDefault();
 		const linkTitulo = titulo.toLowerCase().replaceAll(' ', '-');
 		history.push(`/${linkTitulo}`);
-		console.log({
-			autor,
-			titulo,
-			descripcion,
-			AreaEstudio,
-			fecha,
-			numEstrellas,
-			tags,
-			linkrepo,
-		});
-
 		//controllador.like([ ...likes, uid ])
 		onClick_Paper({
 			option: PAPER_CLIK,
@@ -121,47 +121,49 @@ const CardPaper = ({
 		});
 	};
 	useEffect(() => {
-		console.log('paper: ' ,{ id,
-		autor,
-		titulo,
-		descripcion,
-		AreaEstudio,
-		fecha,
-		numEstrellas,
-		tags,
-		foto,
-		linkrepo,
-		linkpaper,
-		colaboradores});
-		numEstrellas?setLikes(numEstrellas.length):setLikes(0)
-	}, [])
+		numEstrellas ? setLikes(numEstrellas.length) : setLikes(0);
+		controlador.cargarUsuarioConNombre(autor, setUser);
+		if (numEstrellas.includes(uid)){
+			setFondo('contained');
+		}
+	}, []);
 
 	useEffect(() => {
-		//console.log(linkrepo);
-		if (foto !== undefined) {
-			controlador.bajarFoto(foto, setImagen, 'papers');
+		controlador.bajarFoto(foto, setImagen, 'papers');
+		if (user?.fotoPerfil) {
+			controlador.bajarFoto(user.fotoPerfil, setImagePerfil, 'usuarios');
 		}
-	}, [foto]);
+	}, [user?.fotoPerfil, foto]);
 
 	//const liked = likes.includes(uid);
 	//logic nice
 
 	const clickLike = () => {
 		console.log('entro');
-		if(numEstrellas !== undefined){
+		if (numEstrellas !== undefined) {
 			console.log('entro');
 			const n = numEstrellas.length;
-			if( !numEstrellas.includes(uid) ){
+			if (!numEstrellas.includes(uid)) {
 				numEstrellas.push(uid);
-				controlador.actualizarDocumento("papers" , id , numEstrellas);
-				setLikes(n+1);
-				console.log('likes',likes);
+				controlador.actualizarDocumento('papers', id, numEstrellas);
+				setLikes(n + 1);
+				console.log('likes', likes);
+				setFondo('contained')
+			}else{
+				const array = _.remove(numEstrellas , (i) => {
+					return i !== uid
+				});
+				controlador.actualizarDocumento('papers', id, array);
+				numEstrellas = array;
+				setLikes(n - 1);
+				console.log('likes', likes);
+				setFondo('outlined')
 			}
 		}
 	};
 	return (
 		<div styles={{ borderRadius: '2%' }}>
-			<Card className={classes.root}>
+			<Card className={classes.root} variant="outlined">
 				<Grid container spacing={0}>
 					<Grid item sm={2}>
 						<CardMedia
@@ -193,8 +195,21 @@ const CardPaper = ({
 										</NavLink>
 									</Grid>
 									<Grid container item sm={12}>
+										<Grid container item sm={12} className={classes.profile}>
+											<Avatar
+												alt="Remy Sharp"
+												src={imagePerfil}
+												sx={{ width: 50, height: 50 }}
+												className={classes.foto}
+											/>
+											<Typography
+												className={classes.nombre}
+												variant="subtitle2"
+											>
+												{autor}
+											</Typography>
+										</Grid>
 										<Grid container item sm={12} className={classes.extras}>
-											<Typography variant="subtitle2">{autor}</Typography>
 											<Typography variant="subtitle2">{fecha}</Typography>
 											<Typography variant="subtitle2">{AreaEstudio}</Typography>
 										</Grid>
@@ -229,11 +244,11 @@ const CardPaper = ({
 					</Grid>
 					<Grid item sm={2}>
 						<CardContent className={classes.gitHub}>
-							<Button 
-								variant="outlined" 
-								size="large" 
-								color="primary" 
-								onClick = {clickLike}
+							<Button
+								variant={fondo}
+								size="large"
+								color="primary"
+								onClick={clickLike}
 							>
 								<StarRateIcon />
 								{likes}

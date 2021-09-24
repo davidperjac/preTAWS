@@ -7,13 +7,16 @@ import {
 	Avatar,
 	List,
 	ListItem,
+	Box,
 } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { connect } from 'react-redux';
 import SaveIcon from '@material-ui/icons/Save';
 import imageAccount from './account.png';
 import { useEffect, useState } from 'react';
 import controlador from '../../firebase/dataBase/CRUD';
 import CardPaper from '../Landing/CardPaper';
+import { LinearProgress } from '@mui/material';
 
 const UseStyles = makeStyles((theme) => ({
 	btn_Style: {
@@ -65,19 +68,17 @@ const UseStyles = makeStyles((theme) => ({
 		marginTop: '1.5rem',
 	},
 	foto: {
-		display: 'flex',
-		flexDirection: 'column',
-		justifyContent: 'center',
-		alignItems: 'center',
 		width: '30%',
 		height: '30%',
 		marginTop: '2rem',
-		marginLeft: '18.5rem',
+		marginLeft: '18rem',
 	},
 	root: {
 		display: 'flex',
 		justifyContent: 'center',
-		marginBottom: '2rem',
+	},
+	progress: {
+		marginBottom: '1rem',
 	},
 }));
 
@@ -85,6 +86,8 @@ export const MiCuentaForm = ({ uid }) => {
 	const classes = UseStyles();
 
 	const [papers, setPapers] = useState('');
+	const [subir, setSubir] = useState(false);
+	const [progress, setProgress] = useState(0);
 	const [data, setData] = useState([]);
 	const [imagen, setImagen] = useState(imageAccount);
 
@@ -101,8 +104,9 @@ export const MiCuentaForm = ({ uid }) => {
 	}, [data?.fotoPerfil]);
 
 	const handleUpload = (e) => {
-		controlador.subirFoto(e, 'usuarios');
+		controlador.subirFoto(e, 'usuarios', setProgress);
 		controlador.cambiarFoto(e);
+		setSubir(true);
 	};
 	const handleSubmit = (e) => {
 		window.location.reload();
@@ -132,6 +136,20 @@ export const MiCuentaForm = ({ uid }) => {
 					</label>
 					<div className={classes.texts}>
 						<div className={classes.texts}>
+							{subir && (
+								<Box sx={{ width: '100%' }}>
+									<LinearProgress
+										variant="determinate"
+										value={progress}
+										className={classes.progress}
+									/>
+								</Box>
+							)}
+							{progress === 100 && (
+								<Alert className={classes.alert} severity="info">
+									Foto Subida!
+								</Alert>
+							)}
 							<Typography variant="" component="h2">
 								Nombres
 							</Typography>

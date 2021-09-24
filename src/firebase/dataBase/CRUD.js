@@ -2,9 +2,6 @@ import { db, storage } from '../../configuracion/configuracion_firebase.js';
 import autenticacion from '../usuarios/autenticacion.js';
 import firebase from '@firebase/app-compat';
 
-import firebaseALT from 'firebase/compat';
-import { useState } from 'react';
-
 const controlador = {};
 
 controlador.subirDocumento = async (coleccion, documento, idDoc) => {
@@ -108,7 +105,7 @@ controlador.cargarPaperDeUsuario = (setData, nombre) => {
 			};
 			if (paper.autor === nombre) {
 				papers.push(paper);
-				console.log(paper);
+				//console.log(paper);
 			}
 		});
 		setData(papers);
@@ -122,7 +119,25 @@ controlador.cargarUsuario = (uid, setData) => {
 		.then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				const res = doc.data();
-				console.log('res', res);
+				//console.log('res', res);
+				//console.log(res);
+				setData(res);
+			});
+		})
+		.catch((error) => {
+			console.log('Error getting documents: ', error);
+		});
+};
+
+controlador.cargarUsuarioConNombre = (nombre, setData) => {
+	const campoRef = db.collection('usuarios').where('nombre', '==', nombre);
+	campoRef
+		.get()
+		.then((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				const res = doc.data();
+				//console.log('res', res);
+				//console.log(res);
 				setData(res);
 			});
 		})
@@ -167,7 +182,7 @@ controlador.bajarFoto = (nombrefoto, setUrl, ruta) => {
 		});
 };
 
-controlador.subirFoto = (e, ruta) => {
+controlador.subirFoto = (e, ruta, setProgress) => {
 	const file = e.target.files[0];
 
 	const storageRef = storage.ref(`imagenes/${ruta}/`);
@@ -183,6 +198,7 @@ controlador.subirFoto = (e, ruta) => {
 		firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
 		(snapshot) => {
 			var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+			setProgress(progress);
 			console.log('Upload is ' + progress + '% done');
 			switch (snapshot.state) {
 				case firebase.storage.TaskState.PAUSED: // or 'paused'
@@ -233,15 +249,18 @@ controlador.cambiarFoto = async (e) => {
 		});
 };
 
-controlador.actualizarDocumento = async (collection, id , addValue) => {
-	const  documento = await db.collection(collection).doc(id);
-	documento.update({
-		numEstrellas: addValue
-	}).then(() => {
-		console.log("Documento actualizado correctamente");
-	}).catch((error) => {
-		console.log("Error: " , error);
-	});
-}
+controlador.actualizarDocumento = async (collection, id, addValue) => {
+	const documento = await db.collection(collection).doc(id);
+	documento
+		.update({
+			numEstrellas: addValue,
+		})
+		.then(() => {
+			console.log('Documento actualizado correctamente');
+		})
+		.catch((error) => {
+			console.log('Error: ', error);
+		});
+};
 
 export default controlador;

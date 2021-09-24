@@ -7,14 +7,14 @@ import {
 	Typography,
 	Grid,
 	Card,
+	Box,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
 import controlador from '../../firebase/dataBase/CRUD';
 import { Alert } from '@material-ui/lab';
-import { NavLink } from 'react-router-dom';
-//import { DateRange } from '@material-ui/icons';
+import { LinearProgress } from '@mui/material';
 
 const UseStyles = makeStyles((theme) => ({
 	btn_Style: {
@@ -62,6 +62,16 @@ const UseStyles = makeStyles((theme) => ({
 	subirbtn: {
 		marginTop: '1.5rem',
 	},
+	progress: {
+		marginTop: '1rem',
+		width: '82%',
+		marginBottom: '1rem',
+	},
+	alert: {
+		marginTop: '1rem',
+		width: '66%',
+		marginBottom: '1rem',
+	},
 }));
 
 export const CreatePaperForm = ({ uid }) => {
@@ -81,6 +91,9 @@ export const CreatePaperForm = ({ uid }) => {
 	const [colaboradores, setColaboradores] = useState('');
 	const [tags, setTags] = useState('');
 
+	const [progress, setProgress] = useState(0);
+	const [subir, setSubir] = useState(false);
+
 	useEffect(() => {
 		controlador.cargarUsuario(uid, setUser);
 		setAutor(user);
@@ -88,8 +101,8 @@ export const CreatePaperForm = ({ uid }) => {
 	}, []);
 
 	function handleUpload(e) {
-		controlador.subirFoto(e, 'papers');
-
+		controlador.subirFoto(e, 'papers', setProgress);
+		setSubir(true);
 		setFoto(e.target.files[0].name);
 	}
 
@@ -208,6 +221,20 @@ export const CreatePaperForm = ({ uid }) => {
 										SUBE UNA FOTO
 									</Button>
 								</label>
+								{subir && (
+									<Box sx={{ width: '100%' }}>
+										<LinearProgress
+											variant="determinate"
+											value={progress}
+											className={classes.progress}
+										/>
+									</Box>
+								)}
+								{progress === 100 && (
+									<Alert className={classes.alert} severity="info">
+										Foto Subida!
+									</Alert>
+								)}
 							</Grid>
 							<Grid item xs={12} sm={4}>
 								<Typography variant="" component="h3">
