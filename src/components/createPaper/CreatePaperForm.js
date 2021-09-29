@@ -96,8 +96,6 @@ export const CreatePaperForm = ({ uid }) => {
 
 	useEffect(() => {
 		controlador.cargarUsuario(uid, setUser);
-		//setAutor(user);
-		console.log('autor actual: ', user.nombre);
 	}, []);
 
 	function handleUpload(e) {
@@ -140,13 +138,13 @@ export const CreatePaperForm = ({ uid }) => {
 	}
 	return (
 		<div>
-			<Typography variant="" component="h1" className={classes.llena}>
+			<Typography variant="inherit" component="h1" className={classes.llena}>
 				Llena la informacion de tu paper
 			</Typography>
 			<form onSubmit={handleSubmit}>
 				<Card className={classes.contenedor}>
 					<div className={classes.inputs}>
-						<Typography variant="" component="h3">
+						<Typography variant="inherit" component="h3">
 							Titulo
 						</Typography>
 						<TextField
@@ -155,7 +153,7 @@ export const CreatePaperForm = ({ uid }) => {
 							className={classes.element}
 							onChange={(event) => setTitulo(event.target.value)}
 						/>
-						<Typography variant="" component="h3">
+						<Typography variant="inherit" component="h3">
 							Descripcion
 						</Typography>
 						<TextField
@@ -166,7 +164,7 @@ export const CreatePaperForm = ({ uid }) => {
 							className={classes.element}
 							onChange={(event) => setDescripcion(event.target.value)}
 						/>
-						<Typography variant="" component="h3">
+						<Typography variant="inherit" component="h3">
 							Link del Paper
 						</Typography>
 						<TextField
@@ -175,7 +173,7 @@ export const CreatePaperForm = ({ uid }) => {
 							className={classes.element}
 							onChange={(event) => setLinkPaper(event.target.value)}
 						/>
-						<Typography variant="" component="h3">
+						<Typography variant="inherit" component="h3">
 							Link del Repositorio
 						</Typography>
 						<TextField
@@ -184,7 +182,7 @@ export const CreatePaperForm = ({ uid }) => {
 							className={classes.element}
 							onChange={(event) => setLinkRepo(event.target.value)}
 						/>
-						<Typography variant="" component="h3">
+						<Typography variant="inherit" component="h3">
 							Area de Estudio
 						</Typography>
 						<TextField
@@ -195,7 +193,7 @@ export const CreatePaperForm = ({ uid }) => {
 						/>
 						<Grid container>
 							<Grid item xs={12} sm={4}>
-								<Typography variant="" component="h3">
+								<Typography variant="inherit" component="h3">
 									Foto
 								</Typography>
 								<input
@@ -234,7 +232,7 @@ export const CreatePaperForm = ({ uid }) => {
 								)}
 							</Grid>
 							<Grid item xs={12} sm={4}>
-								<Typography variant="" component="h3">
+								<Typography variant="inherit" component="h3">
 									Tags
 								</Typography>
 								<TextField
@@ -245,7 +243,7 @@ export const CreatePaperForm = ({ uid }) => {
 								/>
 							</Grid>
 						</Grid>
-						<Typography variant="" component="h3">
+						<Typography variant="inherit" component="h3">
 							Colaboradores
 						</Typography>
 						<TextField

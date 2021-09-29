@@ -1,18 +1,20 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { connect } from 'react-redux';
-import {MI_CUENTA_CLICK , onClick_MiCuenta} from '../../redux/actions/OpcionesUsuarioAction'
-
+import {
+	MI_CUENTA_CLICK,
+	onClick_MiCuenta,
+} from '../../redux/actions/OpcionesUsuarioAction';
 
 export const MiCuentaButton = (props) => {
 	return (
 		<div>
-			<Button 
-				startIcon = {<AccountCircleIcon />} 
-				className = {props.color}
-				onClick = {() => props.onClick_MiCuenta(MI_CUENTA_CLICK)}
+			<Button
+				variant="contained"
+				startIcon={<AccountCircleIcon />}
+				className={props.color}
+				onClick={() => props.onClick_MiCuenta(MI_CUENTA_CLICK)}
 			>
 				MI CUENTA
 			</Button>
@@ -21,7 +23,7 @@ export const MiCuentaButton = (props) => {
 };
 
 const mapDispatchToProps = {
-	onClick_MiCuenta
-}
+	onClick_MiCuenta,
+};
 
-export default connect(null,mapDispatchToProps)(MiCuentaButton);
+export default connect(null, mapDispatchToProps)(MiCuentaButton);

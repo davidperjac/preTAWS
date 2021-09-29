@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: '2rem',
 	},
 }));
+
 const FormLogin = (props) => {
 	const classes = useStyles();
 	const history = useHistory();
@@ -45,32 +46,19 @@ const FormLogin = (props) => {
 	const [error, setError] = useState('');
 	const [cargando, setCargando] = useState('');
 	const [loading, setLoading] = useState(false);
-	/*
-	useEffect(() => {
-		if(props.login_Reducer.option === SESION_INICIADA){
-			window.location.href = `/`;
-			console.log(props.login_Reducer, 'form effect');
-			console.log('entre');
-		}
-	},[props.login_Reducer, props.login_Reducer.option]);
-*/
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setCargando('Cargando...');
 		setLoading(true);
 		const uid = await autenticacion.accederUsuario(correo, contrasena);
-		console.log(uid);
 		if (uid) {
 			props.onClick_Iniciar_Sesion({ option: SESION_INICIADA, uid });
-			console.log(props.login_Reducer, 'form');
 			const id = autenticacion.sesionActiva();
 			history.push(`/${id}`);
-			if (props.login_Reducer.option === SESION_INICIADA) {
-				//window.location.href = `/${id}`;
-			}
 			setError('');
 		} else {
-			setError('Error: credenciales no existen');
+			setError('Error: el usuario no existe en el sistema');
 		}
 		setLoading(false);
 	};
@@ -147,7 +135,6 @@ const FormLogin = (props) => {
 };
 
 const mapStateToProps = (state) => {
-	console.log('UID: ', state.login_Reducer.uid);
 	return {
 		login_Reducer: state.login_Reducer,
 	};

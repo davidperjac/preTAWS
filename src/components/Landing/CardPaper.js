@@ -11,10 +11,6 @@ import {
 	onClick_Paper,
 	PAPER_CLIK,
 } from '../../redux/actions/OpcionesUsuarioAction';
-//import {
-//	VISTA_PREVIA,
-//	onclick_Paper_Title,
-//} from '../../redux/actions/PaperVistaPreviaAction';
 import { SESION_INICIADA } from '../../redux/actions/LoginAction';
 import { connect } from 'react-redux';
 import { CardContent, CardMedia, Typography } from '@material-ui/core';
@@ -97,14 +93,13 @@ const CardPaper = ({
 	const [user, setUser] = useState('');
 	const [imagePerfil, setImagePerfil] = useState(imageAccount);
 	const [likes, setLikes] = useState(0);
-	const [fondo , setFondo] = useState('outlined')
-	const [click , setClick] = useState(true);
+	const [fondo, setFondo] = useState('outlined');
+	const [click, setClick] = useState(true);
 
 	const handleClick = async (e) => {
 		e.preventDefault();
-		const linkTitulo = titulo.toLowerCase().replaceAll(' ', '-'); 
+		const linkTitulo = titulo.toLowerCase().replaceAll(' ', '-');
 		history.push(`/${linkTitulo}`);
-		//controllador.like([ ...likes, uid ])
 		onClick_Paper({
 			option: PAPER_CLIK,
 			datos: {
@@ -126,25 +121,24 @@ const CardPaper = ({
 	useEffect(() => {
 		numEstrellas ? setLikes(numEstrellas.length) : setLikes(0);
 		controlador.cargarUsuarioConNombre(autor, setUser);
-		if(option === SESION_INICIADA){
-			if (numEstrellas.includes(uid)){
+		if (option === SESION_INICIADA) {
+			if (numEstrellas.includes(uid)) {
 				setFondo('contained');
 			}
 			setClick(false);
 		}
-		
-	}, [ ]);
+	}, []);
 
 	useEffect(() => {
-		if(option === SESION_INICIADA){
-			if (numEstrellas.includes(uid)){
+		if (option === SESION_INICIADA) {
+			if (numEstrellas.includes(uid)) {
 				setFondo('contained');
 			}
 			setClick(false);
-		}else{
+		} else {
 			setClick(true);
 		}
-	},[option])
+	}, [option]);
 
 	useEffect(() => {
 		controlador.bajarFoto(foto, setImagen, 'papers');
@@ -153,35 +147,28 @@ const CardPaper = ({
 		}
 	}, [user?.fotoPerfil, foto]);
 
-	//const liked = likes.includes(uid);
-	//logic nice
-
 	const clickLike = () => {
-		console.log('entro');
 		if (numEstrellas !== undefined) {
-			console.log('entro');
 			const n = numEstrellas.length;
 			if (!numEstrellas.includes(uid)) {
 				numEstrellas.push(uid);
 				controlador.actualizarDocumento('papers', id, numEstrellas);
 				setLikes(n + 1);
-				console.log('likes', likes);
-				setFondo('contained')
-			}else{
-				const array = _.remove(numEstrellas , (i) => {
-					return i !== uid
+				setFondo('contained');
+			} else {
+				const array = _.remove(numEstrellas, (i) => {
+					return i !== uid;
 				});
 				controlador.actualizarDocumento('papers', id, array);
 				numEstrellas = array;
 				setLikes(n - 1);
-				console.log('likes', likes);
-				setFondo('outlined')
+				setFondo('outlined');
 			}
 		}
 	};
 	return (
 		<div styles={{ borderRadius: '2%' }}>
-			<Card className={classes.root} variant="outlined">
+			<Card className={classes.root} variant="outlined" key={id}>
 				<Grid container spacing={0}>
 					<Grid item sm={2}>
 						<CardMedia
@@ -203,7 +190,7 @@ const CardPaper = ({
 										>
 											<div onClick={handleClick}>
 												<Typography
-													variant=""
+													variant="h4"
 													component="h1"
 													className={classes.titulo}
 												>
@@ -244,9 +231,10 @@ const CardPaper = ({
 											</Typography>
 										</Grid>
 										<div className={classes.chips}>
-											{tags.map((tag) => {
+											{tags.map((tag, id) => {
 												return (
 													<Chip
+														key={id}
 														label={tag}
 														color="primary"
 														clickable
@@ -287,7 +275,7 @@ const CardPaper = ({
 
 const mapStateToProps = (state) => ({
 	uid: state.login_Reducer.uid,
-	option: state.login_Reducer.option
+	option: state.login_Reducer.option,
 });
 
 const mapDispatchToProps = {

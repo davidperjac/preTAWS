@@ -3,18 +3,20 @@ import Button from '@material-ui/core/Button';
 //import { NavLink } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
-import { CREAR_PAPER_CLICK , onClick_CrearPaper} from '../../redux/actions/OpcionesUsuarioAction'
+import {
+	CREAR_PAPER_CLICK,
+	onClick_CrearPaper,
+} from '../../redux/actions/OpcionesUsuarioAction';
 
 const crearPaperButton = (props) => {
-
 	return (
 		<div>
-			<Button 
-				startIcon={<AddIcon />} 
-				className={props.color} 
-				variant="contened" 
+			<Button
+				startIcon={<AddIcon />}
+				className={props.color}
+				variant="contained"
 				color="default"
-				onClick = {() => props.onClick_CrearPaper(CREAR_PAPER_CLICK)}
+				onClick={() => props.onClick_CrearPaper(CREAR_PAPER_CLICK)}
 			>
 				CREAR PAPER
 			</Button>
@@ -23,7 +25,7 @@ const crearPaperButton = (props) => {
 };
 
 const mapDispatchToProps = {
-	onClick_CrearPaper
-}
+	onClick_CrearPaper,
+};
 
-export default connect(null,mapDispatchToProps)(crearPaperButton);
+export default connect(null, mapDispatchToProps)(crearPaperButton);

@@ -11,7 +11,6 @@ import {
 	PAPER_CLIK,
 } from '../../redux/actions/OpcionesUsuarioAction';
 import VistaPaper from '../vistaPaper/VistaPaper';
-import { PinDropSharp } from '@material-ui/icons';
 
 const BodyContent = (props) => {
 	const renderizadoCuerpo = () => {
@@ -34,12 +33,10 @@ const BodyContent = (props) => {
 					<ListPaper />
 				</>
 			);
-		} else if(props.opciones_usuario_Reducer.option === PAPER_CLIK) {
+		} else if (props.opciones_usuario_Reducer.option === PAPER_CLIK) {
 			return (
 				<>
-					<VistaPaper
-						{...props.opciones_usuario_Reducer.datos}
-					/>
+					<VistaPaper {...props.opciones_usuario_Reducer.datos} />
 				</>
 			);
 		} else {
@@ -57,7 +54,7 @@ const BodyContent = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		opciones_usuario_Reducer: state.opciones_usuario_Reducer,
-		paper_vista_previa_Reducer: state.paper_vista_previa_Reducer
+		paper_vista_previa_Reducer: state.paper_vista_previa_Reducer,
 	};
 };
 

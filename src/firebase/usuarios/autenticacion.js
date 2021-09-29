@@ -10,7 +10,6 @@ autenticacion.crearUsuario = async (correo, contrasena, nombre, usuario) => {
 			contrasena
 		);
 		const id = userCredential.user.uid;
-		console.log('id usuario: ', id);
 		const user = {
 			id: id,
 			nombre: nombre,
@@ -39,9 +38,6 @@ autenticacion.crearUsuario = async (correo, contrasena, nombre, usuario) => {
 autenticacion.accederUsuario = async (correo, contrasena) => {
 	try {
 		const sesion = await auth.signInWithEmailAndPassword(correo, contrasena);
-		//const user = sesion.user;
-		//const id = user;
-		console.log('Usuario logeado correctamente');
 		return sesion.user.uid;
 	} catch (error) {
 		const errorCode = error.code;
@@ -84,7 +80,6 @@ autenticacion.sesionActiva = () => {
 	const user = auth.currentUser;
 	if (user !== null) {
 		const id = user.uid;
-		//console.log('ide: ', id);
 		return id;
 	} else {
 		return null;

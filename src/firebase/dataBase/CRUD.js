@@ -33,7 +33,6 @@ controlador.cargarPaper = (setData) => {
 	db.collection('papers').onSnapshot((querySnapshot) => {
 		let papers = [];
 		querySnapshot.forEach((doc) => {
-			//console.log(doc.data());
 			const paper = {
 				id: doc.id,
 				titulo: doc.data().titulo,
@@ -59,7 +58,6 @@ controlador.cargarPaperFiltrado = (setData , valor) => {
 	db.collection('papers').onSnapshot((querySnapshot) => {
 		let papers = [];
 		querySnapshot.forEach((doc) => {
-			//console.log(doc.data());
 			const paper = {
 				id: doc.id,
 				titulo: doc.data().titulo,
@@ -74,9 +72,7 @@ controlador.cargarPaperFiltrado = (setData , valor) => {
 				linkpaper: doc.data().linkpaper,
 				colaboradores: doc.data().colaboradores,
 			};
-			console.log('estoy aqui')
 			if(expReg.test(paper.titulo)/*paper.titulo === valor*/){
-				console.log('paper filtrado: ' , paper)
 				papers.push(paper);
 			}
 			
@@ -89,7 +85,6 @@ controlador.cargarPaperDeUsuario = (setData, nombre) => {
 	db.collection('papers').onSnapshot((querySnapshot) => {
 		let papers = [];
 		querySnapshot.forEach((doc) => {
-			//console.log(doc.data());
 			const paper = {
 				id: doc.id,
 				titulo: doc.data().titulo,
@@ -106,7 +101,6 @@ controlador.cargarPaperDeUsuario = (setData, nombre) => {
 			};
 			if (paper.autor === nombre) {
 				papers.push(paper);
-				//console.log(paper);
 			}
 		});
 		setData(papers);
@@ -120,8 +114,6 @@ controlador.cargarUsuario = (uid, setData) => {
 		.then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				const res = doc.data();
-				//console.log('res', res);
-				//console.log(res);
 				setData(res);
 			});
 		})
@@ -137,8 +129,6 @@ controlador.cargarUsuarioConNombre = (nombre, setData) => {
 		.then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				const res = doc.data();
-				//console.log('res', res);
-				//console.log(res);
 				setData(res);
 			});
 		})
@@ -234,6 +224,7 @@ controlador.subirFoto = (e, ruta, setProgress) => {
 		}
 	);
 };
+
 controlador.cambiarFoto = async (e) => {
 	const file = e.target.files[0];
 	const documento = autenticacion.sesionActiva();

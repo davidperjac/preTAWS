@@ -114,7 +114,7 @@ export const MiCuentaForm = ({ uid }) => {
 
 	return (
 		<div>
-			<Typography variant="" component="h1" className={classes.llena}>
+			<Typography variant="inherit" component="h1" className={classes.llena}>
 				Consulta la informacion de tu cuenta
 			</Typography>
 			<form onSubmit={handleSubmit}>
@@ -150,28 +150,28 @@ export const MiCuentaForm = ({ uid }) => {
 									Foto Subida!
 								</Alert>
 							)}
-							<Typography variant="" component="h2">
+							<Typography variant="inherit" component="h2">
 								Nombres
 							</Typography>
-							<Typography variant="" component="p">
+							<Typography variant="inherit" component="p">
 								{data.nombre}
 							</Typography>
-							<Typography variant="" component="h2">
+							<Typography variant="inherit" component="h2">
 								Usuario
 							</Typography>
-							<Typography variant="" component="p">
+							<Typography variant="inherit" component="p">
 								{data.usuario}
 							</Typography>
-							<Typography variant="" component="h2">
+							<Typography variant="inherit" component="h2">
 								Correo
 							</Typography>
-							<Typography variant="" component="p">
+							<Typography variant="inherit" component="p">
 								{data.correo}
 							</Typography>
-							<Typography variant="" component="h2">
+							<Typography variant="inherit" component="h2">
 								Contraseña
 							</Typography>
-							<Typography variant="" component="p">
+							<Typography variant="inherit" component="p">
 								{data.contrasena}
 							</Typography>
 						</div>
@@ -187,7 +187,7 @@ export const MiCuentaForm = ({ uid }) => {
 					</Button>
 				</Card>
 			</form>
-			<Typography variant="" component="h1" className={classes.llena}>
+			<Typography variant="inherit" component="h1" className={classes.llena}>
 				Consulta tus papers
 			</Typography>
 			<div className={classes.root}>
@@ -196,7 +196,7 @@ export const MiCuentaForm = ({ uid }) => {
 						<Typography variant="h1">No hay papers que mostrar</Typography>
 					) : (
 						papers.map((e, idx) => (
-							<ListItem>
+							<ListItem key={idx}>
 								<CardPaper key={idx} {...e} />
 							</ListItem>
 						))

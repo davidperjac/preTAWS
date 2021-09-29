@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom';
 const LoginButton = ({ color }) => {
 	return (
 		<div>
-			<NavLink exact to="/login" style={{ textDecoration: 'none' }} >
-				<Button variant="contened" color="default" className={color}>
+			<NavLink exact to="/login" style={{ textDecoration: 'none' }}>
+				<Button variant="contained" color="default" className={color}>
 					INICIAR SESION
 				</Button>
 			</NavLink>

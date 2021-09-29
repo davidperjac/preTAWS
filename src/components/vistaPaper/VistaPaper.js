@@ -75,34 +75,9 @@ const VistaPaper = ({
 	colaboradores,
 	id,
 }) => {
-	//const [paper, setPaper] = useState()
-	/* useEffect(() => {
-		controllador.getPaper(id)
-		.then((result) => setPaper(result))
-		.catch();
-	}, []) */
 	const classes = UseStyles();
-	/* if (!paper) {
-		//loading component from Material UI
-		return (
-			<div className={classes.llena}>
-				<Typography variant="h5">Cargando...</Typography>
-			</div>
-		);
-	} */
+
 	const [imagen, setImagen] = useState('');
-	console.log('datos:', {
-		autor,
-		titulo,
-		descripcion,
-		AreaEstudio,
-		fecha,
-		numEstrellas,
-		tags,
-		linkpaper,
-		id,
-		colaboradores,
-	});
 
 	useEffect(() => {
 		if (foto) {
@@ -112,7 +87,7 @@ const VistaPaper = ({
 
 	return (
 		<div>
-			<Card className={classes.contenedor}>
+			<Card className={classes.contenedor} key={id}>
 				<div className={classes.texts}>
 					<CardMedia
 						className={classes.cover}
@@ -120,42 +95,67 @@ const VistaPaper = ({
 						image={imagen}
 						component="img"
 					/>
-					<Typography variant="" component="h1" className={classes.llena}>
+					<Typography
+						variant="inherit"
+						component="h1"
+						className={classes.llena}
+					>
 						Titulo
 					</Typography>
-					<Typography variant="" component="p" className={classes.llena}>
+					<Typography variant="inherit" component="p" className={classes.llena}>
 						{titulo}
 					</Typography>
-					<Typography variant="" component="h1" className={classes.llena}>
+					<Typography
+						variant="inherit"
+						component="h1"
+						className={classes.llena}
+					>
 						Autor
 					</Typography>
-					<Typography variant="" component="p" className={classes.llena}>
+					<Typography variant="inherit" component="p" className={classes.llena}>
 						{autor}
 					</Typography>
-					<Typography variant="" component="h1" className={classes.llena}>
+					<Typography
+						variant="inherit"
+						component="h1"
+						className={classes.llena}
+					>
 						Descripcion
 					</Typography>
 					{descripcion}
-					<Typography variant="" component="h1" className={classes.llena}>
+					<Typography
+						variant="inherit"
+						component="h1"
+						className={classes.llena}
+					>
 						Area de Estudio
 					</Typography>
-					<Typography variant="" component="p" className={classes.llena}>
+					<Typography variant="inherit" component="p" className={classes.llena}>
 						{AreaEstudio}
 					</Typography>
-					<Typography variant="" component="h1" className={classes.llena}>
+					<Typography
+						variant="inherit"
+						component="h1"
+						className={classes.llena}
+					>
 						Fecha
 					</Typography>
-					<Typography variant="" component="p" className={classes.llena}>
+					<Typography variant="inherit" component="p" className={classes.llena}>
 						{fecha}
 					</Typography>
-					<Typography variant="" component="h1" className={classes.llena}>
+					<Typography
+						variant="inherit"
+						component="h1"
+						className={classes.llena}
+					>
 						Tags
 					</Typography>
-					<Typography variant="" component="p" className={classes.llena}>
+					<Typography variant="inherit" className={classes.llena}>
 						<div className={classes.chips}>
-							{tags.map((tag) => {
+							{tags.map((tag, id) => {
 								return (
 									<Chip
+										key={id}
 										label={tag}
 										color="primary"
 										clickable
@@ -165,14 +165,22 @@ const VistaPaper = ({
 							})}
 						</div>
 					</Typography>
-					<Typography variant="" component="h1" className={classes.llena}>
+					<Typography
+						variant="inherit"
+						component="h1"
+						className={classes.llena}
+					>
 						Estrellas
 					</Typography>
 					<Button variant="outlined" size="large" color="primary">
 						<StarRateIcon />
-						{numEstrellas? numEstrellas.length: '0'}
+						{numEstrellas ? numEstrellas.length : '0'}
 					</Button>
-					<Typography variant="" component="h1" className={classes.llena}>
+					<Typography
+						variant="inherit"
+						component="h1"
+						className={classes.llena}
+					>
 						GitHub
 					</Typography>
 					<a href={linkrepo}>
@@ -180,7 +188,11 @@ const VistaPaper = ({
 							<GitHubIcon />
 						</IconButton>
 					</a>
-					<Typography variant="" component="h1" className={classes.llena}>
+					<Typography
+						variant="inherit"
+						component="h1"
+						className={classes.llena}
+					>
 						Link del Paper
 					</Typography>
 					<a href={linkpaper}>
@@ -188,14 +200,19 @@ const VistaPaper = ({
 							<DescriptionIcon />
 						</IconButton>
 					</a>
-					<Typography variant="" component="h1" className={classes.llena}>
+					<Typography
+						variant="inherit"
+						component="h1"
+						className={classes.llena}
+					>
 						Colaboradores
 					</Typography>
-					<Typography variant="" component="p" className={classes.llena}>
+					<Typography variant="inherit" className={classes.llena}>
 						<div className={classes.chips}>
-							{colaboradores.map((colaborador) => {
+							{colaboradores.map((colaborador, id) => {
 								return (
 									<Chip
+										key={id}
 										label={colaborador}
 										color="primary"
 										clickable

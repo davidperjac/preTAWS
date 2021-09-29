@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 		padding: 10,
 		alignItems: 'center',
 		direction: 'column',
-		justify: 'space-between',
+		justifyContent: 'space-between',
 	},
 	foto: {
 		width: '100%',
@@ -52,7 +52,7 @@ const Register = () => {
 					</Grid>
 					<Grid container item xs={12} sm={6} className={classes.formroot}>
 						<div className={classes.form}>
-							<Grid container justify="center" className={classes.logo}>
+							<Grid container justifyContent="center" className={classes.logo}>
 								<NavLink exact to="/">
 									<img
 										src={Logo}
@@ -63,13 +63,13 @@ const Register = () => {
 									/>
 								</NavLink>
 							</Grid>
-							<Typography variant="" component="h1">
+							<Typography variant="inherit" component="h1">
 								Cree una nueva cuenta
 							</Typography>
 							<FormRegister />
-							<Typography variant="p" component="p" className={classes.login}>
+							<Typography component="p" className={classes.login}>
 								Ya tienes una cuenta?{' '}
-								<NavLink exacto to="login">
+								<NavLink exact to="login">
 									Inicia Sesion{' '}
 								</NavLink>
 							</Typography>
