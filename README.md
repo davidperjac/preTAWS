@@ -1,70 +1,75 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# PreTaws Papers Portfolio
+This project was built for an aspirant process to become a [TAWS](https://www.taws.espol.edu.ec) club member in the months of June to September.
 
-## Available Scripts
 
-In the project directory, you can run:
+## About this project
+This app is meant to help TAWS club members upload their research papers and projects giving the possibility to interact with others, add descriptions and connect them with external links to other repositories or dashboards.
+
+It was made with : 
+
+<p align="center">
+  <a href="https://es.reactjs.org">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/React.svg/1200px-React.svg.png" alt="Logo" width="200" height="200">
+  </a>
+
+  <h3 align="center">React</h3>
+
+  <p align="center">
+  <a href="https://firebase.google.com">
+    <img src="https://www.gstatic.com/devrel-devsite/prod/v1107947142dadf6449a2907ce0a39fab2989512ca62a8e88f40e576d91855aef/firebase/images/touchicon-180.png" alt="Logo" width="200" height="200">
+  </a>
+
+  <h3 align="center">Firebase</h3>
+
+  <p align="center">
+  <a href="https://mui.com/es/">
+    <img src="https://cdn.worldvectorlogo.com/logos/material-ui-1.svg" alt="Logo" width="200" height="200">
+  </a>
+
+  <h3 align="center">Material UI</h3>
+
+
+## Packages Installation
+If you want to run the app locally you need first to install all the dependencies in the project directory.
+```
+npm install
+```
+
+You also can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
+The page will reload if you make edits.
 You will also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the app for production to the `build` folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
+The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Contributing
 
-### `npm run eject`
+If you want to contribute in this project contact us to discuss the change you wish to make via email,issue, or any other interaction with the authors of this repository.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Authors
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### PreTaws Developers
+- David Perez Jacome (@davidperjac)
+- Jorge Pita (@jbpita)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+###  Mentor
+- [Enmanuel Magallanes](https://github.com/enmanuel-mag)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+🐢❤️
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
