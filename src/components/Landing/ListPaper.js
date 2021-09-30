@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, ListItem } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import { Box } from '@mui/system';
 import CardPaper from './CardPaper';
 import { connect } from 'react-redux';
 import { POPULAR, ULTIMO } from '../../redux/actions/FilterPaperAction';
@@ -10,12 +11,13 @@ import {
 	onClik_Filtro_Paper,
 } from '../../redux/actions/OpcionesUsuarioAction';
 import controlador from '../../firebase/dataBase/CRUD';
+import { CircularProgress } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 		justifyContent: 'center',
-		marginBottom: '2rem',
+		marginBottom: '3rem',
 	},
 }));
 
@@ -73,7 +75,9 @@ const ListPaper = (props) => {
 		<div className={classes.root}>
 			<List>
 				{data.length === 0 ? (
-					<Typography variant="h1">No hay papers que mostrar</Typography>
+					<Box sx={{ display: 'flex' }} style={{ marginTop: '2rem' }}>
+						<CircularProgress />
+					</Box>
 				) : (
 					data.map((e, idx) => (
 						<ListItem key={idx}>

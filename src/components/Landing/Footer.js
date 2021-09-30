@@ -8,7 +8,7 @@ const UseStyles = makeStyles((theme) => ({
 		position: 'relative',
 		bottom: 0,
 		width: '100%',
-		marginTop: '2rem',
+		marginTop: '3rem',
 	},
 }));
 

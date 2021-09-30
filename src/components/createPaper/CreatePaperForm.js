@@ -16,6 +16,13 @@ import controlador from '../../firebase/dataBase/CRUD';
 import { Alert } from '@material-ui/lab';
 import { LinearProgress } from '@mui/material';
 
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+
 const UseStyles = makeStyles((theme) => ({
 	btn_Style: {
 		marginTop: '5rem',
@@ -24,6 +31,15 @@ const UseStyles = makeStyles((theme) => ({
 		marginBottom: '2rem',
 	},
 	element: {
+		marginTop: '1rem',
+		marginBottom: '1rem',
+		background: 'white',
+		borderRadius: '15px',
+		[`& fieldset`]: {
+			borderRadius: 15,
+		},
+	},
+	tags: {
 		marginTop: '1rem',
 		marginBottom: '1rem',
 		background: 'white',
@@ -68,9 +84,21 @@ const UseStyles = makeStyles((theme) => ({
 		marginBottom: '1rem',
 	},
 	alert: {
-		marginTop: '1rem',
+		marginTop: '2rem',
 		width: '66%',
 		marginBottom: '1rem',
+	},
+	conf: {
+		marginTop: '1.5rem',
+	},
+	colaboradores: {
+		marginTop: '5rem',
+		marginBottom: '1rem',
+		background: 'white',
+		borderRadius: '15px',
+		[`& fieldset`]: {
+			borderRadius: 15,
+		},
 	},
 }));
 
@@ -82,21 +110,47 @@ export const CreatePaperForm = ({ uid }) => {
 	const [error, setError] = useState('');
 
 	const [titulo, setTitulo] = useState('');
-	//const [autor, setAutor] = useState('');
 	const [descripcion, setDescripcion] = useState('');
 	const [linkpaper, setLinkPaper] = useState('');
 	const [linkrepo, setLinkRepo] = useState('');
 	const [areaEstudio, setAreaEstudio] = useState('');
 	const [foto, setFoto] = useState('');
-	const [colaboradores, setColaboradores] = useState('');
-	const [tags, setTags] = useState('');
+	const [colaboradores, setColaboradores] = useState([]);
+	const [tagName, setTagName] = useState([]);
 
 	const [progress, setProgress] = useState(0);
 	const [subir, setSubir] = useState(false);
+	const [usuarios, setUsuarios] = useState([]);
 
 	useEffect(() => {
 		controlador.cargarUsuario(uid, setUser);
+		controlador.cargarNombresUsuarios(setUsuarios);
 	}, []);
+
+	const nameTags = [
+		'Matematicas',
+		'ESPOL',
+		'Ciencia de Datos',
+		'Machine Learning',
+		'IA',
+		'Fisica',
+		'Deep Learning',
+		'Naturaleza',
+		'Computacion',
+		'Progamacion',
+		'Electronica',
+	];
+
+	const ITEM_HEIGHT = 48;
+	const ITEM_PADDING_TOP = 8;
+	const MenuProps = {
+		PaperProps: {
+			style: {
+				maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+				width: 250,
+			},
+		},
+	};
 
 	function handleUpload(e) {
 		controlador.subirFoto(e, 'papers', setProgress);
@@ -104,7 +158,27 @@ export const CreatePaperForm = ({ uid }) => {
 		setFoto(e.target.files[0].name);
 	}
 
-	async function handleSubmit(e) {
+	const handleChangeTags = (event) => {
+		const {
+			target: { value },
+		} = event;
+		setTagName(
+			// On autofill we get a the stringified value.
+			typeof value === 'string' ? value.split(',') : value
+		);
+	};
+
+	const handleChangeCol = (event) => {
+		const {
+			target: { value },
+		} = event;
+		setColaboradores(
+			// On autofill we get a the stringified value.
+			typeof value === 'string' ? value.split(',') : value
+		);
+	};
+
+	function handleSubmit(e) {
 		e.preventDefault();
 
 		const paper = {
@@ -117,24 +191,36 @@ export const CreatePaperForm = ({ uid }) => {
 			linkrepo: linkrepo,
 			numEstrellas: [],
 			foto: foto,
-			colaboradores: colaboradores.split(','),
-			tags: tags.split(','),
+			colaboradores: colaboradores,
+			tags: tagName,
 		};
-		const res = controlador.subirDocumentosSinID('papers', paper);
-		if (res) {
-			setCargando('Paper creado');
-			setTitulo('');
-			setDescripcion('');
-			setLinkPaper('');
-			setLinkRepo('');
-			setFoto('');
-			setColaboradores('');
-			setTags('');
+		const allProps =
+			paper.titulo !== '' &&
+			paper.autor !== '' &&
+			paper.descripcion !== '' &&
+			paper.linkpaper !== '' &&
+			paper.AreaEstudio !== '' &&
+			paper.linkrepo !== '' &&
+			paper.foto !== '' &&
+			paper.colaboradores !== '' &&
+			paper.tags !== '';
+
+		if (allProps) {
+			const res = controlador.subirDocumentosSinID('papers', paper);
+			if (res) {
+				setError('');
+				setCargando('Paper creado');
+				setTitulo('');
+				setDescripcion('');
+				setLinkPaper('');
+				setLinkRepo('');
+				setFoto('');
+				setColaboradores('');
+			}
 		} else {
-			setError('No se ha podido subir el paper');
+			setError('Llene todos los campos!');
 			setCargando('');
 		}
-		//setAutor('');
 	}
 	return (
 		<div>
@@ -235,26 +321,67 @@ export const CreatePaperForm = ({ uid }) => {
 								<Typography variant="inherit" component="h3">
 									Tags
 								</Typography>
-								<TextField
-									id="titulo"
-									variant="outlined"
-									className={classes.element}
-									onChange={(event) => setTags(event.target.value)}
-								/>
+								<FormControl sx={{ m: 1, width: 300 }} className={classes.tags}>
+									<Select
+										labelId="tags"
+										id="tags"
+										multiple
+										value={tagName}
+										onChange={handleChangeTags}
+										input={<OutlinedInput label="Tag" />}
+										renderValue={(selected) => selected.join(', ')}
+										MenuProps={MenuProps}
+									>
+										{nameTags.map((tag) => (
+											<MenuItem key={tag} value={tag}>
+												<Checkbox checked={tagName.indexOf(tag) > -1} />
+												<ListItemText primary={tag} />
+											</MenuItem>
+										))}
+									</Select>
+								</FormControl>
 							</Grid>
 						</Grid>
-						<Typography variant="inherit" component="h3">
+						<Typography
+							variant="inherit"
+							component="h3"
+							style={{ marginBottom: '1rem' }}
+						>
 							Colaboradores
 						</Typography>
-						<TextField
-							id="titulo"
-							variant="outlined"
-							className={classes.element}
-							onChange={(event) => setColaboradores(event.target.value)}
-						/>
+						<FormControl
+							sx={{ m: 1, width: 300 }}
+							className={classes.colaboradores}
+						>
+							<Select
+								labelId="colaboradores"
+								id="colaboradores"
+								multiple
+								value={colaboradores}
+								onChange={handleChangeCol}
+								input={<OutlinedInput label="Tag" />}
+								renderValue={(selected) => selected.join(', ')}
+								MenuProps={MenuProps}
+							>
+								{usuarios.map((tag) => (
+									<MenuItem key={tag} value={tag}>
+										<Checkbox checked={tagName.indexOf(tag) > -1} />
+										<ListItemText primary={tag} />
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
 					</div>
-					{cargando && <Alert severity="success">{cargando}</Alert>}
-					{error && <Alert severity="error">{error}</Alert>}
+					{cargando && (
+						<Alert severity="success" className={classes.alert}>
+							{cargando}
+						</Alert>
+					)}
+					{error && (
+						<Alert severity="error" className={classes.conf}>
+							{error}
+						</Alert>
+					)}
 					<Button
 						variant="contained"
 						className={classes.btn_Style}

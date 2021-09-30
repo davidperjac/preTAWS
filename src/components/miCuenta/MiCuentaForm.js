@@ -61,6 +61,7 @@ const UseStyles = makeStyles((theme) => ({
 	},
 	llena: {
 		paddingBottom: '1rem',
+		marginLeft: '2.5rem',
 		paddingTop: '2rem',
 		textAlign: 'center',
 	},
@@ -76,6 +77,7 @@ const UseStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 		justifyContent: 'center',
+		marginBottom: '2rem',
 	},
 	progress: {
 		marginBottom: '1rem',

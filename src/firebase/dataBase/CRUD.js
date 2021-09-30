@@ -53,8 +53,8 @@ controlador.cargarPaper = (setData) => {
 	});
 };
 
-controlador.cargarPaperFiltrado = (setData , valor) => {
-	const expReg = new RegExp(valor , 'gi')
+controlador.cargarPaperFiltrado = (setData, valor) => {
+	const expReg = new RegExp(valor, 'gi');
 	db.collection('papers').onSnapshot((querySnapshot) => {
 		let papers = [];
 		querySnapshot.forEach((doc) => {
@@ -72,14 +72,13 @@ controlador.cargarPaperFiltrado = (setData , valor) => {
 				linkpaper: doc.data().linkpaper,
 				colaboradores: doc.data().colaboradores,
 			};
-			if(expReg.test(paper.titulo)/*paper.titulo === valor*/){
+			if (expReg.test(paper.titulo) /*paper.titulo === valor*/) {
 				papers.push(paper);
 			}
-			
 		});
 		setData(papers);
 	});
-}
+};
 
 controlador.cargarPaperDeUsuario = (setData, nombre) => {
 	db.collection('papers').onSnapshot((querySnapshot) => {
@@ -116,6 +115,22 @@ controlador.cargarUsuario = (uid, setData) => {
 				const res = doc.data();
 				setData(res);
 			});
+		})
+		.catch((error) => {
+			console.log('Error getting documents: ', error);
+		});
+};
+
+controlador.cargarNombresUsuarios = (setData) => {
+	const campoRef = db.collection('usuarios');
+	const nombres = [];
+	campoRef
+		.get()
+		.then((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				nombres.push(doc.data().nombre);
+			});
+			setData(nombres);
 		})
 		.catch((error) => {
 			console.log('Error getting documents: ', error);
