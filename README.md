@@ -65,8 +65,8 @@ If you want to contribute in this project contact us to discuss the change you w
 ## Authors
 
 ### PreTaws Developers
-- [David Perez Jacome] (https://github.com/davidperjac)
-- [Jorge Pita] (https://github.com/jbpita)
+- [David Perez Jacome](https://github.com/davidperjac)
+- [Jorge Pita](https://github.com/jbpita)
 
 ###  Mentor
 - [Enmanuel Magallanes](https://github.com/enmanuel-mag)
