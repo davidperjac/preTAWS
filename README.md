@@ -36,7 +36,7 @@ If you want to run the app locally you need first to install all the dependencie
 npm install
 ```
 
-You also can run:
+You can also run:
 
 ### `npm start`
 
